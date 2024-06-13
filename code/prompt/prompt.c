@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 18:08:51 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/14 00:10:36 by vincent          ###   ########.fr       */
+/*   Updated: 2024/06/14 01:58:50 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,9 @@ static void	signal_handler(int sig, siginfo_t *info, void *context)
 {
 	(void)context;
 	if (sig == SIGINT)
-	{	
+	{
 		if (g_here_doc == 1)
-		{
-			printf("\n");
-			rl_on_new_line();
-			rl_replace_line("", 0);
-			rl_done = 1;
 			g_here_doc = 0;
-		}
 		else if (info->si_pid != 0)
 		{
 			printf("\n");
@@ -75,6 +69,8 @@ void	ft_readline(t_env *env)
 
 	while (1)
 	{
+		rl_done = 0;
+		g_here_doc = 2;
 		line = readline("minishell$ ");
 		if (!line)
 			ft_exit_error(env, 0);
@@ -86,6 +82,13 @@ void	ft_readline(t_env *env)
 	}
 }
 
+int	readline_event_hook(void)
+{
+	if (!g_here_doc)
+		rl_done = 1;
+	return (0);
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	t_env				env;
@@ -93,13 +96,13 @@ int	main(int ac, char **av, char **envp)
 	char				**tmp;
 	size_t				i;
 
-	(void) g_here_doc;
-	g_here_doc = 0;
+	g_here_doc = 2;
+	rl_event_hook = readline_event_hook;
 	sa.sa_sigaction = &signal_handler;
 	sa.sa_flags = SA_SIGINFO;
 	sigemptyset(&sa.sa_mask);
-	if (sigaction(SIGINT, &sa, NULL) == -1 ||
-		sigaction(SIGQUIT, &sa, NULL) == -1)
+	if (sigaction(SIGINT, &sa, NULL) == -1 || sigaction(SIGQUIT, &sa, NULL) ==
+		-1)
 	{
 		printf("Error: signal\n");
 		return (1);
