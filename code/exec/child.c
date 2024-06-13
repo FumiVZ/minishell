@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:53:07 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/13 18:42:32 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/14 00:54:13 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	single_command(t_pipex *pipex, t_cmd *cmds, char **env)
 {
+	if (cmds->args[0] == NULL)
+		return;
  	env = set_last_param(pipex->env, cmds->args[ft_strstrlen(cmds->args) - 1]);
 	if (!pipex->env->envp)
 	{
