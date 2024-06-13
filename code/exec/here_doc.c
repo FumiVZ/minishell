@@ -6,7 +6,7 @@
 /*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:09:04 by vincent           #+#    #+#             */
-/*   Updated: 2024/06/13 23:49:21 by vincent          ###   ########.fr       */
+/*   Updated: 2024/06/14 00:33:54 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,9 @@ int	here_doc(t_pipex *pipex, char *infile_name)
 	input = collect_heredoc_input(infile_name);
 	if (!input)
 	{
-		free_split(pipex->env->envp, ft_strstrlen(pipex->env->envp));
-		child_free(pipex, pipex->env->envp);
 		close(pipefd[0]);
 		close(pipefd[1]);
-		exit(1);
+		return (-2);
 	}
 	write(pipefd[1], input, ft_strlen(input));
 	close(pipefd[1]);
