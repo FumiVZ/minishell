@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_infile.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 17:27:05 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/12 18:12:34 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/13 23:09:15 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	get_infiles(t_pipex *pipex, char **cmd, t_cmd *cmds)
 		if (chre(cmd[i], "<") || chre(cmd[i], "<<"))
 		{
 			cmds->infiles_name[j] = quote_rm_world(cmd[i + 1], NULL);
+			cmds->infiles[j] = -1;
 			cmds->infiles[j] = open_infiles(pipex, cmd[i], cmd[i + 1],
 					cmds->infiles_name[j]);
 			if (cmds->infiles[j] < 0)
