@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:53:07 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/13 16:54:46 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/13 18:42:32 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	multiple_command(t_pipex *pipex, t_cmd *cmds, char **env)
 	crt_pipes(pipex, cmds);
 	while (cmds)
 	{
-		cmds->args = pattern_matching(cmds->args, env, pipex->env);
+		cmds->args = pattern_matching(cmds->args, pipex->env);
 		quote_removal(cmds->args);
 		if (!cmds->args)
 			msg_error(ERR_MALLOC, pipex);
@@ -116,7 +116,7 @@ int	child_crt(t_pipex *pipex, char **env)
 		multiple_command(pipex, cmds, env);
 	else
 	{
-		cmds->args = pattern_matching(cmds->args, env, pipex->env);
+		cmds->args = pattern_matching(cmds->args, pipex->env);
 		quote_removal(cmds->args);
 		if (!cmds->args)
 			msg_error(ERR_MALLOC, pipex);

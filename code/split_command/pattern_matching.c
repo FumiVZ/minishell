@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 14:39:48 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/13 16:13:26 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/14 00:48:25 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,18 @@ static char	**add_str_env(char **str, t_env *env, size_t i, size_t pos)
 	return (str);
 }
 
-static char	**modified_str(char **str, char **envp, t_env *env, size_t i)
+static char	**modified_str(char **str, t_env *env, size_t i, long long old_pos)
 {
-	size_t	pos;
-	int		check;
-	char	*tmp;
-	char	**new_str;
+	long long	pos;
+	int			check;
+	char		*tmp;
+	char		**new_str;
 
-	check = check_env_var(str[i]);
-	pos = pos_var(str[i]);
+	check = check_env_var(str[i], old_pos);
+	pos = pos_var(str[i], old_pos);
 	if (check == 1)
 	{
-		tmp = add_var_env(str[i], get_value(str[i] + pos, envp, env),
+		tmp = add_var_env(str[i], get_value(str[i] + pos, env->envp, env),
 				get_len_name(str[i] + pos) + 1, pos);
 		if (!tmp)
 			return (NULL);
@@ -97,18 +97,45 @@ static char	**modified_str(char **str, char **envp, t_env *env, size_t i)
 	return (str);
 }
 
-static char	**variable_env(char **str, char **envp, t_env *env)
+static long long	ft_new_pos(t_env *env, char *str, long long old_pos)
 {
-	size_t	i;
-	char	*tmp;
+	long long	len;
+	char		*tmp;
+
+	len = pos_var(str, old_pos);
+	if (len == -1)
+		return (-2);
+	tmp = get_value(str + pos_var(str, old_pos), env->envp, env);
+	if (!tmp)
+		return (-1);
+	len += ft_strlen(tmp);
+	free(tmp);
+	return (len);
+}
+
+static char	**variable_env(char **str, t_env *env)
+{
+	size_t		i;
+	char		*tmp;
+	long long	old_pos;
 
 	i = 0;
+	old_pos = -1;
 	while (str[i])
 	{
 		tmp = str[i];
-		str = modified_str(str, envp, env, i);
+		str = modified_str(str, env, i, old_pos);
+		old_pos = ft_new_pos(env, str[i], old_pos);
+		if (old_pos == -1)
+		{
+			free_split(str, ft_strstrlen(str));
+			return (NULL);
+		}
 		if (tmp == str[i])
+		{
+			old_pos = -1;
 			i++;
+		}
 		str = check_str(str);
 		if (!str)
 		{
@@ -119,12 +146,12 @@ static char	**variable_env(char **str, char **envp, t_env *env)
 	return (str);
 }
 
-char	**pattern_matching(char **str, char **envp, t_env *env)
+char	**pattern_matching(char **str, t_env *env)
 {
 	size_t	i;
 	char	*tmp;
 
-	str = variable_env(str, envp, env);
+	str = variable_env(str, env);
 	i = 0;
 	while (str[i])
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 18:45:49 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/01 15:08:51 by vincent          ###   ########.fr       */
+/*   Updated: 2024/06/13 18:16:49 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	**ft_export_env(t_env *env, char *var, t_pipex *pipex)
 		if (!ft_strncmp(env->envp[i], var, len))
 		{
 			free(env->envp[i]);
-			env->envp[i] = ft_strdup(var);
+				env->envp[i] = ft_strdup(var);
 			return (env->envp);
 		}
 		i++;

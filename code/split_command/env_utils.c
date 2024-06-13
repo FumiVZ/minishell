@@ -6,24 +6,24 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 05:55:14 by machrist          #+#    #+#             */
-/*   Updated: 2024/05/25 13:19:48 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/14 00:40:46 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <parthing.h>
 
-size_t	pos_var(char *str)
+long long	pos_var(char *str, long long old_pos)
 {
-	size_t	i;
-	bool	quote;
-	bool	dquote;
+	long long	i;
+	bool		quote;
+	bool		dquote;
 
 	i = 0;
 	quote = false;
 	dquote = false;
 	while (str[i])
 	{
-		if (str[i] == '$' && !quote && get_len_name(str + i + 1))
+		if (str[i] == '$' && !quote && get_len_name(str + i + 1) && i > old_pos)
 			return (i + 1);
 		if (str[i] == '\'' && !dquote)
 			quote = !quote;
@@ -32,21 +32,21 @@ size_t	pos_var(char *str)
 		if (str[i])
 			i++;
 	}
-	return (0);
+	return (-1);
 }
 
-int	check_env_var(char *str)
+int	check_env_var(char *str, long long pos)
 {
-	size_t	i;
-	bool	quote;
-	bool	dquote;
+	long long	i;
+	bool		quote;
+	bool		dquote;
 
 	i = 0;
 	quote = false;
 	dquote = false;
 	while (str[i])
 	{
-		if (str[i] == '$' && !quote && get_len_name(str + i + 1))
+		if (str[i] == '$' && !quote && get_len_name(str + i + 1) && i > pos)
 		{
 			if (dquote)
 				return (1);

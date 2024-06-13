@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 13:31:29 by machrist          #+#    #+#             */
-/*   Updated: 2024/05/27 22:11:43 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/13 18:28:32 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ char	*get_value(char *str, char **env, t_env *envp)
 	return (ft_strdup(""));
 }
 
-char	*add_var_env(char *str, char *value, size_t len, size_t pos)
+char	*add_var_env(char *str, char *value, size_t len, long long pos)
 {
-	char	*new;
-	size_t	i;
-	size_t	j;
+	char		*new;
+	long long	i;
+	size_t		j;
 
 	if (!value)
 		return (NULL);
