@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:53:07 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/13 16:41:42 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:54:46 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	single_command(t_pipex *pipex, t_cmd *cmds, char **env)
 {
- 	// set_last_param(pipex->env, cmds->args[ft_strstrlen(cmds->args) - 1]);
-	// if (!pipex->env->envp)
-	// {
-	// 	parent_free(pipex);
-	// 	exit (1);
-	// }
+ 	env = set_last_param(pipex->env, cmds->args[ft_strstrlen(cmds->args) - 1]);
+	if (!pipex->env->envp)
+	{
+		parent_free(pipex);
+		exit (1);
+	}
 	if (cmds->exec == 1 && !is_builtin(cmds->args))
 	{
 		pipex->pid[0] = fork();
@@ -51,12 +51,12 @@ void	execute_command(t_pipex *pipex, t_cmd *cmds, char **env, int i)
 {
 	int	status;
 
- 	// set_last_param(pipex->env, cmds->args[ft_strstrlen(cmds->args) - 1]);
-	// if (!pipex->env->envp)
-	// {
-	// 	parent_free(pipex);
-	// 	exit (1);
-	// }
+ 	env = set_last_param(pipex->env, cmds->args[ft_strstrlen(cmds->args) - 1]);
+	if (!pipex->env->envp)
+	{
+		parent_free(pipex);
+		exit (1);
+	}
 	pipex->pid[i] = fork();
 	if (pipex->pid[i] == -1)
 		msg_error(ERR_FORK, pipex);

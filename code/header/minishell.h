@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:18:44 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/12 20:05:58 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/13 16:54:28 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	free_envp(char **envp);
 void	init_pwd(t_env *env);
 void	init_shlvl(t_env *env);
 void	init_last_param(t_env *env, int ac, char **av);
-void	set_last_param(t_env *env, char *last_param);
+char	**set_last_param(t_env *env, char *last_param);
 void	add_value_to_env(t_env *env, char *var);
 void	set_default_env(t_env *env);
 bool	ft_check_num(char *nptr);

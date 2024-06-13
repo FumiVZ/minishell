@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 22:30:50 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/13 16:32:17 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:55:15 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,20 +88,16 @@ void	init_last_param(t_env *env, int ac, char **av)
 	add_value_to_env(env, tmp);
 }
 
-void	set_last_param(t_env *env, char *last_param)
+char	**set_last_param(t_env *env, char *last_param)
 {
 	char	*tmp;
 
-	// if (!last_param)
-	// {
-	// 	tmp = ft_strdup("_=");
-	// 	if (!tmp)
-	// 		return (free_envp(env->envp));
-	// 	add_value_to_env(env, tmp);
-	// 	return ;
-	// }
 	tmp = ft_strjoin("_=", last_param);
 	if (!tmp)
-		return (free_envp(env->envp));
+	{
+		free_envp(env->envp);
+		return (NULL);
+	}
 	add_value_to_env(env, tmp);
+	return (env->envp);
 }
