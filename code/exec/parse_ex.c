@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 22:04:48 by vincent           #+#    #+#             */
-/*   Updated: 2024/06/13 15:58:42 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/14 17:53:34 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	first_node(t_pipex *pipex, t_cmd *cmds)
 
 	list_init(cmds);
 	pipex->cmd_nmbs = 0;
-	check_for_parentheses(pipex);
+	parentheses(pipex, cmds);
 	cmds->args = get_args(pipex, &pipex->cmd[pipex->i]);
 	get_infiles(pipex, &pipex->cmd[pipex->i], cmds);
 	get_outfiles(pipex, &pipex->cmd[pipex->i], cmds);
