@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 14:39:48 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/15 15:17:27 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/15 16:42:23 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ static long long	ft_new_pos(t_env *env, char *str, long long old_pos)
 	len = old_pos;
 	len += ft_strlen(tmp);
 	free(tmp);
-	fprintf(stderr, "len: %lld\n", len);
 	return (len);
 }
 
@@ -137,6 +136,8 @@ static char	**variable_env(char **str, t_env *env)
 		}
 		if (new_pos == -1)
 			i++;
+		if (!str[i - 1])
+			return (str);
 	}
 	return (str);
 }

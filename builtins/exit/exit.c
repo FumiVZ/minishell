@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:46:38 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/15 02:45:11 by vincent          ###   ########.fr       */
+/*   Updated: 2024/06/15 16:40:45 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ void	basic_exit(t_env *env, t_pipex *pipex, char **str)
 		parent_free(pipex);
 		if (env->envp)
 			free_split(env->envp, ft_strstrlen(env->envp));
-		if (env->cmds)
-			free_split(env->cmds, ft_strstrlen(env->cmds));
 		exit(exit_status);
 	}
 }
