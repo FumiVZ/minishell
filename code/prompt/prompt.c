@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 18:08:51 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/14 17:40:38 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/15 15:17:37 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	minishell(t_env *env, char *line)
 		free_split(env->cmds, ft_strstrlen(env->cmds));
 		return ;
 	}
-	init_pipex(env);
+	init_pipex(env, env->cmds);
 }
 
 static void	signal_handler(int sig, siginfo_t *info, void *context)

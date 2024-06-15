@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:18:44 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/14 17:41:21 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/15 15:17:43 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ bool	check_syntax(char *str);
 void	ft_readline(t_env *env);
 char	*ft_getenv(char **envp, char *name);
 void	msg_perror(t_env *env, char *err);
-void	init_pipex(t_env *env);
+void	init_pipex(t_env *env, char **cmds);
 char	*wildcard_match(const char *pattern);
-void	check_for_parentheses(t_pipex *pipex);
+void	parentheses(t_pipex *pipex, t_cmd *cmd);
 void	child_exec(t_pipex *pipex, t_cmd *cmds, char **env);
 bool	ft_builtins(t_env *env, t_pipex *pipex, char **args);
 int		is_builtin(char **args);

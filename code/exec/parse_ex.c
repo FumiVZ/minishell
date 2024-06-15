@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_ex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 22:04:48 by vincent           #+#    #+#             */
-/*   Updated: 2024/06/13 15:58:42 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/15 00:23:17 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ char	**get_args(t_pipex *pipex, char **cmd)
 	int		j;
 	char	**args;
 
+	if (!pipex->cmd)
+		return (NULL);
 	args = malloc_args(pipex, cmd);
 	i = -1;
 	j = 0;
@@ -100,7 +102,7 @@ void	first_node(t_pipex *pipex, t_cmd *cmds)
 
 	list_init(cmds);
 	pipex->cmd_nmbs = 0;
-	check_for_parentheses(pipex);
+	parentheses(pipex, cmds);
 	cmds->args = get_args(pipex, &pipex->cmd[pipex->i]);
 	get_infiles(pipex, &pipex->cmd[pipex->i], cmds);
 	get_outfiles(pipex, &pipex->cmd[pipex->i], cmds);

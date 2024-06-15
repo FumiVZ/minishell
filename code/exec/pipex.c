@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:23:42 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/14 17:29:25 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/15 15:17:57 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	print_tab(char **tab)
 	}
 }
 
-void	init_pipex(t_env *env)
+void	init_pipex(t_env *env, char **cmds)
 {
 	t_pipex	*pipex;
 
@@ -80,7 +80,7 @@ void	init_pipex(t_env *env)
 	if (!pipex)
 		malloc_failed(pipex);
 	pipex->cmd_nmbs = 0;
-	pipex->cmd = env->cmds;
+	pipex->cmd = cmds;
 	pipex->i = 0;
 	pipex->pid = NULL;
 	pipex->paths = ft_split(find_path(env->envp), ':');

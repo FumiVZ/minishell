@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 17:53:23 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/13 16:49:07 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/14 19:21:06 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	parent_free(t_pipex *pipex)
 	pipex->cmds = NULL;
 	if (pipex->pid)
 		free(pipex->pid);
-	if (pipex->env->cmds)
-		free_split(pipex->env->cmds, ft_strstrlen(pipex->env->cmds));
-	pipex->env->cmds = NULL;
+	if (pipex->cmd)
+		free_split(pipex->cmd, ft_strstrlen(pipex->cmd));
+	pipex->cmd = NULL;
 	free(pipex);
 }
 

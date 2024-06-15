@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:53:07 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/14 17:40:46 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/15 15:17:54 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,5 +132,9 @@ int	child_crt(t_pipex *pipex, char **env)
 			(!(ft_strncmp(pipex->cmd[pipex->i], "&&", 2) == 0)
 				|| !(ft_strncmp(pipex->cmd[pipex->i], "||", 2) == 0)))
 			pipex->i++;
+	free_l(pipex->cmds);
+	pipex->cmds = NULL;
+	free(pipex->pid);
+	pipex->pid = NULL;
 	return (pipex->i);
 }
