@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.h                                             :+:      :+:    :+:   */
+/*   var_global.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 23:37:53 by vincent           #+#    #+#             */
-/*   Updated: 2024/06/13 23:40:32 by vincent          ###   ########.fr       */
+/*   Updated: 2024/06/14 17:40:00 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_H
-# define TEST_H
+#ifndef VAR_GLOBAL_H
+#define VAR_GLOBAL_H
 
-extern int	g_here_doc;
+extern int g_here_doc;
 
 #endif

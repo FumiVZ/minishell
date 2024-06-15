@@ -6,14 +6,21 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:09:04 by vincent           #+#    #+#             */
-/*   Updated: 2024/06/14 01:51:50 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/14 17:40:25 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-#include <test.h>
+#include <var_global.h>
 
 int	g_here_doc;
+
+int	readline_event_hook(void)
+{
+	if (!g_here_doc)
+		rl_done = 1;
+	return (0);
+}
 
 static char	*ft_strjoin_free(char *s1, char *s2)
 {
@@ -42,8 +49,6 @@ char	*collect_heredoc_input(char *delimiter)
 			{
 				ft_printf_fd(2, "minishell: syntax error\n");
 				free(tmp);
-				g_here_doc = 2;
-				rl_done = 0;
 				return (NULL);
 			}
 			break ;
@@ -52,8 +57,6 @@ char	*collect_heredoc_input(char *delimiter)
 		if (!tmp)
 			ft_exit_error(NULL, 1);
 	}
-	g_here_doc = 2;
-	rl_done = 0;
 	return (tmp);
 }
 
@@ -62,7 +65,6 @@ int	here_doc(t_pipex *pipex, char *infile_name)
 	int		pipefd[2];
 	char	*input;
 
-	(void) g_here_doc;
 	g_here_doc = 1;
 	if (pipe(pipefd) == -1)
 	{

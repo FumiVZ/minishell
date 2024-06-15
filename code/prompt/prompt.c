@@ -6,13 +6,13 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 18:08:51 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/14 01:58:50 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/14 17:40:38 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <signal.h>
-#include <test.h>
+#include <var_global.h>
 
 static void	minishell(t_env *env, char *line)
 {
@@ -36,30 +36,24 @@ static void	minishell(t_env *env, char *line)
 static void	signal_handler(int sig, siginfo_t *info, void *context)
 {
 	(void)context;
-	if (sig == SIGINT)
+	if (g_here_doc == 1 && sig == SIGINT)
+		g_here_doc = 0;
+	else if (info->si_pid != 0 && sig == SIGINT)
 	{
-		if (g_here_doc == 1)
-			g_here_doc = 0;
-		else if (info->si_pid != 0)
-		{
-			printf("\n");
-			rl_on_new_line();
-			rl_replace_line("", 0);
-			rl_redisplay();
-		}
-		else
-			write(1, "\n", 1);
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
-	if (sig == SIGQUIT)
+	else if (info->si_pid == 0 && sig == SIGINT)
+		write(1, "\n", 1);
+	if (info->si_pid == 0 && sig == SIGQUIT)
+		write(1, "Quit\n", 6);
+	else if ((info->si_pid != 0 || g_here_doc == 1) && sig == SIGQUIT)
 	{
-		if (info->si_pid == 0)
-			write(1, "Quit\n", 6);
-		else
-		{
-			rl_on_new_line();
-			rl_redisplay();
-			printf("  \b\b");
-		}
+		rl_on_new_line();
+		rl_redisplay();
+		printf("  \b\b");
 	}
 }
 
@@ -74,19 +68,9 @@ void	ft_readline(t_env *env)
 		line = readline("minishell$ ");
 		if (!line)
 			ft_exit_error(env, 0);
-		if (*line)
-		{
-			add_history(line);
-			minishell(env, line);
-		}
+		add_history(line);
+		minishell(env, line);
 	}
-}
-
-int	readline_event_hook(void)
-{
-	if (!g_here_doc)
-		rl_done = 1;
-	return (0);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -96,13 +80,12 @@ int	main(int ac, char **av, char **envp)
 	char				**tmp;
 	size_t				i;
 
-	g_here_doc = 2;
 	rl_event_hook = readline_event_hook;
 	sa.sa_sigaction = &signal_handler;
 	sa.sa_flags = SA_SIGINFO;
 	sigemptyset(&sa.sa_mask);
-	if (sigaction(SIGINT, &sa, NULL) == -1 || sigaction(SIGQUIT, &sa, NULL) ==
-		-1)
+	if (sigaction(SIGINT, &sa, NULL) == -1 ||
+		sigaction(SIGQUIT, &sa, NULL) == -1)
 	{
 		printf("Error: signal\n");
 		return (1);

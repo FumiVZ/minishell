@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 14:39:48 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/14 00:48:25 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/15 15:14:47 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,46 +102,41 @@ static long long	ft_new_pos(t_env *env, char *str, long long old_pos)
 	long long	len;
 	char		*tmp;
 
-	len = pos_var(str, old_pos);
-	if (len == -1)
-		return (-2);
+	if (pos_var(str, old_pos) == -1)
+		return (-1);
 	tmp = get_value(str + pos_var(str, old_pos), env->envp, env);
 	if (!tmp)
-		return (-1);
+		return (-2);
+	len = old_pos;
 	len += ft_strlen(tmp);
 	free(tmp);
+	fprintf(stderr, "len: %lld\n", len);
 	return (len);
 }
 
 static char	**variable_env(char **str, t_env *env)
 {
 	size_t		i;
-	char		*tmp;
+	long long	new_pos;
 	long long	old_pos;
 
 	i = 0;
-	old_pos = -1;
+	new_pos = 0;
 	while (str[i])
 	{
-		tmp = str[i];
+		old_pos = new_pos;
+		new_pos = ft_new_pos(env, str[i], new_pos);
 		str = modified_str(str, env, i, old_pos);
-		old_pos = ft_new_pos(env, str[i], old_pos);
-		if (old_pos == -1)
-		{
-			free_split(str, ft_strstrlen(str));
-			return (NULL);
-		}
-		if (tmp == str[i])
-		{
-			old_pos = -1;
-			i++;
-		}
 		str = check_str(str);
-		if (!str)
+		if (new_pos == -2 || !str)
 		{
+			if (str)
+				free_split(str, ft_strstrlen(str));
 			ft_putstr_fd(MALLOC, 2);
 			return (NULL);
 		}
+		if (new_pos == -1)
+			i++;
 	}
 	return (str);
 }

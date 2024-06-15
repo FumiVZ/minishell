@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 17:28:06 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/13 16:41:45 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/14 17:40:18 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char	*get_cmd(char **paths, char **cmd_args, t_pipex *pipex)
 	char	*tmp;
 	char	*command;
 
-	(void) pipex;
+	(void)pipex;
 	if (!paths || !cmd_args)
 		return (NULL);
 	if (access(cmd_args[0], X_OK) == 0)
@@ -77,7 +77,7 @@ static char	*get_cmd_with_path(t_pipex *pipex, t_cmd *cmds, char **env)
 static void	exec_error(t_pipex *pipex, t_cmd *cmds, char **env)
 {
 	if ((pipex->is_dir && (cmds->args[0][0] == '/' || !ft_strncmp(*cmds->args,
-				"./", 2))) || errno == EACCES)
+					"./", 2))) || errno == EACCES)
 	{
 		if (errno == EACCES)
 			msg_error_cmd(ERR_ACCESS, *cmds);

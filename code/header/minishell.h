@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:18:44 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/14 00:54:36 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/14 17:41:21 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,6 @@ void	secure_dup2(int oldfd, int newfd, t_pipex *pipex);
 bool	check_syntax_split(char **str);
 long	check_shlvl(char *shlvl);
 int		msg_err_syntax(char *err, char c);
+int		readline_event_hook(void);
 
 #endif
