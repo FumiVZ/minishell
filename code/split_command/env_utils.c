@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 05:55:14 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/15 15:02:21 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/15 17:12:20 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	check_env_var(char *str, long long pos)
 	dquote = false;
 	while (str[i])
 	{
-		if (str[i] == '$' && !quote && get_len_name(str + i + 1) && i > pos)
+		if (str[i] == '$' && !quote && get_len_name(str + i + 1) && i >= pos)
 		{
 			if (dquote)
 				return (1);
