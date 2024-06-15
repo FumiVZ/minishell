@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:18:44 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/14 17:37:56 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/14 23:30:16 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ bool	check_syntax(char *str);
 void	ft_readline(t_env *env);
 char	*ft_getenv(char **envp, char *name);
 void	msg_perror(t_env *env, char *err);
-void	init_pipex(t_env *env);
+void	init_pipex(t_env *env, char **cmds);
 char	*wildcard_match(const char *pattern);
 void	parentheses(t_pipex *pipex, t_cmd *cmd);
 void	child_exec(t_pipex *pipex, t_cmd *cmds, char **env);

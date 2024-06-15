@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 18:08:51 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/14 01:58:50 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/14 23:30:01 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	minishell(t_env *env, char *line)
 		free_split(env->cmds, ft_strstrlen(env->cmds));
 		return ;
 	}
-	init_pipex(env);
+	init_pipex(env, env->cmds);
 }
 
 static void	signal_handler(int sig, siginfo_t *info, void *context)

@@ -6,7 +6,7 @@
 /*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:46:38 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/13 23:04:41 by vincent          ###   ########.fr       */
+/*   Updated: 2024/06/15 02:45:11 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ void	ft_exit(t_env *env, t_pipex *pipex, char **str)
 	while (status < 0)
 		status += 256;
 	parent_free(pipex);
-	if (env->cmds)
-		free_split(env->cmds, ft_strstrlen(env->cmds));
 	if (env->envp)
 		free_split(env->envp, ft_strstrlen(env->envp));
 	ft_putendl_fd("exit", 2);

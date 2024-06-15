@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parenthesies.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 00:20:39 by vincent           #+#    #+#             */
-/*   Updated: 2024/06/14 19:32:43 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/15 02:40:05 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,9 @@ static char	**delete_parentheses(t_pipex *pipex)
 	int		len;
 
 	i = 0;
+	end = 0;
+	tmp = NULL;
+	new_cmd = NULL;
 	while (pipex->cmd[i])
 	{
 		if (pipex->cmd[i][0] == '(')
@@ -119,6 +122,8 @@ static char	**delete_parentheses(t_pipex *pipex)
 				return (NULL);
 			end = i + 1;
 			new_cmd = save_parentheses(pipex, start, end);
+			if ((ft_strstrlen(pipex->cmd) - (end - start)) == 0)
+				break;
 			tmp = malloc(sizeof(char *) * \
 				(ft_strstrlen(pipex->cmd) - (end - start) + 1));
 			if (!tmp)
@@ -126,7 +131,8 @@ static char	**delete_parentheses(t_pipex *pipex)
 			i = 0;
 			while (i < start)
 			{
-				tmp[i] = ft_strdup(pipex->cmd[i]);
+				if (tmp)
+					tmp[i] = ft_strdup(pipex->cmd[i]);
 				i++;
 			}
 			len = 0;
@@ -135,32 +141,54 @@ static char	**delete_parentheses(t_pipex *pipex)
 				tmp[start + len] = ft_strdup(pipex->cmd[end + len]);
 				len++;
 			}
-			tmp[start + len] = NULL;
+			tmp[start + len] = NULL; 
 			free_split(pipex->cmd, ft_strstrlen(pipex->cmd));
 			pipex->cmd = tmp;
 		}
-		i++;
+		if (pipex->cmd[i])
+			i++;
+	}
+	if (new_cmd)
+	{
+		free_split(pipex->cmd, ft_strstrlen(pipex->cmd));
+		pipex->cmd = tmp;
 	}
 	return (new_cmd);
 }
 
+
+//WORK IN PROGRESS
 void parentheses(t_pipex *pipex, t_cmd *cmd)
 {
 	(void) cmd;
-	char **sav_cmd;
+	char 	**sav_cmd;
+	pid_t	pid;
+	int		status;
+	t_env	*env;
 
+	(void) pid;
+	(void) status;
 	if (pipex)
 		return ;
+	env = pipex->env;
 	sav_cmd = delete_parentheses(pipex);
 	if (sav_cmd)
 	{
 		printf("Parentheses found\n");
 		print_tab(sav_cmd);
 	}
-	printf("No parentheses found\n");
-	print_tab(pipex->cmd);
-	free_split(pipex->env->envp, ft_strstrlen(pipex->env->envp));
-	free_split(sav_cmd, ft_strstrlen(sav_cmd));
-	parent_free(pipex);
-	exit(0);
+	ft_printf_fd(2, "No parentheses found\n");
+	if (sav_cmd)
+	{
+		ft_printf_fd(2, "CHILD\n");
+		pid = fork();
+		if (pid == -1)
+			msg_error(ERR_FORK, pipex);
+		if (pid == 0)
+		{
+/* 			child_free(pipex, pipex->env->envp); */
+			init_pipex(env, sav_cmd);
+		}
+		waitpid(pid, &status, 0);
+	}
 }
