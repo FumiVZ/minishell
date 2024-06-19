@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:18:44 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/15 15:17:43 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:59:13 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,6 @@ bool	check_syntax_split(char **str);
 long	check_shlvl(char *shlvl);
 int		msg_err_syntax(char *err, char c);
 int		readline_event_hook(void);
+char	**delete_parentheses(char **str, t_pipex *pipex);
 
 #endif

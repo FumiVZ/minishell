@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:53:07 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/15 15:17:54 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/18 20:22:18 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,19 @@ int	child_crt(t_pipex *pipex, char **env)
 		multiple_command(pipex, cmds, env);
 	else
 	{
-		cmds->args = pattern_matching(cmds->args, pipex->env);
-		quote_removal(cmds->args);
-		if (!cmds->args)
+		if (cmds->is_parentheses == 1)
+			cmds->pid_parentheses = fork();
+		if (cmds->pid_parentheses == -1)
+			msg_error(ERR_FORK, pipex);
+		if (cmds->pid_parentheses == 0 || cmds->is_parentheses == 0)
+		{		
+			cmds->args = pattern_matching(cmds->args, pipex->env);
+			quote_removal(cmds->args);
+			if (!cmds->args)
 			msg_error(ERR_MALLOC, pipex);
-		single_command(pipex, cmds, env);
+			single_command(pipex, cmds, env);
+		}
+		waitpid(cmds->pid_parentheses, &pipex->env->status, 0);
 	}
 	if (pipex->cmd[pipex->i] && !(((pipex->env->status == 0
 					&& ft_strncmp(pipex->cmd[pipex->i - 1], "&&", 2) == 0))
