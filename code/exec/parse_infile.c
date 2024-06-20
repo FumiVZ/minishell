@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_infile.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 17:27:05 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/14 00:55:24 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:12:06 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,9 @@ int	open_infiles(t_pipex *pipex, char *cmd, char *file, char *infile_name)
 		free_split(tmp, ft_strstrlen(tmp));
 	}
 	else
+	{
 		fd = here_doc(pipex, infile_name);
+	}
 	return (fd);
 }
 
@@ -116,7 +118,8 @@ void	get_infiles(t_pipex *pipex, char **cmd, t_cmd *cmds)
 					cmds->infiles_name[j]);
 			if (cmds->infiles[j] < 0)
 			{
-				error_infile(pipex, cmds, cmds->infiles_name[j], cmds->infiles[j]);
+				error_infile(pipex, cmds, \
+					cmds->infiles_name[j], cmds->infiles[j]);
 				break ;
 			}
 			j++;

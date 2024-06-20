@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 17:20:05 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/18 20:22:59 by vincent          ###   ########.fr       */
+/*   Updated: 2024/06/20 16:00:25 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	list_init(t_cmd *head)
 	head->id = 0;
 	head->exec = 1;
 	head->is_parentheses = 0;
-	head->pid_parentheses = -2;
+	head->pid_par = -2;
 }
 
 void	close_reset(int fd, int fd2)

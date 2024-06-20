@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 17:20:40 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/18 20:20:11 by vincent          ###   ########.fr       */
+/*   Updated: 2024/06/20 16:00:25 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_cmd
 	int					*pipe;
 	int					exec;
 	int					is_parentheses;
-	pid_t				pid_parentheses;
+	pid_t				pid_par;
 	struct s_cmd		*next;
 }						t_cmd;
 

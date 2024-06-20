@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 17:28:06 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/14 17:40:18 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/20 15:27:34 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ static void	exec_error(t_pipex *pipex, t_cmd *cmds, char **env)
 			msg_error_cmd(ERR_ACCESS, *cmds);
 		else
 			msg_error_cmd(ERR_IS_DIR, *cmds);
+		free_split(pipex->env->envp, ft_strstrlen(pipex->env->envp));
 		child_free(pipex, env);
 		exit(126);
 	}
@@ -106,6 +107,7 @@ void	child_exec(t_pipex *pipex, t_cmd *cmds, char **env)
 	if (!pipex->cmd_paths || errno == EACCES || pipex->is_dir)
 	{
 		exec_error(pipex, cmds, env);
+		free(pipex->cmd_paths);
 		free_split(pipex->env->envp, ft_strstrlen(pipex->env->envp));
 		child_free(pipex, env);
 		exit(127);

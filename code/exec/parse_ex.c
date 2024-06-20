@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_ex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 22:04:48 by vincent           #+#    #+#             */
-/*   Updated: 2024/06/18 18:09:34 by vincent          ###   ########.fr       */
+/*   Updated: 2024/06/20 15:58:03 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,8 @@ void	parse_cmd(t_pipex *pipex, t_cmd *cmds)
 	if (pipex->cmd[pipex->i])
 		pipex->i++;
 	while (pipex->cmd[pipex->i] && \
-		(ft_strncmp(pipex->cmd[pipex->i - 1], "&&", 2) != 0) && \
-			(ft_strncmp(pipex->cmd[pipex->i - 1], "||", 2) != 0))
+		(ft_strncmp(pipex->cmd[pipex->i - 1], "&&", 3) != 0) && \
+			(ft_strncmp(pipex->cmd[pipex->i - 1], "||", 3) != 0))
 		create_new_nodes(pipex, cmds);
 	tmp = cmds;
 	while (cmds->next)
