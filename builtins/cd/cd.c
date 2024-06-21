@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 18:19:20 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/01 15:14:14 by vincent          ###   ########.fr       */
+/*   Updated: 2024/06/21 14:50:38 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,61 +63,54 @@ static bool	init_cd(t_env *env, char **args, char **oldpwd, char **pwd)
 	return (true);
 }
 
-static void	cd_no_args(t_env *env, char **args, t_pipex *pipex)
+static void	cd_oldpwd(t_env *env, char **args, t_pipex *pipex)
 {
 	char	*tmp;
 	char	**new;
 
-	if (!ft_getenv(env->envp, "HOME"))
+	tmp = ft_getenv(env->envp, "OLDPWD");
+	if (!tmp)
 	{
 		ft_putstr_fd("minishell: cd: HOME not set\n", 2);
 		env->status = 1;
 		return ;
 	}
-	if (chdir(ft_getenv(env->envp, "HOME")) == -1)
-		msg_perror(env, "minishell: cd");
-	tmp = ft_strdup(ft_getenv(env->envp, "HOME"));
-	if (!tmp)
-		msg_perror(env, "minishell: cd");
 	new = malloc(sizeof(char *) * 3);
 	if (!new)
 	{
-		free(tmp);
-		msg_perror(env, "minishell: cd");
+		msg_perror(env, ERR_MALLOC);
+		return ;
 	}
 	new[0] = args[0];
 	new[1] = tmp;
 	new[2] = NULL;
 	ft_cd(env, new, pipex);
-	free(tmp);
 	free(new);
 }
 
-static bool	cd_special(t_env *env, char **args, t_pipex *pipex)
+static void	cd_no_args(t_env *env, char **args, t_pipex *pipex)
 {
 	char	*tmp;
+	char	**new;
 
-	if (ft_strncmp(args[1], "-", 2) == 0)
+	tmp = ft_getenv(env->envp, "HOME");
+	if (!tmp)
 	{
-		if (chdir(ft_getenv(env->envp, "OLDPWD")) == -1)
-		{
-			perror("minishell: cd");
-			env->status = 1;
-			return (true);
-		}
-		tmp = ft_strdup(ft_getenv(env->envp, "OLDPWD"));
-		if (!tmp)
-		{
-			perror("minishell: cd");
-			env->status = 1;
-			return (true);
-		}
-		free(args[1]);
-		args[1] = tmp;
-		ft_cd(env, args, pipex);
-		return (true);
+		ft_putstr_fd("minishell: cd: HOME not set\n", 2);
+		env->status = 1;
+		return ;
 	}
-	return (false);
+	new = malloc(sizeof(char *) * 3);
+	if (!new)
+	{
+		msg_perror(env, ERR_MALLOC);
+		return ;
+	}
+	new[0] = args[0];
+	new[1] = tmp;
+	new[2] = NULL;
+	ft_cd(env, new, pipex);
+	free(new);
 }
 
 void	ft_cd(t_env *env, char **args, t_pipex *pipex)
@@ -133,8 +126,8 @@ void	ft_cd(t_env *env, char **args, t_pipex *pipex)
 		env->status = 1;
 		return ;
 	}
-	if (cd_special(env, args, pipex))
-		return ;
+	if (!ft_strncmp(args[1], "-", 2))
+		return (cd_oldpwd(env, args, pipex));
 	if (!init_cd(env, args, &oldpwd, &pwd))
 		return ;
 	if (!update_env(env, &oldpwd, &pwd, pipex))

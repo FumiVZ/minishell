@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:46:38 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/15 16:40:45 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/15 19:40:40 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	ft_exit(t_env *env, t_pipex *pipex, char **str)
 void	ft_exit_error(t_env *env, int status)
 {
 	(void)env;
-	ft_putendl_fd("exit", 1);
+	ft_putendl_fd("exit", 2);
 	if (env->envp)
 		free_split(env->envp, ft_strstrlen(env->envp));
 	exit(status);
