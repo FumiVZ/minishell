@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:23:42 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/15 15:17:57 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:00:21 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,13 @@ void	close_pipes(t_pipex *pipex, t_cmd *cmd)
 	}
 }
 
-int	wait_execve(t_pipex *pipex)
+int	wait_execve(t_pipex *pipex, t_cmd *cmds)
 {
-	int	status;
-	int	i;
+	t_cmd	*tmp;
+	int		status;
+	int		i;
 
+	tmp = cmds;
 	i = 0;
 	status = 0;
 	while (i < pipex->cmd_nmbs)
@@ -45,6 +47,16 @@ int	wait_execve(t_pipex *pipex)
 	}
 	if (WIFEXITED(status))
 		pipex->env->status = status % 255;
+	while (tmp)
+	{
+		if (tmp->is_parentheses)
+		{
+			waitpid(tmp->pid_par, &status, 0);
+			if (WIFEXITED(status))
+				pipex->env->status = status % 255;
+		}
+		tmp = tmp->next;
+	}
 	return (status);
 }
 
