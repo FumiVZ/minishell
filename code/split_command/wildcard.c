@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 13:57:00 by machrist          #+#    #+#             */
-/*   Updated: 2024/04/25 13:05:39 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/23 20:05:01 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static bool	match(const char *str, const char *pattern, const char *dir)
 		if (*pattern == '*')
 		{
 			while (*pattern == '*')
-				pattern++;
+				pattern++;	
 			if (*pattern == '\0')
 				return (1);
 		}

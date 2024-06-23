@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:55:35 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/14 17:47:59 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/23 16:34:12 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,3 @@ void	ft_echo(t_env *env, char **args)
 		ft_putchar_fd('\n', 1);
 	env->status = 0;
 }
-

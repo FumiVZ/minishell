@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:23:42 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/20 18:00:21 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/23 18:19:29 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,20 @@ void	close_pipes(t_pipex *pipex, t_cmd *cmd)
 	}
 }
 
-int	wait_execve(t_pipex *pipex, t_cmd *cmds)
+void	wait_execve(t_pipex *pipex, t_cmd *cmds)
 {
 	t_cmd	*tmp;
 	int		status;
 	int		i;
 
 	tmp = cmds;
-	i = 0;
+	i = -1;
 	status = 0;
-	while (i < pipex->cmd_nmbs)
+	while (++i < pipex->cmd_nmbs)
 	{
 		waitpid(pipex->pid[i], &status, 0);
 		if (WIFEXITED(status))
 			pipex->env->status = status % 255;
-		i++;
 	}
 	if (WIFEXITED(status))
 		pipex->env->status = status % 255;
@@ -57,7 +56,6 @@ int	wait_execve(t_pipex *pipex, t_cmd *cmds)
 		}
 		tmp = tmp->next;
 	}
-	return (status);
 }
 
 char	*find_path(char **env)
@@ -69,18 +67,6 @@ char	*find_path(char **env)
 	if (!*env)
 		return (NULL);
 	return (*env + 5);
-}
-
-void	print_tab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		ft_printf_fd(2, "%s\n", tab[i]);
-		i++;
-	}
 }
 
 void	init_pipex(t_env *env, char **cmds)

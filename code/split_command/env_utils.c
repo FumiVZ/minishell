@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 05:55:14 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/15 17:12:20 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/23 18:25:53 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ long long	pos_var(char *str, long long old_pos)
 	dquote = false;
 	while (str[i])
 	{
-		if (str[i] == '$' && !quote && get_len_name(str + i + 1) && i >= old_pos)
+		if (str[i] == '$' && !quote && \
+			get_len_name(str + i + 1) && i >= old_pos)
 			return (i + 1);
 		if (str[i] == '\'' && !dquote)
 			quote = !quote;

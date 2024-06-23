@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   var_global.h                                       :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/13 23:37:53 by vincent           #+#    #+#             */
-/*   Updated: 2024/06/23 20:45:32 by vzuccare         ###   ########lyon.fr   */
+/*   Created: 2024/06/23 16:38:29 by vzuccare          #+#    #+#             */
+/*   Updated: 2024/06/23 16:38:40 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VAR_GLOBAL_H
-# define VAR_GLOBAL_H
+#include <minishell.h>
 
-extern int	g_here_doc;
-
-#endif
+void	set_default_env(t_env *env)
+{
+	if (!env->envp)
+		return ;
+	init_pwd(env);
+	init_shlvl(env);
+}

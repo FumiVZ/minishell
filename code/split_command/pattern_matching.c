@@ -3,42 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pattern_matching.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 14:39:48 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/18 21:19:29 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/23 18:26:35 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parthing.h"
-
-static char	**insert_tab(char **str, char **add_str, size_t pos)
-{
-	size_t	i;
-	size_t	j;
-	char	**new_str;
-
-	if (!add_str)
-		return (NULL);
-	new_str = malloc(sizeof(char *) * (ft_strstrlen(str) + ft_strstrlen(add_str)
-				+ 1));
-	if (!new_str)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (i < pos)
-		new_str[i++] = str[j++];
-	j = 0;
-	while (add_str[j])
-		new_str[i++] = add_str[j++];
-	free(add_str);
-	j = pos + 1;
-	while (str[j])
-		new_str[i++] = str[j++];
-	new_str[i] = NULL;
-	free(str);
-	return (new_str);
-}
 
 static char	**add_str_env(char **str, t_env *env, size_t i, size_t pos)
 {

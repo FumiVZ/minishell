@@ -6,42 +6,47 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 17:20:05 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/20 16:00:25 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/23 17:42:07 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/pipex.h"
 
-void	free_files(t_cmd *head)
+void	free_outfiles(t_cmd *head)
 {
 	int	i;
 
-	i = 0;
-	if (head->infiles_name)
-	{
-		while (head->infiles_name[i])
-		{
-			free(head->infiles_name[i]);
-			head->infiles[i] = -1;
-			i++;
-		}
-		free(head->infiles_name);
-		free(head->infiles);
-		head->infiles_name = NULL;
-	}
-	i = 0;
+	i = -1;
 	if (head->outfiles_name)
 	{
-		while (head->outfiles_name[i])
+		while (head->outfiles_name[++i])
 		{
 			free(head->outfiles_name[i]);
 			head->outfiles[i] = -1;
-			i++;
 		}
 		free(head->outfiles_name);
 		free(head->outfiles);
 		head->outfiles_name = NULL;
 	}
+}
+
+void	free_files(t_cmd *head)
+{
+	int	i;
+
+	i = -1;
+	if (head->infiles_name)
+	{
+		while (head->infiles_name[++i])
+		{
+			free(head->infiles_name[i]);
+			head->infiles[i] = -1;
+		}
+		free(head->infiles_name);
+		free(head->infiles);
+		head->infiles_name = NULL;
+	}
+	free_outfiles(head);
 }
 
 void	free_l(t_cmd *head)
@@ -89,26 +94,4 @@ void	close_reset(int fd, int fd2)
 	close(fd2);
 	fd = -1;
 	fd2 = -1;
-}
-
-void	print_list(t_cmd *head)
-{
-	int i;
-	int count = 0;
-	t_cmd *tmp;
-
-	i = 0;
-	tmp = head;
-	while (tmp)
-	{
-		ft_printf_fd(2, "count = %d\n", count);
-		i = -1;
-		ft_printf_fd(2, "id: %d\n", tmp->id);
-		ft_printf_fd(2, "args: ");
-		while (tmp->args[++i])
-			ft_printf_fd(2, "%s ", tmp->args[i]);
-		ft_printf_fd(2, "\n");
-		count++;
-		tmp = tmp->next;
-	}
 }

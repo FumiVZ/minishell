@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:52:51 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/12 17:28:20 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/23 18:28:37 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,12 @@ int	ft_atoi(const char *str)
 	return ((int)ft_strtol(str));
 }
 
-static int is_min_long_long(const char *nptr)
+static int	is_min_long_long(const char *nptr)
 {
-	int i;
-	const char *min_val = "-9223372036854775808";
+	int			i;
+	const char	*min_val;
 
+	min_val = "-9223372036854775808";
 	i = 0;
 	while (nptr[i] == ' ' || (nptr[i] >= 9 && nptr[i] <= 13))
 		i++;
@@ -56,7 +57,7 @@ static int is_min_long_long(const char *nptr)
 		i++;
 	else
 		return (0);
-	while(nptr[i] == min_val[i])
+	while (nptr[i] == min_val[i])
 	{
 		i++;
 		if (min_val[i] == '\0')

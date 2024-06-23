@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 17:27:05 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/19 18:12:06 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/23 16:58:32 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,12 @@ int	open_infiles(t_pipex *pipex, char *cmd, char *file, char *infile_name)
 	{
 		tmp = malloc(sizeof(char *) * 2);
 		if (!tmp)
-		{
-			free_split(pipex->env->envp, ft_strstrlen(pipex->env->envp));
-			child_free(pipex, pipex->env->envp);
-			exit (EXIT_FAILURE);
-		}
+			ft_free_ex(EXIT_FAILURE, pipex);
 		tmp[0] = ft_strdup(file);
 		if (!tmp[0])
 		{
 			free(tmp);
-			free_split(pipex->env->envp, ft_strstrlen(pipex->env->envp));
-			child_free(pipex, pipex->env->envp);
-			exit (EXIT_FAILURE);
+			ft_free_ex(EXIT_FAILURE, pipex);
 		}
 		tmp[1] = NULL;
 		tmp = pattern_matching(tmp, pipex->env);
@@ -67,9 +61,7 @@ int	open_infiles(t_pipex *pipex, char *cmd, char *file, char *infile_name)
 		free_split(tmp, ft_strstrlen(tmp));
 	}
 	else
-	{
 		fd = here_doc(pipex, infile_name);
-	}
 	return (fd);
 }
 
@@ -97,16 +89,14 @@ void	error_infile(t_pipex *pipex, t_cmd *cmds, char *file, int fd)
 	cmds->infiles_name = NULL;
 }
 
-void	get_infiles(t_pipex *pipex, char **cmd, t_cmd *cmds)
+void	get_infiles(t_pipex *pipex, char **cmd, t_cmd *cmds, int i)
 {
-	int	i;
 	int	j;
 
+	j = 0;
 	malloc_infiles(pipex, cmds, cmd);
 	if (!cmds->infiles)
 		return ;
-	i = -1;
-	j = 0;
 	while (cmd[++i] && !(chre(cmd[i], "&&") || chre(cmd[i], "||")
 			|| chre(cmd[i], "|")))
 	{

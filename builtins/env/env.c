@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:53:18 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/12 17:34:34 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/23 20:07:50 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_env_export(t_env *env)
 		}
 		printf("declare -x ");
 		j = 0;
-		while(env->envp[i][j] && env->envp[i][j] != '=')
+		while (env->envp[i][j] && env->envp[i][j] != '=')
 			printf("%c", env->envp[i][j++]);
 		if (env->envp[i][j] == '=')
 			printf("=\"%s\"\n", env->envp[i] + j + 1);

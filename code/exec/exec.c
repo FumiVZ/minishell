@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 17:28:06 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/20 15:27:34 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/23 17:39:26 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ static char	*get_cmd_with_path(t_pipex *pipex, t_cmd *cmds, char **env)
 
 static void	exec_error(t_pipex *pipex, t_cmd *cmds, char **env)
 {
-	if ((pipex->is_dir && (cmds->args[0][0] == '/' || !ft_strncmp(*cmds->args,
-					"./", 2))) || errno == EACCES)
+	if ((pipex->is_dir && (cmds->args[0][0] == '/' \
+		|| !ft_strncmp(*cmds->args, "./", 2))) || errno == EACCES)
 	{
 		if (errno == EACCES)
 			msg_error_cmd(ERR_ACCESS, *cmds);
@@ -98,22 +98,21 @@ void	child_exec(t_pipex *pipex, t_cmd *cmds, char **env)
 	close_files(pipex, pipex->cmds);
 	close_pipes(pipex, pipex->cmds);
 	if (!cmds->args || !cmds->args[0])
-	{
-		free_split(pipex->env->envp, ft_strstrlen(pipex->env->envp));
-		child_free(pipex, env);
-		exit(0);
-	}
+		ft_free_ex(0, pipex);
 	pipex->cmd_paths = get_cmd_with_path(pipex, cmds, env);
 	if (!pipex->cmd_paths || errno == EACCES || pipex->is_dir)
 	{
 		exec_error(pipex, cmds, env);
 		free(pipex->cmd_paths);
-		free_split(pipex->env->envp, ft_strstrlen(pipex->env->envp));
-		child_free(pipex, env);
-		exit(127);
+		ft_free_ex(127, pipex);
 	}
 	execve(pipex->cmd_paths, cmds->args, env);
+	perror("minishell");
 	free_split(pipex->env->envp, ft_strstrlen(pipex->env->envp));
 	child_free(pipex, env);
-	exit(EXIT_FAILURE);
+	if (errno == ENOEXEC || errno == EACCES || errno == EISDIR)
+		exit(126);
+	if (errno == ENOENT || errno == EPERM)
+		exit(127);
+	exit(1);
 }

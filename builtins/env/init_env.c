@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 18:06:32 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/13 23:18:44 by vincent          ###   ########.fr       */
+/*   Updated: 2024/06/23 16:39:53 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,13 @@ void	ft_init_env(t_env *env, char **envp)
 	set_default_env(env);
 }
 
-void	add_value_to_env(t_env *env, char *var)
+void	update_or_add_env_var(t_env *env, char **new, char *var)
 {
-	char	**new;
 	size_t	i;
 	size_t	j;
 	bool	check;
 
 	check = false;
-	if (!var)
-		return (free_envp(env->envp));
-	new = malloc(sizeof(char *) * (ft_strstrlen(env->envp) + 2));
-	if (!new)
-		return (free_envp(env->envp));
 	i = 0;
 	j = 0;
 	while (env->envp[i])
@@ -93,17 +87,21 @@ void	add_value_to_env(t_env *env, char *var)
 		else
 			new[j++] = env->envp[i++];
 	}
-	if (check == false)
+	if (!check)
 		new[j++] = var;
 	new[j] = NULL;
-	free(env->envp);
-	env->envp = new;
 }
 
-void	set_default_env(t_env *env)
+void	add_value_to_env(t_env *env, char *var)
 {
-	if (!env->envp)
-		return ;
-	init_pwd(env);
-	init_shlvl(env);
+	char	**new;
+
+	if (!var)
+		return (free_envp(env->envp));
+	new = malloc(sizeof(char *) * (ft_strstrlen(env->envp) + 2));
+	if (!new)
+		return (free_envp(env->envp));
+	update_or_add_env_var(env, new, var);
+	free(env->envp);
+	env->envp = new;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:18:44 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/18 17:59:13 by vincent          ###   ########.fr       */
+/*   Updated: 2024/06/23 18:27:19 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,16 @@
 # define ERR_IS_DIR "minishell: %s: Is a directory\n"
 # define ERR_DUP2 "minishell: dup2 failed\n"
 
+char	**insert_tab(char **str, char **add_str, size_t pos);
+char	**extract_arguments(char **cmd, char **args);
+char	**get_args(t_pipex *pipex, char **cmd, t_cmd *cmds);
+char	**malloc_args(t_pipex *pipex, char **cmd, t_cmd *cmds);
+char	**count_arguments(char **cmd, t_pipex *pipex);
+int		and_or(t_pipex *pipex);
+void	args_patern(t_pipex *pipex, t_cmd *cmds);
+void	multiple_command(t_pipex *pipex, t_cmd *cmds, char **env);
+void	args_patern(t_pipex *pipex, t_cmd *cmds);
+void	ft_free_ex(int status, t_pipex *pipex);
 void	print_list(t_cmd *head);
 void	ft_exit_error(t_env *env, int status);
 void	ft_env(t_env *env);
@@ -73,7 +83,7 @@ int		is_builtin(char **args);
 char	*quote_rm_world(char *str, char *tmp);
 void	malloc_infiles(t_pipex *pipex, t_cmd *cmds, char **cmd);
 int		open_infiles(t_pipex *pipex, char *cmd, char *file, char *infile);
-void	get_infiles(t_pipex *pipex, char **cmd, t_cmd *cmds);
+void	get_infiles(t_pipex *pipex, char **cmd, t_cmd *cmds, int i);
 int		open_outfiles(t_pipex *pipex, char *cmd, char *file);
 void	get_outfiles(t_pipex *pipex, char **cmd, t_cmd *cmds);
 void	malloc_outfiles(t_pipex *pipex, t_cmd *cmds, char **cmd);
@@ -93,5 +103,6 @@ long	check_shlvl(char *shlvl);
 int		msg_err_syntax(char *err, char c);
 int		readline_event_hook(void);
 char	**delete_parentheses(char **str, t_pipex *pipex);
+void	set_default_env(t_env *env);
 
 #endif
