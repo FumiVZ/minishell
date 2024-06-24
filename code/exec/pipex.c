@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/24 17:14:37 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/24 17:33:44 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	wait_execve(t_pipex *pipex, t_cmd *cmds)
 		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 			printf("\n");
 		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT && i == 0)
-			printf("\nQuit: 3\n");
+			printf("Quit\n");
 		if (i == pipex->cmd_nmbs - 1)
 		{
 			if (WIFEXITED(status))
@@ -62,7 +62,7 @@ void	wait_execve(t_pipex *pipex, t_cmd *cmds)
 			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 				printf("\n");
 			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT && i == 0)
-				printf("\nQuit: 3\n");
+				printf("Quit\n");
 			if (tmp->next == NULL)
 			{
 				if (WIFEXITED(status))
