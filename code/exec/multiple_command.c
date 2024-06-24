@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:33:41 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/23 17:33:55 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/24 16:22:36 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	execute_command(t_pipex *pipex, t_cmd *cmds, char **env, int i)
 		parent_free(pipex);
 		exit (1);
 	}
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	pipex->pid[i] = fork();
 	if (pipex->pid[i] == -1)
 		msg_error(ERR_FORK, pipex);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:18:44 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/24 02:44:30 by vincent          ###   ########.fr       */
+/*   Updated: 2024/06/24 14:48:30 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@
 # define ERR_IS_DIR "minishell: %s: Is a directory\n"
 # define ERR_DUP2 "minishell: dup2 failed\n"
 
-void    ft_add_history(char *line);
-int     ft_history(char **args);
-void    signal_handler(int sig);
-void    child_c(int sig);
+void	ft_add_history(char *line);
+int		ft_history(char **args);
+void	signal_handler(int sig);
+void	child_c(int sig);
 char	**insert_tab(char **str, char **add_str, size_t pos);
 char	**extract_arguments(char **cmd, char **args);
 char	**get_args(t_pipex *pipex, char **cmd, t_cmd *cmds);
@@ -105,7 +105,6 @@ void	secure_dup2(int oldfd, int newfd, t_pipex *pipex);
 bool	check_syntax_split(char **str);
 long	check_shlvl(char *shlvl);
 int		msg_err_syntax(char *err, char c);
-int		readline_event_hook(void);
 char	**delete_parentheses(char **str, t_pipex *pipex);
 void	set_default_env(t_env *env);
 

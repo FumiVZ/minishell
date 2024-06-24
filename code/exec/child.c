@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:53:07 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/24 01:28:01 by vincent          ###   ########.fr       */
+/*   Updated: 2024/06/24 16:18:54 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int    g_signal = 0;
+int	g_signal = 0;
 
 void	exec_builtins(t_pipex *pipex, t_cmd *cmds, char **env)
 {
@@ -38,8 +38,9 @@ void	exec_builtins(t_pipex *pipex, t_cmd *cmds, char **env)
 }
 
 void	exec_single(t_pipex *pipex, t_cmd *cmds, char **env)
-{	
+{
 	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	pipex->pid[0] = fork();
 	if (pipex->pid[0] == -1)
 		msg_error(ERR_FORK, pipex);
@@ -76,10 +77,7 @@ void	single_command(t_pipex *pipex, t_cmd *cmds, char **env)
 		return ;
 	}
 	else
-	{
-		close_files(pipex, pipex->cmds);
-		return ;
-	}
+		return (close_files(pipex, pipex->cmds));
 	wait_execve(pipex, pipex->cmds);
 	close_files(pipex, pipex->cmds);
 }

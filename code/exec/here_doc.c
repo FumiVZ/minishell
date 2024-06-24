@@ -3,24 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:09:04 by vincent           #+#    #+#             */
-/*   Updated: 2024/06/24 01:46:29 by vincent          ###   ########.fr       */
+/*   Updated: 2024/06/24 15:30:37 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <var_global.h>
 
-static void	hook_here_doc(int sig)
+void	hook_here_doc(int sig)
 {
 	if (sig == SIGINT)
 	{
-		rl_done = 1;
 		g_signal = 0;
-		printf("\n");
+		rl_replace_line("", 0);
+		rl_done = 1;
 	}
+}
+
+int	readline_event_hook(void)
+{
+	if (!g_signal)
+	{
+		rl_done = 1;
+	}
+	return (0);
 }
 
 static char	*ft_strjoin_free(char *s1, char *s2)
@@ -75,13 +84,15 @@ int	here_doc(t_pipex *pipex, char *infile_name)
 	int		pipefd[2];
 	char	*input;
 
-	signal(SIGINT, hook_here_doc);
 	g_signal = 1;
+	if (signal(SIGINT, hook_here_doc) == SIG_ERR)
+		ft_exit_error(pipex->env, 1);
 	if (pipe(pipefd) == -1)
 	{
 		perror("pipe");
 		ft_exit_error(pipex->env, 1);
 	}
+	rl_event_hook = readline_event_hook;
 	input = collect_heredoc_input(infile_name);
 	if (!input)
 	{
@@ -92,5 +103,7 @@ int	here_doc(t_pipex *pipex, char *infile_name)
 	write(pipefd[1], input, ft_strlen(input));
 	close(pipefd[1]);
 	free(input);
+	rl_event_hook = NULL;
+	signal(SIGINT, signal_handler);
 	return (pipefd[0]);
 }

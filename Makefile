@@ -1,6 +1,5 @@
 NAME = minishell
-CFLAGS = -Wall -Wextra -Werror -g -fPIE
-LDFLAGS = -pie -lreadline -lncurses
+CFLAGS = -Wall -Wextra -Werror -g
 CC = cc
 BUILD_DIR = build
 
@@ -93,7 +92,7 @@ $(NAME): $(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME) $(LIBFT) -lreadline -lncurses
 
 $(BUILD_DIR)/%.o: %.c $(HEADER)
-	$(CC) $(CFLAGS) -c $< -o $@ -I$(HEADER_PATH) -I$(LIB_PATH) $(LDFLAGS)
+	$(CC) $(CFLAGS) -c $< -o $@ -I$(HEADER_PATH) -I$(LIB_PATH)
 
 $(LIBFT):
 	$(MAKE) -C $(LIB_PATH) 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 18:08:51 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/24 02:01:37 by vincent          ###   ########.fr       */
+/*   Updated: 2024/06/24 15:33:49 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,31 @@ static void	minishell(t_env *env, char *line)
 		free_split(env->cmds, ft_strstrlen(env->cmds));
 		return ;
 	}
+	if (g_signal)
+	{
+		if (g_signal == 130)
+			env->status = 130;
+		g_signal = 0;
+	}
 	init_pipex(env, env->cmds);
 }
 
-void signal_handler(int sig)
+void	signal_handler(int sig)
 {
-	if (sig == SIGINT && g_signal == 0)
+	if (sig == SIGINT)
 	{
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+		g_signal = 130;
 	}
-	if (sig == SIGQUIT)	
+	if (sig == SIGQUIT)
 	{
 		rl_on_new_line();
 		rl_redisplay();
 		printf("  \b\b");
 	}
-	g_signal = 0;
 }
 
 void	ft_readline(t_env *env)
@@ -92,8 +98,10 @@ int	main(int ac, char **av, char **envp)
 {
 	t_env				env;
 
-	signal(SIGINT, signal_handler);
-	signal(SIGQUIT, signal_handler);
+	if (signal(SIGINT, signal_handler) == SIG_ERR)
+		ft_exit_error(&env, 1);
+	if (signal(SIGQUIT, signal_handler) == SIG_ERR)
+		ft_exit_error(&env, 1);
 	env.status = 0;
 	ft_init_env(&env, envp);
 	init_last_param(&env, ac, av);
