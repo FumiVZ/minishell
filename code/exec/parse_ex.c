@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_ex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 22:04:48 by vincent           #+#    #+#             */
-/*   Updated: 2024/06/23 18:12:29 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/23 23:15:44 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@ void	create_new_nodes(t_pipex *pipex, t_cmd *cmds)
 {
 	t_cmd	*tmp;
 	int		i;
-	int		j;
 
 	i = -1;
-	j = 0;
 	while (cmds->next)
 		cmds = cmds->next;
 	tmp = malloc(sizeof(t_cmd));
@@ -45,10 +43,8 @@ void	first_node(t_pipex *pipex, t_cmd *cmds)
 {
 	t_cmd	*tmp;
 	int		i;
-	int		j;
 
 	i = -1;
-	j = 0;
 	list_init(cmds);
 	pipex->cmd_nmbs = 0;
 	cmds->args = get_args(pipex, &pipex->cmd[pipex->i], cmds);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:18:44 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/23 18:27:19 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/24 02:44:30 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@
 # define ERR_IS_DIR "minishell: %s: Is a directory\n"
 # define ERR_DUP2 "minishell: dup2 failed\n"
 
+void    ft_add_history(char *line);
+int     ft_history(char **args);
+void    signal_handler(int sig);
+void    child_c(int sig);
 char	**insert_tab(char **str, char **add_str, size_t pos);
 char	**extract_arguments(char **cmd, char **args);
 char	**get_args(t_pipex *pipex, char **cmd, t_cmd *cmds);

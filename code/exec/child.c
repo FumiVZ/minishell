@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:53:07 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/23 20:11:10 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/24 01:28:01 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+int    g_signal = 0;
 
 void	exec_builtins(t_pipex *pipex, t_cmd *cmds, char **env)
 {
@@ -36,12 +38,17 @@ void	exec_builtins(t_pipex *pipex, t_cmd *cmds, char **env)
 }
 
 void	exec_single(t_pipex *pipex, t_cmd *cmds, char **env)
-{
+{	
+	signal(SIGINT, SIG_IGN);
 	pipex->pid[0] = fork();
 	if (pipex->pid[0] == -1)
 		msg_error(ERR_FORK, pipex);
 	if (pipex->pid[0] == 0)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		child_exec(pipex, cmds, env);
+	}
 	if (cmds->is_parentheses)
 		ft_free_ex(pipex->env->status, pipex);
 }

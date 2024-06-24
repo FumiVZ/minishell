@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:23:42 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/23 18:19:29 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/24 01:30:13 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/pipex.h"
-#include <stdio.h>
+
+#include <minishell.h>
+#include <var_global.h>
+
 
 void	close_pipes(t_pipex *pipex, t_cmd *cmd)
 {
@@ -43,6 +45,17 @@ void	wait_execve(t_pipex *pipex, t_cmd *cmds)
 		waitpid(pipex->pid[i], &status, 0);
 		if (WIFEXITED(status))
 			pipex->env->status = status % 255;
+		if (WIFSIGNALED(status))
+		{
+			pipex->env->status = 128 + WTERMSIG(status);
+			if (WTERMSIG(status) == 2)
+				ft_printf_fd(2, "\n");
+			if (WTERMSIG(status) == 3)
+			{
+				ft_printf_fd(2, "\n");
+				printf("Quit: 3\n");
+			}
+		}
 	}
 	if (WIFEXITED(status))
 		pipex->env->status = status % 255;
@@ -56,6 +69,7 @@ void	wait_execve(t_pipex *pipex, t_cmd *cmds)
 		}
 		tmp = tmp->next;
 	}
+	signal(SIGINT, signal_handler);
 }
 
 char	*find_path(char **env)

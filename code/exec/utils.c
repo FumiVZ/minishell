@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 16:27:22 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/23 17:00:11 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/24 02:43:51 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,11 @@ bool	ft_builtins(t_env *env, t_pipex *pipex, char **args)
 		ft_export(env, args, pipex);
 	else if (!ft_strncmp(args[0], "unset", 6))
 		ft_unset(env, args);
+	else if (!ft_strncmp(args[0], "history", 8))
+	{
+		if (ft_history(args) == -1)
+			ft_printf_fd(2, "minishell: history: %s: numeric argument required\n", args[1]);
+	}
 	else
 		return (0);
 	return (1);
@@ -115,6 +120,8 @@ int	is_builtin(char **args)
 	else if (!ft_strncmp(args[0], "export", 7))
 		return (1);
 	else if (!ft_strncmp(args[0], "unset", 6))
+		return (1);
+	else if (!ft_strncmp(args[0], "history", 8))
 		return (1);
 	else
 		return (0);

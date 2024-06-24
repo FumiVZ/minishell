@@ -1,5 +1,6 @@
 NAME = minishell
-CFLAGS = -Wall -Wextra -Werror -g  
+CFLAGS = -Wall -Wextra -Werror -g -fPIE
+LDFLAGS = -pie -lreadline -lncurses
 CC = cc
 BUILD_DIR = build
 
@@ -22,6 +23,7 @@ SRC = code/error/error_msg.c \
 	  code/exec/utils.c \
 	  code/exec/utils_dup.c \
 	  code/prompt/prompt.c \
+	  code/prompt/signal.c \
 	  code/split_command/ascii_sort.c \
 	  code/split_command/env_utils.c \
 	  code/split_command/pattern_matching.c \
@@ -45,6 +47,7 @@ SRC = code/error/error_msg.c \
 	  builtins/export/export.c \
 	  builtins/pwd/pwd.c \
 	  builtins/unset/unset.c \
+	  builtins/history/history.c 
 
 
 LIBFT = libft/libft.a
@@ -90,7 +93,7 @@ $(NAME): $(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME) $(LIBFT) -lreadline -lncurses
 
 $(BUILD_DIR)/%.o: %.c $(HEADER)
-	$(CC) $(CFLAGS) -c $< -o $@ -I$(HEADER_PATH) -I$(LIB_PATH)
+	$(CC) $(CFLAGS) -c $< -o $@ -I$(HEADER_PATH) -I$(LIB_PATH) $(LDFLAGS)
 
 $(LIBFT):
 	$(MAKE) -C $(LIB_PATH) 

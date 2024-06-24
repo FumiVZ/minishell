@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   var_global.h                                       :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/13 23:37:53 by vincent           #+#    #+#             */
-/*   Updated: 2024/06/24 00:49:10 by vincent          ###   ########.fr       */
+/*   Created: 2024/06/24 00:58:47 by vincent           #+#    #+#             */
+/*   Updated: 2024/06/24 01:07:23 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VAR_GLOBAL_H
-# define VAR_GLOBAL_H
+#include <minishell.h>
+#include <var_global.h>
 
-extern int	g_signal;
-
-#endif
+void    child_c(int sig)
+{
+    if (sig == SIGINT)
+    {
+        write(1, "\n", 1);
+        g_signal = 1;
+    }
+}
