@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 17:51:11 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/23 17:26:19 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/24 18:13:15 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	msg_error_outfile(char *err, t_pipex pipex, char *outfiles_name)
 void	msg_error(char *err, t_pipex *pipex)
 {
 	perror(err);
+	free_split(pipex->env->envp, ft_strstrlen(pipex->env->envp));
 	parent_free(pipex);
 	exit (EXIT_FAILURE);
 }

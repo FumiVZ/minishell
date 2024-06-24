@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ascii_sort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:28:09 by machrist          #+#    #+#             */
-/*   Updated: 2024/04/24 22:29:00 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/24 18:32:52 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

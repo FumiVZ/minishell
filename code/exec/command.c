@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:46:51 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/23 16:40:34 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/24 18:16:19 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@
 void	backup_fd(t_pipex *pipex)
 {
 	pipex->old0 = dup(STDIN_FILENO);
+	if (pipex->old0 == -1)
+		msg_error(ERR_DUP2, pipex);
 	pipex->old1 = dup(STDOUT_FILENO);
+	if (pipex->old1 == -1)
+		msg_error(ERR_DUP2, pipex);
 }
 
 void	close_files(t_pipex	*pipex, t_cmd *cmd)

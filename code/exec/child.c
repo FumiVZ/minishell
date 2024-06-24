@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:53:07 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/24 19:16:05 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/24 19:39:15 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	single_command(t_pipex *pipex, t_cmd *cmds, char **env)
 		cmds->args[ft_strstrlen(cmds->args) - 1]);
 	if (!env)
 	{
+		free_split(pipex->env->envp, ft_strstrlen(pipex->env->envp));
 		parent_free(pipex);
 		exit (1);
 	}
@@ -87,6 +88,8 @@ int	child_crt(t_pipex *pipex, char **env)
 	t_cmd	*cmds;
 
 	cmds = malloc(sizeof(t_cmd));
+	if (!cmds)
+		malloc_failed(pipex);
 	pipex->cmds = cmds;
 	parse_cmd(pipex, cmds);
 	if (cmds->next)
