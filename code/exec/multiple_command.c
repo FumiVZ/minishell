@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:33:41 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/24 16:22:36 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/24 17:04:42 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	execute_command(t_pipex *pipex, t_cmd *cmds, char **env, int i)
 		msg_error(ERR_FORK, pipex);
 	if (pipex->pid[i] == 0 && !is_builtin(cmds->args))
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		pipe_handle(pipex, cmds);
 		child_exec(pipex, cmds, env);
 	}

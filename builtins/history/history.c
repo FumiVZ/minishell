@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/24 16:31:25 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/24 16:33:32 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static int	is_space(char c)
 	return (0);
 }
 
-static  int	is_same(char *line, char *hist)
 static int	is_same(char *line, char *hist)
 {
 	int	i;

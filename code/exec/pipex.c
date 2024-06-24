@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/24 16:32:09 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/24 17:14:37 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,22 @@ void	wait_execve(t_pipex *pipex, t_cmd *cmds)
 		if (tmp->is_parentheses)
 		{
 			waitpid(tmp->pid_par, &status, 0);
-			if (WIFEXITED(status))
-				pipex->env->status = status % 255;
+			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+				printf("\n");
+			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT && i == 0)
+				printf("\nQuit: 3\n");
+			if (tmp->next == NULL)
+			{
+				if (WIFEXITED(status))
+					pipex->env->status = WEXITSTATUS(status);
+				if (WIFSIGNALED(status))
+					pipex->env->status = 128 + WTERMSIG(status);
+			}
 		}
 		tmp = tmp->next;
 	}
 	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, signal_handler);
 }
 
 char	*find_path(char **env)
@@ -97,8 +107,7 @@ void	init_pipex(t_env *env, char **cmds)
 	pipex->cmds = NULL;
 	if (!pipex->paths)
 		pipex->paths = ft_split("/usr/local/bin:\
-			/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:.",
-								':');
+			/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:.", ':');
 	if (!pipex->paths)
 		malloc_failed(pipex);
 	while (pipex->cmd[pipex->i])
