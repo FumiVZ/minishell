@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 16:38:29 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/23 16:38:40 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/24 18:56:06 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

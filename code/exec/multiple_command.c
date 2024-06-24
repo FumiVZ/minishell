@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiple_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:33:41 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/24 17:04:42 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/24 19:16:19 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	execute_command(t_pipex *pipex, t_cmd *cmds, char **env, int i)
 {
 	env = set_last_param(pipex->env, cmds->args[ft_strstrlen(cmds->args) - 1]);
-	if (!pipex->env->envp)
+	if (!env)
 	{
 		parent_free(pipex);
 		exit (1);

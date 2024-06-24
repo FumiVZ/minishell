@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/24 16:32:20 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/24 19:04:58 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@
 void	ft_add_history(char *line);
 int		ft_history(char **args);
 void	signal_handler(int sig);
-void	child_c(int sig);
 char	**insert_tab(char **str, char **add_str, size_t pos);
 char	**extract_arguments(char **cmd, char **args);
 char	**get_args(t_pipex *pipex, char **cmd, t_cmd *cmds);
@@ -60,7 +59,6 @@ void	args_patern(t_pipex *pipex, t_cmd *cmds);
 void	multiple_command(t_pipex *pipex, t_cmd *cmds, char **env);
 void	args_patern(t_pipex *pipex, t_cmd *cmds);
 void	ft_free_ex(int status, t_pipex *pipex);
-void	print_list(t_cmd *head);
 void	ft_exit_error(t_env *env, int status);
 void	ft_env(t_env *env);
 void	ft_echo(t_env *env, char **args);
@@ -74,14 +72,12 @@ void	quote_removal(char **str);
 void	ft_free_child(t_env *env);
 void	ft_free_parent(t_env *env);
 void	ft_init_env(t_env *env, char **envp);
-char	**ft_export_env(t_env *env, char *var, t_pipex *pipex);
 bool	check_syntax(char *str);
 void	ft_readline(t_env *env);
 char	*ft_getenv(char **envp, char *name);
 void	msg_perror(t_env *env, char *err);
 void	init_pipex(t_env *env, char **cmds);
 char	*wildcard_match(const char *pattern);
-void	parentheses(t_pipex *pipex, t_cmd *cmd);
 void	child_exec(t_pipex *pipex, t_cmd *cmds, char **env);
 bool	ft_builtins(t_env *env, t_pipex *pipex, char **args);
 int		is_builtin(char **args);
@@ -108,5 +104,7 @@ long	check_shlvl(char *shlvl);
 int		msg_err_syntax(char *err, char c);
 char	**delete_parentheses(char **str, t_pipex *pipex);
 void	set_default_env(t_env *env);
+bool	update_env(t_env *env, char **oldpwd, char **pwd, t_pipex *pipex);
+void	ft_exit_malloc(t_env *env);
 
 #endif

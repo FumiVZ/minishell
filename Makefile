@@ -22,7 +22,6 @@ SRC = code/error/error_msg.c \
 	  code/exec/utils.c \
 	  code/exec/utils_dup.c \
 	  code/prompt/prompt.c \
-	  code/prompt/signal.c \
 	  code/split_command/ascii_sort.c \
 	  code/split_command/env_utils.c \
 	  code/split_command/pattern_matching.c \
@@ -36,6 +35,7 @@ SRC = code/error/error_msg.c \
 	  code/split_line/word_spliting.c \
 	  code/split_line/word_spliting_utils.c \
 	  builtins/cd/cd.c \
+	  builtins/cd/cd_env.c \
 	  builtins/echo/echo.c \
 	  builtins/env/default_env.c \
 	  builtins/env/env.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 18:06:32 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/23 16:39:53 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/24 19:08:48 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,13 @@ static void	alloc_env(char **new, char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		new[i] = malloc(ft_strlen(envp[i]) + 1);
+		new[i] = ft_strdup(envp[i]); // valide
 		if (!new[i])
 		{
 			free_split(new, i);
-			perror("minishell: error malloc");
+			ft_putendl_fd("minishell: malloc failed", 2);
 			exit(1);
 		}
-		ft_strlcpy(new[i], envp[i], ft_strlen(envp[i]) + 1);
 		i++;
 	}
 	new[i] = NULL;
@@ -56,7 +55,7 @@ void	ft_init_env(t_env *env, char **envp)
 {
 	char	**new;
 
-	new = malloc(sizeof(char *) * (ft_strstrlen(envp) + 1));
+	new = malloc(sizeof(char *) * (ft_strstrlen(envp) + 1)); // valide
 	if (!new)
 	{
 		perror("minishell: error malloc");
@@ -97,10 +96,13 @@ void	add_value_to_env(t_env *env, char *var)
 	char	**new;
 
 	if (!var)
-		return (free_envp(env->envp));
-	new = malloc(sizeof(char *) * (ft_strstrlen(env->envp) + 2));
+		ft_exit_malloc(env);
+	new = malloc(sizeof(char *) * (ft_strstrlen(env->envp) + 2)); // valide
 	if (!new)
-		return (free_envp(env->envp));
+	{
+		free(var);
+		ft_exit_malloc(env);
+	}
 	update_or_add_env_var(env, new, var);
 	free(env->envp);
 	env->envp = new;

@@ -6,39 +6,15 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 18:19:20 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/21 14:50:38 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/24 18:25:49 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static bool	update_env(t_env *env, char **oldpwd, char **pwd, t_pipex *pipex)
-{
-	char	*tmp_pwd;
-	char	*tmp_oldpwd;
-
-	tmp_oldpwd = ft_strjoin("OLDPWD=", *oldpwd);
-	if (!tmp_oldpwd)
-	{
-		perror("minishell: error malloc");
-		return (false);
-	}
-	env->envp = ft_export_env(env, tmp_oldpwd, pipex);
-	free(tmp_oldpwd);
-	tmp_pwd = ft_strjoin("PWD=", *pwd);
-	if (!tmp_pwd)
-	{
-		perror("minishell: error malloc");
-		return (false);
-	}
-	env->envp = ft_export_env(env, tmp_pwd, pipex);
-	free(tmp_pwd);
-	return (true);
-}
-
 static bool	init_cd(t_env *env, char **args, char **oldpwd, char **pwd)
 {
-	*oldpwd = getcwd(NULL, 0);
+	*oldpwd = getcwd(NULL, 0); // valide
 	if (!*oldpwd)
 	{
 		perror("minishell: cd");
@@ -52,7 +28,7 @@ static bool	init_cd(t_env *env, char **args, char **oldpwd, char **pwd)
 		env->status = 1;
 		return (false);
 	}
-	*pwd = getcwd(NULL, 0);
+	*pwd = getcwd(NULL, 0); // valide
 	if (!*pwd)
 	{
 		perror("minishell: cd");
@@ -71,11 +47,11 @@ static void	cd_oldpwd(t_env *env, char **args, t_pipex *pipex)
 	tmp = ft_getenv(env->envp, "OLDPWD");
 	if (!tmp)
 	{
-		ft_putstr_fd("minishell: cd: HOME not set\n", 2);
+		ft_putstr_fd("minishell: cd: OLDPWD not set\n", 2);
 		env->status = 1;
 		return ;
 	}
-	new = malloc(sizeof(char *) * 3);
+	new = malloc(sizeof(char *) * 3); // valide
 	if (!new)
 	{
 		msg_perror(env, ERR_MALLOC);
@@ -100,7 +76,7 @@ static void	cd_no_args(t_env *env, char **args, t_pipex *pipex)
 		env->status = 1;
 		return ;
 	}
-	new = malloc(sizeof(char *) * 3);
+	new = malloc(sizeof(char *) * 3); // valide
 	if (!new)
 	{
 		msg_perror(env, ERR_MALLOC);

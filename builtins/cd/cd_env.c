@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   cd_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/22 18:45:49 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/24 19:34:02 by machrist         ###   ########.fr       */
+/*   Created: 2024/06/24 18:09:07 by machrist          #+#    #+#             */
+/*   Updated: 2024/06/24 18:22:02 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 static void	error_env(t_pipex *pipex, t_env *env, char **new, size_t i)
 {
-	if (new)
-		free_split(new, i);
+	free_split(new, i);
 	parent_free(pipex);
-	ft_exit_malloc(env);
+	ft_putstr_fd("minishell: cd: failed\n", 2);
+	free(env->oldpwd);
+	free(env->pwd);
+	ft_exit_error(env, 1);
 }
 
 static char	**new_envp(t_env *env, char *var, t_pipex *pipex)
@@ -25,19 +27,21 @@ static char	**new_envp(t_env *env, char *var, t_pipex *pipex)
 	char	**new;
 	size_t	i;
 
+	i = 0;
 	new = malloc(sizeof(char *) * (ft_strstrlen(env->envp) + 2)); // valide
 	if (!new)
-		error_env(pipex, env, new, 0);
-	i = 0;
+	{
+		free(var);
+		error_env(pipex, env, new, i);
+	}
 	while (env->envp[i])
 	{
 		new[i] = env->envp[i];
 		i++;
 	}
-	new[i] = ft_strdup(var);
-	if (!new[i])
-		error_env(pipex, env, new, i);
+	new[i] = var;
 	new[i + 1] = NULL;
+	free(env->envp);
 	return (new);
 }
 
@@ -45,7 +49,6 @@ static char	**ft_export_env(t_env *env, char *var, t_pipex *pipex)
 {
 	size_t	i;
 	size_t	len;
-	char	*tmp;
 
 	len = 0;
 	while (var[len] && var[len] != '=')
@@ -57,14 +60,8 @@ static char	**ft_export_env(t_env *env, char *var, t_pipex *pipex)
 	{
 		if (!ft_strncmp(env->envp[i], var, len))
 		{
-			tmp = ft_strdup(var);
-			if (!tmp)
-			{
-				perror("minishell: error malloc");
-				return (env->envp);
-			}
 			free(env->envp[i]);
-			env->envp[i] = tmp;
+			env->envp[i] = var;
 			return (env->envp);
 		}
 		i++;
@@ -72,43 +69,26 @@ static char	**ft_export_env(t_env *env, char *var, t_pipex *pipex)
 	return (new_envp(env, var, pipex));
 }
 
-static	bool	is_identifier(char *str)
+bool	update_env(t_env *env, char **oldpwd, char **pwd, t_pipex *pipex)
 {
-	size_t	i;
+	char	*tmp_pwd;
+	char	*tmp_oldpwd;
 
-	i = 0;
-	if (!ft_isalpha(str[i]) && str[i] != '_')
+	env->oldpwd = *oldpwd;
+	env->pwd = *pwd;
+	tmp_oldpwd = ft_strjoin("OLDPWD=", *oldpwd); // valide
+	if (!tmp_oldpwd)
+	{
+		perror("minishell: error malloc");
 		return (false);
-	i++;
-	while (str[i] && str[i] != '=')
-	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
-			return (false);
-		i++;
 	}
+	env->envp = ft_export_env(env, tmp_oldpwd, pipex);
+	tmp_pwd = ft_strjoin("PWD=", *pwd); // valide
+	if (!tmp_pwd)
+	{
+		perror("minishell: error malloc");
+		return (false);
+	}
+	env->envp = ft_export_env(env, tmp_pwd, pipex);
 	return (true);
-}
-
-void	ft_export(t_env *env, char **cmd, t_pipex *pipex)
-{
-	size_t	i;
-
-	i = 1;
-	if (!cmd[1])
-	{
-		ft_env_export(env);
-		return ;
-	}
-	while (cmd[i])
-	{
-		if (!is_identifier(cmd[i]))
-		{
-			ft_putstr_fd("minishell: export: `", 2);
-			ft_putstr_fd(cmd[i], 2);
-			ft_putstr_fd("': not a valid identifier\n", 2);
-			env->status = 1;
-		}
-		env->envp = ft_export_env(env, cmd[i], pipex);
-		++i;
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 17:20:40 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/24 16:25:21 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/24 18:20:07 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct s_pipex
 
 typedef struct s_env
 {
+	char			*pwd;
+	char			*oldpwd;
 	char			**envp;
 	char			**cmds;
 	char			**clean_cmds;
@@ -56,7 +58,6 @@ typedef struct s_env
 
 }					t_env;
 
-void				print_tab(char **tab);
 int					count_pipes(t_pipex *pipex);
 void				close_pipes(t_pipex *pipex, t_cmd *cmd);
 void				close_files(t_pipex *pipex, t_cmd *cmd);

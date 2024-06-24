@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:46:38 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/15 19:40:40 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/24 19:04:49 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,16 @@ void	ft_exit(t_env *env, t_pipex *pipex, char **str)
 
 void	ft_exit_error(t_env *env, int status)
 {
-	(void)env;
 	ft_putendl_fd("exit", 2);
 	if (env->envp)
 		free_split(env->envp, ft_strstrlen(env->envp));
 	exit(status);
+}
+
+void	ft_exit_malloc(t_env *env)
+{
+	ft_putendl_fd("minishell: malloc failed", 2);
+	if (env->envp)
+		free_split(env->envp, ft_strstrlen(env->envp));
+	exit(1);
 }
