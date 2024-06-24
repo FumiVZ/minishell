@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 17:53:23 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/14 19:21:06 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/24 18:21:53 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	child_free(t_pipex *pipex, char **env)
 void	malloc_failed(t_pipex *pipex)
 {
 	ft_printf_fd(2, "pipex: malloc failed\n");
+	if (pipex->env->envp)
+		free_split(pipex->env->envp, ft_strstrlen(pipex->env->envp));
 	parent_free(pipex);
 	exit (EXIT_FAILURE);
 }

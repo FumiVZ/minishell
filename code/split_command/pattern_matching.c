@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pattern_matching.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 14:39:48 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/24 00:00:40 by vincent          ###   ########.fr       */
+/*   Updated: 2024/06/24 18:34:52 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

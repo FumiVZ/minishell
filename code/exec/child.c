@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:53:07 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/24 16:18:54 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/24 18:41:45 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,9 @@ void	single_command(t_pipex *pipex, t_cmd *cmds, char **env)
 		return ;
 	env = set_last_param(pipex->env, \
 		cmds->args[ft_strstrlen(cmds->args) - 1]);
-	if (!pipex->env->envp)
+	if (!env)
 	{
+		free_split(pipex->env->envp, ft_strstrlen(pipex->env->envp));
 		parent_free(pipex);
 		exit (1);
 	}
@@ -87,6 +88,8 @@ int	child_crt(t_pipex *pipex, char **env)
 	t_cmd	*cmds;
 
 	cmds = malloc(sizeof(t_cmd));
+	if (!cmds)
+		malloc_failed(pipex);
 	pipex->cmds = cmds;
 	parse_cmd(pipex, cmds);
 	if (cmds->next)

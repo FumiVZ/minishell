@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables_env_search.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 13:31:29 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/13 18:28:32 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/24 18:37:12 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

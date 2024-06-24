@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/24 17:33:44 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/24 18:28:04 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,35 @@ void	close_pipes(t_pipex *pipex, t_cmd *cmd)
 	}
 }
 
+int	wait_parentheses(t_pipex *pipex, t_cmd *cmds)
+{
+	t_cmd	*tmp;
+	int		status;
+
+	tmp = cmds;
+	status = 0;
+	while (tmp)
+	{
+		if (tmp->is_parentheses)
+		{
+			waitpid(tmp->pid_par, &status, 0);
+			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+				printf("\n");
+			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
+				printf("\nQuit: 3\n");
+			if (tmp->next == NULL)
+			{
+				if (WIFEXITED(status))
+					pipex->env->status = WEXITSTATUS(status);
+				if (WIFSIGNALED(status))
+					pipex->env->status = 128 + WTERMSIG(status);
+			}
+		}
+		tmp = tmp->next;
+	}
+	return (status);
+}
+
 void	wait_execve(t_pipex *pipex, t_cmd *cmds)
 {
 	t_cmd	*tmp;
@@ -44,7 +73,7 @@ void	wait_execve(t_pipex *pipex, t_cmd *cmds)
 		waitpid(pipex->pid[i], &status, 0);
 		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 			printf("\n");
-		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT && i == 0)
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
 			printf("Quit\n");
 		if (i == pipex->cmd_nmbs - 1)
 		{
@@ -54,25 +83,7 @@ void	wait_execve(t_pipex *pipex, t_cmd *cmds)
 				pipex->env->status = 128 + WTERMSIG(status);
 		}
 	}
-	while (tmp)
-	{
-		if (tmp->is_parentheses)
-		{
-			waitpid(tmp->pid_par, &status, 0);
-			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-				printf("\n");
-			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT && i == 0)
-				printf("Quit\n");
-			if (tmp->next == NULL)
-			{
-				if (WIFEXITED(status))
-					pipex->env->status = WEXITSTATUS(status);
-				if (WIFSIGNALED(status))
-					pipex->env->status = 128 + WTERMSIG(status);
-			}
-		}
-		tmp = tmp->next;
-	}
+	status = wait_parentheses(pipex, cmds);
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
 }
@@ -93,18 +104,18 @@ void	init_pipex(t_env *env, char **cmds)
 	t_pipex	*pipex;
 
 	pipex = malloc(sizeof(t_pipex));
-	pipex->env = env;
 	if (!pipex)
-		malloc_failed(pipex);
-	pipex->cmd_nmbs = 0;
+	{
+		free_split(cmds, ft_strstrlen(cmds));
+		free_split(env->envp, ft_strstrlen(env->envp));
+		exit (EXIT_FAILURE);
+	}
+	*pipex = (t_pipex){0};
+	pipex->env = env;
 	pipex->cmd = cmds;
-	pipex->i = 0;
-	pipex->pid = NULL;
 	pipex->paths = ft_split(find_path(env->envp), ':');
-	pipex->cmds = NULL;
 	pipex->old0 = -1;
 	pipex->old1 = -1;
-	pipex->cmds = NULL;
 	if (!pipex->paths)
 		pipex->paths = ft_split("/usr/local/bin:\
 			/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:.", ':');
