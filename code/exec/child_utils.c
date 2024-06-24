@@ -5,22 +5,23 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/23 17:35:00 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/24 14:42:59 by vzuccare         ###   ########lyon.fr   */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/06/24 16:31:53 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include <minishell.h>
 
 int	and_or(t_pipex *pipex)
 {
-	if (pipex->cmd[pipex->i] && !(((pipex->env->status == 0 \
-		&& ft_strncmp(pipex->cmd[pipex->i - 1], "&&", 2) == 0)) \
+	if (pipex->cmd[pipex->i] && !(((pipex->env->status == 0
+					&& ft_strncmp(pipex->cmd[pipex->i - 1], "&&", 2) == 0))
 			|| (pipex->env->status != 0 && ft_strncmp(pipex->cmd[pipex->i - 1],
 					"||", 2) == 0)))
-		while (pipex->cmd[pipex->i] && \
-			(!(ft_strncmp(pipex->cmd[pipex->i], "&&", 2) == 0)
-				|| !(ft_strncmp(pipex->cmd[pipex->i], "||", 2) == 0)))
+		while (pipex->cmd[pipex->i] && (!(ft_strncmp(pipex->cmd[pipex->i], "&&",
+						2) == 0) || !(ft_strncmp(pipex->cmd[pipex->i], "||",
+						2) == 0)))
 			pipex->i++;
 	free_l(pipex->cmds);
 	pipex->cmds = NULL;
@@ -31,7 +32,8 @@ int	and_or(t_pipex *pipex)
 
 /* void	print_tab(char **tab)
 {
-	int	i;
+	int		i;
+	char	**new;
 
 	i = -1;
 	while (tab[++i])
@@ -47,6 +49,8 @@ int	and_or(t_pipex *pipex)
 
 	new = malloc(sizeof(char *) * \
 		(ft_strstrlen(tab1) + ft_strstrlen(tab2) + 1));
+	new = malloc(sizeof(char *) * (ft_strstrlen(tab1) + ft_strstrlen(tab2)
+				+ 1));
 	if (!new)
 		return (NULL);
 	if (tab1)
@@ -112,6 +116,7 @@ void	args_patern(t_pipex *pipex, t_cmd *cmds)
 {
 	cmds->args = pattern_matching(cmds->args, pipex->env);
 	quote_removal(cmds->args);
+	/* 	cmds->args = remove_spaces(cmds->args, pipex); */
 	/* 	cmds->args = remove_spaces(cmds->args, pipex); */
 	if (!cmds->args)
 		msg_error(ERR_MALLOC, pipex);

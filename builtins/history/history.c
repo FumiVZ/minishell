@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/24 01:52:43 by vincent           #+#    #+#             */
-/*   Updated: 2024/06/24 15:34:33 by vzuccare         ###   ########lyon.fr   */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/06/24 16:31:25 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include <minishell.h>
 
@@ -20,6 +21,7 @@ static int	is_space(char c)
 }
 
 static  int	is_same(char *line, char *hist)
+static int	is_same(char *line, char *hist)
 {
 	int	i;
 

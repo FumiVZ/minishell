@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/21 18:18:44 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/24 14:48:30 by vzuccare         ###   ########lyon.fr   */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/06/24 16:32:20 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H

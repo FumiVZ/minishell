@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/19 19:23:42 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/24 16:26:53 by vzuccare         ###   ########lyon.fr   */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/06/24 16:32:09 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ void	init_pipex(t_env *env, char **cmds)
 	pipex->cmds = NULL;
 	if (!pipex->paths)
 		pipex->paths = ft_split("/usr/local/bin:\
-			/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:.", ':');
+			/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:.",
+								':');
 	if (!pipex->paths)
 		malloc_failed(pipex);
 	while (pipex->cmd[pipex->i])

@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/25 18:08:51 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/24 15:33:49 by vzuccare         ###   ########lyon.fr   */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/06/24 16:32:35 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include <minishell.h>
 #include <signal.h>
@@ -96,7 +97,7 @@ int	manage_c(char **av, t_env env)
 
 int	main(int ac, char **av, char **envp)
 {
-	t_env				env;
+	t_env	env;
 
 	if (signal(SIGINT, signal_handler) == SIG_ERR)
 		ft_exit_error(&env, 1);

@@ -1,4 +1,6 @@
 test_*
+path/
+build/
 a.out
 .vscode
 .vscode/settings.json
