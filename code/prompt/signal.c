@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 00:58:47 by vincent           #+#    #+#             */
-/*   Updated: 2024/06/24 01:07:23 by vincent          ###   ########.fr       */
+/*   Updated: 2024/06/24 16:25:40 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <var_global.h>
 
-void    child_c(int sig)
+void	child_c(int sig)
 {
-    if (sig == SIGINT)
-    {
-        write(1, "\n", 1);
-        g_signal = 1;
-    }
+	if (sig == SIGINT)
+	{
+		write(1, "\n", 1);
+		g_signal = 1;
+	}
 }

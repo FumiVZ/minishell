@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:23:42 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/24 01:30:13 by vincent          ###   ########.fr       */
+/*   Updated: 2024/06/24 16:24:24 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include <minishell.h>
 #include <var_global.h>
-
 
 void	close_pipes(t_pipex *pipex, t_cmd *cmd)
 {
@@ -102,7 +100,8 @@ void	init_pipex(t_env *env, char **cmds)
 	pipex->cmds = NULL;
 	if (!pipex->paths)
 		pipex->paths = ft_split("/usr/local/bin:\
-			/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:.", ':');
+			/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:.",
+								':');
 	if (!pipex->paths)
 		malloc_failed(pipex);
 	while (pipex->cmd[pipex->i])

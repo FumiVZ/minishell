@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 18:08:51 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/24 02:01:37 by vincent          ###   ########.fr       */
+/*   Updated: 2024/06/24 16:25:35 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	minishell(t_env *env, char *line)
 	init_pipex(env, env->cmds);
 }
 
-void signal_handler(int sig)
+void	signal_handler(int sig)
 {
 	if (sig == SIGINT && g_signal == 0)
 	{
@@ -42,7 +42,7 @@ void signal_handler(int sig)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-	if (sig == SIGQUIT)	
+	if (sig == SIGQUIT)
 	{
 		rl_on_new_line();
 		rl_redisplay();
@@ -90,7 +90,7 @@ int	manage_c(char **av, t_env env)
 
 int	main(int ac, char **av, char **envp)
 {
-	t_env				env;
+	t_env	env;
 
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);

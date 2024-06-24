@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:35:00 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/24 00:45:50 by vincent          ###   ########.fr       */
+/*   Updated: 2024/06/24 16:25:07 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	and_or(t_pipex *pipex)
 {
-	if (pipex->cmd[pipex->i] && !(((pipex->env->status == 0 \
-		&& ft_strncmp(pipex->cmd[pipex->i - 1], "&&", 2) == 0)) \
+	if (pipex->cmd[pipex->i] && !(((pipex->env->status == 0
+					&& ft_strncmp(pipex->cmd[pipex->i - 1], "&&", 2) == 0))
 			|| (pipex->env->status != 0 && ft_strncmp(pipex->cmd[pipex->i - 1],
 					"||", 2) == 0)))
-		while (pipex->cmd[pipex->i] && \
-			(!(ft_strncmp(pipex->cmd[pipex->i], "&&", 2) == 0)
-				|| !(ft_strncmp(pipex->cmd[pipex->i], "||", 2) == 0)))
+		while (pipex->cmd[pipex->i] && (!(ft_strncmp(pipex->cmd[pipex->i], "&&",
+						2) == 0) || !(ft_strncmp(pipex->cmd[pipex->i], "||",
+						2) == 0)))
 			pipex->i++;
 	free_l(pipex->cmds);
 	pipex->cmds = NULL;
@@ -31,7 +31,8 @@ int	and_or(t_pipex *pipex)
 
 /* void	print_tab(char **tab)
 {
-	int	i;
+	int		i;
+	char	**new;
 
 	i = -1;
 	while (tab[++i])
@@ -40,12 +41,10 @@ int	and_or(t_pipex *pipex)
 		ft_putchar_fd('\n', 1);
 	}
 } */
-
-char **ft_strjoin_tab(char **tab1, char **tab2, int i, int j)
+char	**ft_strjoin_tab(char **tab1, char **tab2, int i, int j)
 {
-	char	**new;
-
-	new = malloc(sizeof(char *) * (ft_strstrlen(tab1) + ft_strstrlen(tab2) + 1));
+	new = malloc(sizeof(char *) * (ft_strstrlen(tab1) + ft_strstrlen(tab2)
+				+ 1));
 	if (!new)
 		return (NULL);
 	if (tab1)
@@ -60,7 +59,7 @@ char **ft_strjoin_tab(char **tab1, char **tab2, int i, int j)
 	while (tab2[++j])
 	{
 		new[i++] = ft_strdup(tab2[j]);
-		if (!new[i - 1]) 
+		if (!new[i - 1])
 			return (NULL);
 	}
 	free_split(tab1, ft_strstrlen(tab1));
@@ -69,12 +68,11 @@ char **ft_strjoin_tab(char **tab1, char **tab2, int i, int j)
 	return (new);
 }
 
-
-char	**remove_spaces(char  **args, t_pipex *pipex)
+char	**remove_spaces(char **args, t_pipex *pipex)
 {
-	int	i;
-	char **tmp;
-	char **new;
+	int		i;
+	char	**tmp;
+	char	**new;
 
 	i = -1;
 	new = NULL;
@@ -94,7 +92,7 @@ char	**remove_spaces(char  **args, t_pipex *pipex)
 	return (new);
 }
 
-void print_tab(char **tab)
+void	print_tab(char **tab)
 {
 	int	i;
 
@@ -110,7 +108,7 @@ void	args_patern(t_pipex *pipex, t_cmd *cmds)
 {
 	cmds->args = pattern_matching(cmds->args, pipex->env);
 	quote_removal(cmds->args);
-/* 	cmds->args = remove_spaces(cmds->args, pipex); */
+	/* 	cmds->args = remove_spaces(cmds->args, pipex); */
 	if (!cmds->args)
 		msg_error(ERR_MALLOC, pipex);
 }

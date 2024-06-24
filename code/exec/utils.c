@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 16:27:22 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/24 02:43:51 by vincent          ###   ########.fr       */
+/*   Updated: 2024/06/24 16:26:14 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ bool	ft_builtins(t_env *env, t_pipex *pipex, char **args)
 	else if (!ft_strncmp(args[0], "history", 8))
 	{
 		if (ft_history(args) == -1)
-			ft_printf_fd(2, "minishell: history: %s: numeric argument required\n", args[1]);
+			ft_printf_fd(2, "minishell: history:\
+				%s: numeric argument required\n", args[1]);
 	}
 	else
 		return (0);
