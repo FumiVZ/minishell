@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pattern_matching.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 14:39:48 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/24 18:34:52 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/25 19:56:28 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,26 +117,23 @@ static char	**variable_env(char **str, t_env *env)
 char	**pattern_matching(char **str, t_env *env)
 {
 	size_t	i;
-	char	*tmp;
+	char	**tmp;
 
 	str = variable_env(str, env);
 	i = 0;
 	while (str[i])
 	{
-		tmp = check_pattern_word(str[i]);
+		tmp = check_pattern_word(str, i);
 		if (!tmp)
 		{
 			free_split(str, ft_strstrlen(str));
-			msg_err(MALLOC);
 			return (NULL);
 		}
-		if (ft_strncmp(tmp, str[i], ft_strlen(str[i]) + 1) && *tmp)
+		if (str != tmp)
 		{
 			free(str[i]);
-			str[i] = tmp;
+			str = tmp;
 		}
-		if (!tmp)
-			free(tmp);
 		i++;
 	}
 	return (str);

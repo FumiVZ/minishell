@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 13:57:00 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/24 18:37:33 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/25 20:45:08 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,57 +68,52 @@ static bool	match(const char *str, const char *pattern, const char *dir)
 	return (*str == '\0' && *pattern == '\0');
 }
 
-static char	*add_back(char *result, const char *d_name)
-{
-	char	*tmp;
-	size_t	len;
+// static char	*add_back(char *result, const char *d_name)
+// {
+// 	char	*tmp;
+// 	size_t	len;
 
-	len = ft_strlen(result) + ft_strlen(d_name) + 2;
-	tmp = malloc(sizeof(char *) * len);
-	if (!tmp)
-		return (free(result), NULL);
-	ft_strlcpy(tmp, result, ft_strlen(result) + 1);
-	ft_strlcat(tmp, " ", ft_strlen(result) + 2);
-	ft_strlcat(tmp, d_name, ft_strlen(result) + ft_strlen(d_name) + 2);
-	free(result);
-	return (tmp);
-}
+// 	len = ft_strlen(result) + ft_strlen(d_name) + 2;
+// 	tmp = malloc(sizeof(char *) * len);
+// 	if (!tmp)
+// 		return (free(result), NULL);
+// 	ft_strlcpy(tmp, result, ft_strlen(result) + 1);
+// 	ft_strlcat(tmp, " ", ft_strlen(result) + 2);
+// 	ft_strlcat(tmp, d_name, ft_strlen(result) + ft_strlen(d_name) + 2);
+// 	free(result);
+// 	return (tmp);
+// }
 
-static bool	set_result(char **result, const struct dirent *entry,
+static bool	set_result(t_list **result, const struct dirent *entry,
 		const char *pattern)
 {
 	const char	*tmp;
+	t_list		*new;
 
 	if (pattern[ft_strlen(pattern) - 1] == '/')
 		tmp = ft_strjoin(entry->d_name, "/");
 	else
 		tmp = entry->d_name;
-	if (*result != NULL)
+	if (!tmp)
+		return (msg_err(MALLOC));
+	new = ft_lstnew((char *)tmp);
+	if (!new)
 	{
-		*result = add_back(*result, tmp);
-		if (pattern[ft_strlen(pattern) - 1] == '/')
-			free((char *)tmp);
-		if (!*result)
-			return (msg_err(MALLOC));
+		free((char *)tmp);
+		return (msg_err(MALLOC));
 	}
-	else
-	{
-		*result = ft_strdup(tmp);
-		if (pattern[ft_strlen(pattern) - 1] == '/')
-			free((char *)tmp);
-		if (!*result)
-			return (msg_err(MALLOC));
-	}
+	ft_lstadd_back(result, new);
 	return (true);
 }
 
-char	*wildcard_match(const char *pattern)
+char	**wildcard_match(const char *pattern, char **str, size_t i)
 {
 	DIR				*dir;
 	struct dirent	*entry;
-	char			*result;
+	t_list			**result;
+	char			**tmp;
 
-	result = NULL;
+	result = malloc(sizeof(t_list *));
 	dir = opendir(".");
 	if (!dir)
 		return (perror("opendir"), NULL);
@@ -127,8 +122,9 @@ char	*wildcard_match(const char *pattern)
 	{
 		if (match(entry->d_name, pattern, entry->d_name))
 		{
-			if (!set_result(&result, entry, pattern))
+			if (!set_result(result, entry, pattern))
 			{
+				ft_lstclear(result, free);
 				closedir(dir);
 				return (NULL);
 			}
@@ -136,6 +132,6 @@ char	*wildcard_match(const char *pattern)
 		entry = readdir(dir);
 	}
 	closedir(dir);
-	result = sort_result(result);
-	return (result);
+	tmp = sort_result(result, str, i);
+	return (tmp);
 }

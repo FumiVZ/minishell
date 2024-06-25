@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 05:55:14 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/24 18:34:07 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/25 19:49:53 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,25 +63,25 @@ int	check_env_var(char *str, long long pos)
 	return (0);
 }
 
-char	*check_pattern_word(char *str)
+char	**check_pattern_word(char **str, size_t i)
 {
-	size_t	i;
+	size_t	j;
 	bool	quote;
 	bool	dquote;
 
-	i = 0;
+	j = 0;
 	quote = false;
 	dquote = false;
-	while (str[i])
+	while (str[i][j])
 	{
-		if ((str[i] == '*' || str[i] == '?') && !quote && !dquote)
-			return (wildcard_match(str));
-		if (str[i] == '\'' && !dquote)
+		if ((str[i][j] == '*' || str[i][j] == '?') && !quote && !dquote)
+			return (wildcard_match(str[i], str, i));
+		if (str[i][j] == '\'' && !dquote)
 			quote = !quote;
-		if (str[i] == '\"' && !quote)
+		if (str[i][j] == '\"' && !quote)
 			dquote = !dquote;
-		if (str[i])
-			i++;
+		if (str[i][j])
+			j++;
 	}
 	return (str);
 }

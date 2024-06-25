@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:24:29 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/12 17:28:29 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/25 19:00:55 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void		ft_striteri(char *s, void (*f)(unsigned int, char*));
 int			ft_putchar_fd(char c, int fd);
 long		ft_putstr_fd(char *s, int fd);
 long		ft_putendl_fd(char *s, int fd);
-int			ft_putnbr_fd(int n, int fd);
 t_list		*ft_lstnew(void *content);
 void		ft_lstadd_front(t_list **lst, t_list *new);
 int			ft_lstsize(t_list *lst);

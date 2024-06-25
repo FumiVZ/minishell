@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/24 18:28:04 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/24 19:41:36 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,9 @@ int	wait_parentheses(t_pipex *pipex, t_cmd *cmds)
 
 void	wait_execve(t_pipex *pipex, t_cmd *cmds)
 {
-	t_cmd	*tmp;
 	int		status;
 	int		i;
 
-	tmp = cmds;
 	i = -1;
 	status = 0;
 	while (++i < pipex->cmd_nmbs)

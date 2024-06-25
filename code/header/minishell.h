@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/24 19:04:58 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/25 19:49:38 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_readline(t_env *env);
 char	*ft_getenv(char **envp, char *name);
 void	msg_perror(t_env *env, char *err);
 void	init_pipex(t_env *env, char **cmds);
-char	*wildcard_match(const char *pattern);
+char	**wildcard_match(const char *pattern, char **str, size_t i);
 void	child_exec(t_pipex *pipex, t_cmd *cmds, char **env);
 bool	ft_builtins(t_env *env, t_pipex *pipex, char **args);
 int		is_builtin(char **args);

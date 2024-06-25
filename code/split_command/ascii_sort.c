@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ascii_sort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:28:09 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/24 18:32:52 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/25 20:07:25 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,50 +40,45 @@ static void	ascii_sort(char **tab)
 	}
 }
 
-static char	*set_result(char *result, char **tab)
+static char	**list_to_tab(t_list *result, char **tab)
 {
 	size_t	i;
-	char	*tmp;
+	t_list	*tmp;
 
-	i = 1;
-	result = ft_strjoin(tab[0], " ");
-	if (!result)
-		return (msg_err_ptr(MALLOC));
-	while (tab[i])
+	i = 0;
+	tmp = result;
+	while (tmp)
 	{
-		tmp = ft_strjoin(result, tab[i]);
-		free(result);
-		if (!tmp)
-			return (msg_err_ptr(MALLOC));
-		if (tab[i + 1])
-			result = ft_strjoin(tmp, " ");
-		else
-			result = ft_strdup(tmp);
-		free(tmp);
-		if (!result)
-			return (msg_err_ptr(MALLOC));
+		tab[i] = tmp->content;
+		tmp = tmp->next;
 		i++;
 	}
-	return (result);
+	tab[i] = NULL;
+	return (tab);
 }
 
-char	*sort_result(char *result)
+static void   do_nothing(void *content)
+{
+	printf("content = %s\n", (char *)content);
+}
+
+char	**sort_result(t_list **result, char **str, size_t i)
 {
 	char	**tab;
 
-	if (!result)
-	{
-		result = ft_strdup("");
-		if (!result)
-			return (msg_err_ptr(MALLOC));
-		return (result);
-	}
-	tab = ft_split(result, ' ');
-	free(result);
+	tab = malloc(sizeof(char *) * (ft_lstsize(*result) + 1));
 	if (!tab)
+	{
+		ft_lstclear(result, free);
 		return (msg_err_ptr(MALLOC));
+	}
+	tab = list_to_tab(*result, tab);
+	ft_lstclear(result, do_nothing);
+	free(result);
 	ascii_sort(tab);
-	result = set_result(result, tab);
-	free_split(tab, ft_strstrlen(tab));
-	return (result);
+	printf("tab[0] = %s\n", str[0]);
+	printf("i = %zu\n", i);
+	tab = insert_tab(str, tab, i);
+	return (tab);
 }
+
