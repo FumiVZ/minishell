@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:28:09 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/25 20:07:25 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/25 22:35:32 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	swap(char **a, char **b)
 	*b = tmp;
 }
 
-static void	ascii_sort(char **tab)
+void	ascii_sort(char **tab)
 {
 	size_t	i;
 	size_t	j;
@@ -40,16 +40,16 @@ static void	ascii_sort(char **tab)
 	}
 }
 
-static char	**list_to_tab(t_list *result, char **tab)
+static char	**list_to_tab(t_list **result, char **tab)
 {
 	size_t	i;
 	t_list	*tmp;
 
 	i = 0;
-	tmp = result;
+	tmp = *result;
 	while (tmp)
 	{
-		tab[i] = tmp->content;
+		tab[i] = (char *)tmp->content;
 		tmp = tmp->next;
 		i++;
 	}
@@ -59,7 +59,7 @@ static char	**list_to_tab(t_list *result, char **tab)
 
 static void   do_nothing(void *content)
 {
-	printf("content = %s\n", (char *)content);
+	(void)content;
 }
 
 char	**sort_result(t_list **result, char **str, size_t i)
@@ -72,12 +72,11 @@ char	**sort_result(t_list **result, char **str, size_t i)
 		ft_lstclear(result, free);
 		return (msg_err_ptr(MALLOC));
 	}
-	tab = list_to_tab(*result, tab);
+	tab = list_to_tab(result, tab);
 	ft_lstclear(result, do_nothing);
 	free(result);
-	ascii_sort(tab);
-	printf("tab[0] = %s\n", str[0]);
-	printf("i = %zu\n", i);
+	// ascii_sort(tab);
+	free(str[i]);
 	tab = insert_tab(str, tab, i);
 	return (tab);
 }

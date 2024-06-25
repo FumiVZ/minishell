@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 14:22:20 by machrist          #+#    #+#             */
-/*   Updated: 2023/11/10 16:10:25 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/25 22:22:44 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 
 int	ft_lstsize(t_list *lst)
 {
-	size_t	len;
+	int		len;
+	t_list	*tmp;
 
 	len = 0;
-	while (lst)
+	tmp = lst;
+	while (tmp)
 	{
 		len++;
-		lst = lst->next;
+		tmp = tmp->next;
 	}
 	return (len);
 }

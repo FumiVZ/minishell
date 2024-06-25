@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 13:57:00 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/25 20:45:08 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/25 22:39:04 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,22 +68,6 @@ static bool	match(const char *str, const char *pattern, const char *dir)
 	return (*str == '\0' && *pattern == '\0');
 }
 
-// static char	*add_back(char *result, const char *d_name)
-// {
-// 	char	*tmp;
-// 	size_t	len;
-
-// 	len = ft_strlen(result) + ft_strlen(d_name) + 2;
-// 	tmp = malloc(sizeof(char *) * len);
-// 	if (!tmp)
-// 		return (free(result), NULL);
-// 	ft_strlcpy(tmp, result, ft_strlen(result) + 1);
-// 	ft_strlcat(tmp, " ", ft_strlen(result) + 2);
-// 	ft_strlcat(tmp, d_name, ft_strlen(result) + ft_strlen(d_name) + 2);
-// 	free(result);
-// 	return (tmp);
-// }
-
 static bool	set_result(t_list **result, const struct dirent *entry,
 		const char *pattern)
 {
@@ -93,7 +77,7 @@ static bool	set_result(t_list **result, const struct dirent *entry,
 	if (pattern[ft_strlen(pattern) - 1] == '/')
 		tmp = ft_strjoin(entry->d_name, "/");
 	else
-		tmp = entry->d_name;
+		tmp = ft_strdup(entry->d_name);
 	if (!tmp)
 		return (msg_err(MALLOC));
 	new = ft_lstnew((char *)tmp);
@@ -114,6 +98,9 @@ char	**wildcard_match(const char *pattern, char **str, size_t i)
 	char			**tmp;
 
 	result = malloc(sizeof(t_list *));
+	if (!result)
+		return (msg_err_ptr(MALLOC));
+	*result = NULL;
 	dir = opendir(".");
 	if (!dir)
 		return (perror("opendir"), NULL);
