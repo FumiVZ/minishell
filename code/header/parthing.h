@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 14:44:21 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/25 19:49:31 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:43:40 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdio.h>
 # include <sys/stat.h>
 
-# define MALLOC "malloc failed"
+# define MALLOC "minishell: malloc failed\n"
 # define GETCWD "getcwd failed"
 # define STAT "stat failed"
 # define ERR_OPEN "open failed"
@@ -37,7 +37,7 @@
 
 char		**wildcard_match(const char *pattern, char **str, size_t i);
 char		**ft_word_spliting(char const *s, char *arg);
-char		**pattern_matching(char **str, t_env *env);
+char		**pattern_matching(char **str, t_pipex *pipex);
 bool		is_space(char c, char *arg);
 bool		is_special(char c);
 bool		is_special_cpt(char const *c, size_t *i);

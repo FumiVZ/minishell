@@ -6,7 +6,11 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 14:39:48 by machrist          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/06/26 15:21:41 by vzuccare         ###   ########lyon.fr   */
+=======
+/*   Updated: 2024/06/26 16:50:12 by machrist         ###   ########.fr       */
+>>>>>>> refs/remotes/origin/master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +109,6 @@ static char	**variable_env(char **str, t_env *env)
 		{
 			if (str)
 				free_split(str, ft_strstrlen(str));
-			ft_putstr_fd(MALLOC, 2);
 			return (NULL);
 		}
 		if (new_pos == -1 && str[i])
@@ -114,12 +117,18 @@ static char	**variable_env(char **str, t_env *env)
 	return (str);
 }
 
-char	**pattern_matching(char **str, t_env *env)
+char	**pattern_matching(char **str, t_pipex *pipex)
 {
 	size_t	i;
 	char	**tmp;
 
+<<<<<<< HEAD
 	str = variable_env(str, env);	
+=======
+	str = variable_env(str, pipex->env);
+	if (!str)
+		malloc_failed(pipex);
+>>>>>>> refs/remotes/origin/master
 	i = 0;
 	if (!str)
 		return (NULL);
@@ -127,10 +136,7 @@ char	**pattern_matching(char **str, t_env *env)
 	{
 		tmp = check_pattern_word(str, i);
 		if (!tmp)
-		{
-			free_split(str, ft_strstrlen(str));
-			return (NULL);
-		}
+			malloc_failed(pipex);
 		if (str != tmp)
 			str = tmp;
 		i++;
