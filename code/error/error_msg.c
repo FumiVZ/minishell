@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_msg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:49:45 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/23 16:40:20 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/25 23:39:16 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@ int	msg_err(char *err)
 {
 	ft_printf_fd(2, err);
 	return (0);
+}
+
+void	*msg_err_ptr_status(char *err, t_env *env)
+{
+	ft_printf_fd(2, err);
+	env->status = 1;
+	return (NULL);
 }
 
 void	*msg_err_ptr(char *err)

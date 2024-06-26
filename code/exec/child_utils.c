@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/24 16:31:53 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/26 16:44:07 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	print_tab(char **tab)
 
 void	args_patern(t_pipex *pipex, t_cmd *cmds)
 {
-	cmds->args = pattern_matching(cmds->args, pipex->env);
+	cmds->args = pattern_matching(cmds->args, pipex);
 	quote_removal(cmds->args);
 	/* 	cmds->args = remove_spaces(cmds->args, pipex); */
 	/* 	cmds->args = remove_spaces(cmds->args, pipex); */

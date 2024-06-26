@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_removal.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 15:14:22 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/24 18:36:43 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/25 23:51:39 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ char	*quote_rm_world(char *str, char *tmp)
 	bool	dquote;
 
 	len = len_word(str);
-	tmp = malloc(len + 1);
+	tmp = malloc(len + 1); // valide
 	if (!tmp)
-		return (NULL);
+		return (msg_err_ptr(MALLOC));
 	quote = false;
 	dquote = false;
 	j = 0;

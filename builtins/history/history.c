@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/24 16:33:32 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/25 23:43:15 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include <minishell.h>
 
@@ -83,12 +82,12 @@ int	ft_history(char **args)
 		n = i - n - 1;
 		while (n++ < i)
 			if (n < i && n >= 0 && hist_list[n])
-				printf("%d: %s\n", n, hist_list[n]->line);
+				printf("    %d  %s\n", n, hist_list[n]->line);
 		return (0);
 	}
 	if (!hist_list)
 		return (0);
 	while (hist_list[++i])
-		printf("%d: %s\n", i, hist_list[i]->line);
+		printf("    %d  %s\n", i, hist_list[i]->line);
 	return (0);
 }

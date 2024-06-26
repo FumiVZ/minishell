@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 17:36:24 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/13 18:42:49 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:44:23 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	open_outfiles(t_pipex *pipex, char *cmd, char *file)
 	if (!tmp[0])
 		return (-1);
 	tmp[1] = NULL;
-	tmp = pattern_matching(tmp, pipex->env);
+	tmp = pattern_matching(tmp, pipex);
 	quote_removal(tmp);
 	if (ft_strstrlen(tmp) != 1)
 	{

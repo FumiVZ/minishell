@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word_spliting.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:40:28 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/24 18:38:53 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/25 23:49:48 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static char	*crt_word(char const *s, size_t *j, char *arg)
 	char	*word;
 
 	len = len_word(s, arg);
-	word = malloc(sizeof(char) * len + 1);
+	word = malloc(sizeof(char) * (len + 1)); // valide
 	if (!word)
 		return (NULL);
 	i = 0;
@@ -97,9 +97,9 @@ char	**ft_word_spliting(char const *s, char *arg)
 	size_t	i;
 	size_t	pos;
 
-	str = malloc(sizeof(char *) * (count_word(s, arg) + 1));
+	str = malloc(sizeof(char *) * (count_word(s, arg) + 1)); // valide
 	if (!str)
-		return (NULL);
+		return (msg_err_ptr(MALLOC));
 	i = 0;
 	pos = 0;
 	while (s[i])
@@ -111,7 +111,10 @@ char	**ft_word_spliting(char const *s, char *arg)
 		else if (s[i])
 			str[pos++] = crt_is_special(s + i, &i);
 		if (s[i] && !str[pos - 1])
-			return (free_split(str, --pos), NULL);
+		{
+			free_split(str, --pos);
+			return (msg_err_ptr(MALLOC));
+		}
 	}
 	str[pos] = NULL;
 	return (str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_infile.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 17:27:05 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/23 16:58:32 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/26 16:44:15 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	open_infiles(t_pipex *pipex, char *cmd, char *file, char *infile_name)
 			ft_free_ex(EXIT_FAILURE, pipex);
 		}
 		tmp[1] = NULL;
-		tmp = pattern_matching(tmp, pipex->env);
+		tmp = pattern_matching(tmp, pipex);
 		quote_removal(tmp);
 		fd = open(tmp[0], O_RDONLY);
 		free_split(tmp, ft_strstrlen(tmp));

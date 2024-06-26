@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/25 19:49:38 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:43:50 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # define ERR_CMD "minishell: %s: command not found\n"
 # define ERR_CMD_EMPTY "pipex: command not found\n"
 # define ERR_FORK "fork failed"
-# define ERR_MALLOC "malloc failed"
+# define ERR_MALLOC "minishell: malloc failed\n"
 # define ERR_ACCESS "minishell: %s: Permission denied\n"
 # define ERR_ACCESS_EMPTY "minishell: Permission denied\n"
 # define ERR_IS_DIR "minishell: %s: Is a directory\n"
@@ -66,7 +66,7 @@ void	ft_pwd(t_env *env);
 void	ft_cd(t_env *env, char **args, t_pipex *pipex);
 void	ft_export(t_env *env, char **cmd, t_pipex *pipex);
 void	ft_unset(t_env *env, char **cmd);
-char	**pattern_matching(char **str, t_env *envp);
+char	**pattern_matching(char **str, t_pipex *pipex);
 char	**ft_word_spliting(char const *s, char *arg);
 void	quote_removal(char **str);
 void	ft_free_child(t_env *env);
@@ -106,5 +106,6 @@ char	**delete_parentheses(char **str, t_pipex *pipex);
 void	set_default_env(t_env *env);
 bool	update_env(t_env *env, char **oldpwd, char **pwd, t_pipex *pipex);
 void	ft_exit_malloc(t_env *env);
+void	*msg_err_ptr_status(char *err, t_env *env);
 
 #endif

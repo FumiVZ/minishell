@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 18:45:49 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/24 19:34:02 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/25 23:45:42 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,12 @@ static char	**new_envp(t_env *env, char *var, t_pipex *pipex)
 		new[i] = env->envp[i];
 		i++;
 	}
-	new[i] = ft_strdup(var);
+	(void)var;	
+	new[i] = ft_strdup(var); // valide
 	if (!new[i])
-		error_env(pipex, env, new, i);
+		error_env(pipex, env, new, 0);
 	new[i + 1] = NULL;
+	free(env->envp);
 	return (new);
 }
 
@@ -57,12 +59,9 @@ static char	**ft_export_env(t_env *env, char *var, t_pipex *pipex)
 	{
 		if (!ft_strncmp(env->envp[i], var, len))
 		{
-			tmp = ft_strdup(var);
+			tmp = ft_strdup(var); // valide
 			if (!tmp)
-			{
-				perror("minishell: error malloc");
-				return (env->envp);
-			}
+				error_env(pipex, env, NULL, 0);
 			free(env->envp[i]);
 			env->envp[i] = tmp;
 			return (env->envp);
