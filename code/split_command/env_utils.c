@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 05:55:14 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/25 19:49:53 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:57:42 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	**clean_str(char **str, size_t pos)
 	size_t	j;
 	char	**new_str;
 
-	new_str = malloc(sizeof(char *) * (ft_strstrlen(str)));
+	new_str = malloc(sizeof(char *) * (ft_strstrlen(str))); // valide
 	if (!new_str)
 		return (NULL);
 	i = 0;

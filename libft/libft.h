@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:24:29 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/25 19:00:55 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/26 18:11:26 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void		free_split(char **str, size_t pos);
 int			ft_is_int(const char *nptr);
 size_t		ft_strlen_c(const char *s, char c);
 long int	ft_strtol(const char *nptr);
+char		**ft_strstrdup(const char **s);
 
 int			ft_printf_fd(int fd, const char *format, ...);
 char		*get_next_line(int fd);

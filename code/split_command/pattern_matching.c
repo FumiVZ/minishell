@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 14:39:48 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/26 16:50:12 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/26 20:54:19 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,26 @@
 static char	**add_str_env(char **str, t_env *env, size_t i, size_t pos)
 {
 	char	*tmp;
+	char	*tmp2;
 	char	**new_str;
 
 	tmp = full_str(str[i], get_value(str[i] + pos, env->envp, env), pos);
-	free(str[i]);
 	if (!tmp)
-	{
-		free_split(str, ft_strstrlen(str));
 		return (NULL);
-	}
 	if (!*tmp)
+	{
+		free(str[i]);
 		str[i] = tmp;
+	}
 	else
 	{
+		tmp2 = str[i];
 		new_str = insert_tab(str, ft_word_spliting(tmp, ifs_value(env->envp)),
 				i);
 		free(tmp);
 		if (!new_str)
-		{
-			free_split(str, ft_strstrlen(str));
 			return (NULL);
-		}
+		free(tmp2);
 		str = new_str;
 	}
 	return (str);

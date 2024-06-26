@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:28:09 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/25 22:35:32 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/26 17:36:32 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	ascii_sort(char **tab)
 	size_t	i;
 	size_t	j;
 
+	if (!tab)
+		return ;
 	i = 0;
 	while (tab[i])
 	{
@@ -54,10 +56,22 @@ static char	**list_to_tab(t_list **result, char **tab)
 		i++;
 	}
 	tab[i] = NULL;
+	if (tab[0] == NULL)
+	{
+		free(tab);
+		tab = malloc(sizeof(char *) * 2); // valide
+		if (!tab)
+			return (NULL);
+		tab[0] = ft_strdup(""); // valide
+		if (!tab[0])
+			return (free(tab), NULL);
+		tab[1] = NULL;
+		return (tab);
+	}
 	return (tab);
 }
 
-static void   do_nothing(void *content)
+static void	do_nothing(void *content)
 {
 	(void)content;
 }
@@ -65,19 +79,27 @@ static void   do_nothing(void *content)
 char	**sort_result(t_list **result, char **str, size_t i)
 {
 	char	**tab;
+	char	*tmp;
 
-	tab = malloc(sizeof(char *) * (ft_lstsize(*result) + 1));
+	tab = malloc(sizeof(char *) * (ft_lstsize(*result) + 1)); // valide
 	if (!tab)
 	{
 		ft_lstclear(result, free);
-		return (msg_err_ptr(MALLOC));
+		free(result);
+		return (NULL);
 	}
 	tab = list_to_tab(result, tab);
 	ft_lstclear(result, do_nothing);
 	free(result);
-	// ascii_sort(tab);
-	free(str[i]);
-	tab = insert_tab(str, tab, i);
+	ascii_sort(tab);
+	tmp = str[i];
+	tab = insert_tab(str, tab, i); // valide
+	if (!tab)
+	{
+		free_split(tab, ft_strstrlen(tab));
+		return (NULL);
+	}
+	free(tmp);
 	return (tab);
 }
 

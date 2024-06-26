@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 13:57:00 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/25 23:58:31 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/26 17:49:57 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static bool	is_dir(const char *dir, char *pwd)
 
 	if (!pwd)
 		return (msg_err(GETCWD));
-	path = malloc(sizeof(char) * (ft_strlen(pwd) + ft_strlen(dir) + 2));
+	path = malloc(sizeof(char) * (ft_strlen(pwd) + ft_strlen(dir) + 2)); // valide
 	if (!path)
 	{
 		free(pwd);
@@ -29,7 +29,7 @@ static bool	is_dir(const char *dir, char *pwd)
 	ft_strlcat(path, "/", ft_strlen(pwd) + 2);
 	ft_strlcat(path, dir, ft_strlen(pwd) + ft_strlen(dir) + 2);
 	free(pwd);
-	if (stat(path, &info) != 0)
+	if (stat(path, &info) != 0) //valide
 	{
 		free(path);
 		return (msg_err(STAT));
@@ -75,18 +75,30 @@ static bool	set_result(t_list **result, const struct dirent *entry,
 	t_list		*new;
 
 	if (pattern[ft_strlen(pattern) - 1] == '/')
-		tmp = ft_strjoin(entry->d_name, "/");
+		tmp = ft_strjoin(entry->d_name, "/"); // valide
 	else
-		tmp = ft_strdup(entry->d_name);
+		tmp = ft_strdup(entry->d_name); // valide
 	if (!tmp)
-		return (msg_err(MALLOC));
-	new = ft_lstnew((char *)tmp);
+		return (false);
+	new = ft_lstnew((char *)tmp); // valide
 	if (!new)
 	{
 		free((char *)tmp);
-		return (msg_err(MALLOC));
+		return (NULL);
 	}
 	ft_lstadd_back(result, new);
+	return (true);
+}
+
+static bool	init_wildcard(DIR **dir, struct dirent **entry, t_list **result)
+{
+	if (!result)
+		return (false);
+	*result = NULL;
+	*dir = opendir("."); // valide
+	if (!*dir)
+		return (free(result), false);
+	*entry = readdir(*dir);
 	return (true);
 }
 
@@ -97,14 +109,9 @@ char	**wildcard_match(const char *pattern, char **str, size_t i)
 	t_list			**result;
 	char			**tmp;
 
-	result = malloc(sizeof(t_list *));
-	if (!result)
-		return (msg_err_ptr(MALLOC));
-	*result = NULL;
-	dir = opendir(".");
-	if (!dir)
-		return (perror("opendir"), NULL);
-	entry = readdir(dir);
+	result = malloc(sizeof(t_list *)); // valide
+	if (!init_wildcard(&dir, &entry, result))
+		return (NULL);
 	while (entry != NULL)
 	{
 		if (match(entry->d_name, pattern, entry->d_name))
@@ -112,6 +119,7 @@ char	**wildcard_match(const char *pattern, char **str, size_t i)
 			if (!set_result(result, entry, pattern))
 			{
 				ft_lstclear(result, free);
+				free(result);
 				closedir(dir);
 				return (NULL);
 			}
