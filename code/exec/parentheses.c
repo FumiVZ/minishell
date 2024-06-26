@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parentheses.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:42:53 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/23 18:19:45 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/27 01:17:04 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

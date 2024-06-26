@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:19:56 by machrist          #+#    #+#             */
-/*   Updated: 2024/05/27 22:44:21 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/27 01:11:16 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ size_t	ft_strstrlen(char **s)
 	size_t	i;
 
 	if (!s)
+		return (0);
+	if (!*s)
 		return (0);
 	i = 0;
 	while (s[i])

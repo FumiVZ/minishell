@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 18:42:59 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/12 17:47:20 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/27 01:01:19 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,34 +53,34 @@ static bool	check_par(char *str, bool quote, bool dquote)
 	return (true);
 }
 
-static bool	check_special(char *str, bool quote, bool dquote)
-{
-	size_t	i;
-	bool	flag;
+// static bool	check_special(char *str, bool quote, bool dquote)
+// {
+// 	size_t	i;
+// 	bool	flag;
 
-	flag = false;
-	if (str[0] == '|' || str[0] == '&')
-		return (msg_err_syntax(ERR_TOKEN, str[0]));
-	i = 0;
-	while (str[i])
-	{
-		if (is_special_no_par(str[i]) && !quote && !dquote)
-		{
-			if (str[i] == '&' && str[i + 1] != '&' && !flag)
-				return (msg_err_syntax(ERR_TOKEN, str[i]));
-			else if (str[i] == '&' && str[i + 1] == '&')
-				flag = true;
-			else
-				flag = false;
-			if (is_special_no_par(str[i + 1]))
-				if (str[i] != str[i + 1] || is_special_no_par(str[i + 2]))
-					return (msg_err_syntax(ERR_TOKEN, str[i + 1]));
-		}
-		check_quote(str[i], &quote, &dquote);
-		i++;
-	}
-	return (true);
-}
+// 	flag = false;
+// 	if (str[0] == '|' || str[0] == '&')
+// 		return (msg_err_syntax(ERR_TOKEN, str[0]));
+// 	i = 0;
+// 	while (str[i])
+// 	{
+// 		if (is_special_no_par(str[i]) && !quote && !dquote)
+// 		{
+// 			if (str[i] == '&' && str[i + 1] != '&' && !flag)
+// 				return (msg_err_syntax(ERR_TOKEN, str[i]));
+// 			else if (str[i] == '&' && str[i + 1] == '&')
+// 				flag = true;
+// 			else
+// 				flag = false;
+// 			if (is_special_no_par(str[i + 1]))
+// 				if (str[i] != str[i + 1] || is_special_no_par(str[i + 2]))
+// 					return (msg_err_syntax(ERR_TOKEN, str[i + 1]));
+// 		}
+// 		check_quote(str[i], &quote, &dquote);
+// 		i++;
+// 	}
+// 	return (true);
+// }
 
 bool	check_syntax(char *str)
 {
@@ -91,7 +91,7 @@ bool	check_syntax(char *str)
 	dquote = false;
 	if (!check_par(str, quote, dquote))
 		return (false);
-	if (!check_special(str, quote, dquote))
-		return (false);
+	// if (!check_special(str, quote, dquote))
+	// 	return (false);
 	return (true);
 }
