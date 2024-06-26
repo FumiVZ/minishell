@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:53:07 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/24 19:39:15 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/26 20:25:46 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,13 @@ void	exec_builtins(t_pipex *pipex, t_cmd *cmds, char **env)
 
 void	exec_single(t_pipex *pipex, t_cmd *cmds, char **env)
 {
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
+	ft_err_signal(SIGINT, SIG_IGN, pipex);
 	pipex->pid[0] = fork();
 	if (pipex->pid[0] == -1)
 		msg_error(ERR_FORK, pipex);
 	if (pipex->pid[0] == 0)
 	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
+		ft_err_signal(SIGINT, SIG_DFL, pipex);
 		child_exec(pipex, cmds, env);
 	}
 	if (cmds->is_parentheses)

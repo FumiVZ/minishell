@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/15 14:39:48 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/26 20:54:19 by machrist         ###   ########.fr       */
+/*   Created: 2024/06/26 20:59:41 by machrist          #+#    #+#             */
+/*   Updated: 2024/06/26 20:59:48 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,8 @@ char	**pattern_matching(char **str, t_pipex *pipex)
 	if (!str)
 		malloc_failed(pipex);
 	i = 0;
+	if (!str)
+		return (NULL);
 	while (str[i])
 	{
 		tmp = check_pattern_word(str, i);

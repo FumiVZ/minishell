@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 17:28:47 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/24 17:39:36 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/26 17:47:00 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ void	close_pipes(t_pipex *pipex, t_cmd *cmd);
 void	parse_cmd(t_pipex *pipex, t_cmd *cmds);
 void	ft_exit(t_env *env, t_pipex *pipex, char **str);
 int		here_doc(t_pipex *pipex, char *infile_name);
-char	*collect_heredoc_input(char *delimiter);
+char	*collect_heredoc_input(char *delimiter, t_pipex *pipex);
 
 #endif

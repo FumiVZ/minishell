@@ -6,15 +6,19 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2024/06/26 20:25:36 by vzuccare         ###   ########lyon.fr   */
+=======
 /*   Updated: 2024/06/26 16:44:07 by machrist         ###   ########.fr       */
+>>>>>>> refs/remotes/origin/master
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include <minishell.h>
 
 int	and_or(t_pipex *pipex)
 {
+	ft_err_signal(SIGINT, signal_handler, pipex);
 	if (pipex->cmd[pipex->i] && !(((pipex->env->status == 0
 					&& ft_strncmp(pipex->cmd[pipex->i - 1], "&&", 2) == 0))
 			|| (pipex->env->status != 0 && ft_strncmp(pipex->cmd[pipex->i - 1],

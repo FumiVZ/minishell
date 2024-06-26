@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/24 19:41:36 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/26 19:26:34 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,6 @@ void	wait_execve(t_pipex *pipex, t_cmd *cmds)
 		}
 	}
 	status = wait_parentheses(pipex, cmds);
-	signal(SIGINT, signal_handler);
-	signal(SIGQUIT, signal_handler);
 }
 
 char	*find_path(char **env)

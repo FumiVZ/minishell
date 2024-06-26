@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2024/06/26 17:07:42 by vzuccare         ###   ########lyon.fr   */
+=======
 /*   Updated: 2024/06/26 16:43:50 by machrist         ###   ########.fr       */
+>>>>>>> refs/remotes/origin/master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +49,10 @@
 # define ERR_ACCESS_EMPTY "minishell: Permission denied\n"
 # define ERR_IS_DIR "minishell: %s: Is a directory\n"
 # define ERR_DUP2 "minishell: dup2 failed\n"
+# define ERR_SIGNAL "minishell: signal failed\n"
 
 void	ft_add_history(char *line);
+void	ft_err_signal(int sig, __sighandler_t sigtype, t_pipex *pipex);
 int		ft_history(char **args);
 void	signal_handler(int sig);
 char	**insert_tab(char **str, char **add_str, size_t pos);

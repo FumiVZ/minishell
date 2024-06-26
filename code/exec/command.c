@@ -6,15 +6,11 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:46:51 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/24 18:16:19 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/26 19:19:19 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-//reproduce the behavior of pipe in bash, we need to write the output of 
-//previous command to the input of the next command
-//the number of pipe is equal to the number of node in the linked list
 
 void	backup_fd(t_pipex *pipex)
 {

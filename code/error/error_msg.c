@@ -6,7 +6,11 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:49:45 by machrist          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2024/06/26 17:07:22 by vzuccare         ###   ########lyon.fr   */
+=======
 /*   Updated: 2024/06/25 23:39:16 by machrist         ###   ########.fr       */
+>>>>>>> refs/remotes/origin/master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +48,14 @@ int	msg_err_syntax(char *err, char c)
 	ft_putchar_fd(c, 2);
 	ft_putstr_fd("'\n", 2);
 	return (0);
+}
+
+void	ft_err_signal(int sig, __sighandler_t sigtype, t_pipex *pipex)
+{
+	if (signal(sig, sigtype) == SIG_ERR)
+	{
+		ft_printf_fd(2, "pipex: signal error\n");
+		parent_free(pipex);
+		exit(EXIT_FAILURE);
+	}
 }
