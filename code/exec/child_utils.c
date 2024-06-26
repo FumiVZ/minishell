@@ -6,11 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/06/26 20:25:36 by vzuccare         ###   ########lyon.fr   */
-=======
-/*   Updated: 2024/06/26 16:44:07 by machrist         ###   ########.fr       */
->>>>>>> refs/remotes/origin/master
+/*   Updated: 2024/06/26 21:02:07 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

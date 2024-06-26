@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/06/26 17:07:42 by vzuccare         ###   ########lyon.fr   */
-=======
-/*   Updated: 2024/06/26 16:43:50 by machrist         ###   ########.fr       */
->>>>>>> refs/remotes/origin/master
+/*   Updated: 2024/06/26 21:04:07 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
