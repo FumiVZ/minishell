@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 17:27:05 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/23 16:58:32 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/26 19:40:56 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void	get_infiles(t_pipex *pipex, char **cmd, t_cmd *cmds, int i)
 			{
 				error_infile(pipex, cmds, \
 					cmds->infiles_name[j], cmds->infiles[j]);
+					rl_done = 0;
 				break ;
 			}
 			j++;

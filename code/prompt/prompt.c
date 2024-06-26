@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/24 18:29:45 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/26 20:16:10 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,14 @@ static void	minishell(t_env *env, char *line)
 
 void	signal_handler(int sig)
 {
+	//ft_printf_fd(2, "here\n");
 	if (sig == SIGINT)
 	{
-		printf("\n");
-		rl_on_new_line();
+		ft_printf_fd(2, "\n");
 		rl_replace_line("", 0);
+		rl_on_new_line();
 		rl_redisplay();
 		g_signal = 130;
-	}
-	if (sig == SIGQUIT)
-	{
-		rl_on_new_line();
-		rl_redisplay();
-		printf("  \b\b");
 	}
 }
 
@@ -99,10 +94,8 @@ int	main(int ac, char **av, char **envp)
 {
 	t_env	env;
 
-	if (signal(SIGINT, signal_handler) == SIG_ERR)
-		ft_exit_error(&env, 1);
-	if (signal(SIGQUIT, signal_handler) == SIG_ERR)
-		ft_exit_error(&env, 1);
+	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, SIG_IGN);
 	env.status = 0;
 	ft_init_env(&env, envp);
 	init_last_param(&env, ac, av);

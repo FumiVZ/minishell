@@ -6,15 +6,15 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/24 16:31:53 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/26 20:25:36 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include <minishell.h>
 
 int	and_or(t_pipex *pipex)
 {
+	ft_err_signal(SIGINT, signal_handler, pipex);
 	if (pipex->cmd[pipex->i] && !(((pipex->env->status == 0
 					&& ft_strncmp(pipex->cmd[pipex->i - 1], "&&", 2) == 0))
 			|| (pipex->env->status != 0 && ft_strncmp(pipex->cmd[pipex->i - 1],
