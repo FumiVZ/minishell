@@ -5,11 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/26 19:26:34 by vzuccare         ###   ########lyon.fr   */
+/*   Created: 2024/06/27 19:29:47 by vzuccare          #+#    #+#             */
+/*   Updated: 2024/06/27 19:29:50 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include <minishell.h>
 #include <var_global.h>

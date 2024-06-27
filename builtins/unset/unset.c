@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 18:47:33 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/25 23:42:07 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/27 19:26:58 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	**ft_unset_envp(t_env *env, char **cmd)
 
 	i = 0;
 	j = 0;
-	new = malloc(sizeof(char *) * (ft_strstrlen(env->envp) + 1)); // valide
+	new = malloc(sizeof(char *) * (ft_strstrlen(env->envp) + 1));
 	if (!new)
 		return (msg_err_ptr_status(ERR_MALLOC, env));
 	while (env->envp[i])
@@ -48,7 +48,7 @@ static char	**ft_clean_cmd(t_env *env, char **cmd)
 	size_t	k;
 	char	**new;
 
-	new = malloc(sizeof(char *) * (ft_strstrlen(cmd) + 1)); // valide
+	new = malloc(sizeof(char *) * (ft_strstrlen(cmd) + 1));
 	if (!new)
 		return (msg_err_ptr_status(ERR_MALLOC, env));
 	i = 0;

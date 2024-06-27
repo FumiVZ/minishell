@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 18:45:49 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/25 23:45:42 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/27 19:26:20 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static char	**new_envp(t_env *env, char *var, t_pipex *pipex)
 	char	**new;
 	size_t	i;
 
-	new = malloc(sizeof(char *) * (ft_strstrlen(env->envp) + 2)); // valide
+	new = malloc(sizeof(char *) * (ft_strstrlen(env->envp) + 2));
 	if (!new)
 		error_env(pipex, env, new, 0);
 	i = 0;
@@ -34,8 +34,8 @@ static char	**new_envp(t_env *env, char *var, t_pipex *pipex)
 		new[i] = env->envp[i];
 		i++;
 	}
-	(void)var;	
-	new[i] = ft_strdup(var); // valide
+	(void)var;
+	new[i] = ft_strdup(var);
 	if (!new[i])
 		error_env(pipex, env, new, 0);
 	new[i + 1] = NULL;
@@ -59,7 +59,7 @@ static char	**ft_export_env(t_env *env, char *var, t_pipex *pipex)
 	{
 		if (!ft_strncmp(env->envp[i], var, len))
 		{
-			tmp = ft_strdup(var); // valide
+			tmp = ft_strdup(var);
 			if (!tmp)
 				error_env(pipex, env, NULL, 0);
 			free(env->envp[i]);

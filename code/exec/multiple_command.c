@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiple_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:33:41 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/27 01:14:57 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/27 10:26:49 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 void	execute_command(t_pipex *pipex, t_cmd *cmds, char **env, int i)
 {
-	env = set_last_param(pipex->env, cmds->args[ft_strstrlen(cmds->args) - 1]);
-	if (!env)
-	{
-		parent_free(pipex);
-		exit (1);
-	}
+	if (cmds->args[0] && cmds->args)
+		env = set_last_param(pipex->env, \
+			cmds->args[ft_strstrlen(cmds->args) - 1]);
+	if (cmds->args && !env)
+		ft_free_ex(pipex->env->status, pipex);
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 	pipex->pid[i] = fork();

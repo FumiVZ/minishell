@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/26 21:04:07 by machrist         ###   ########.fr       */
+/*   Created: 2024/06/27 19:27:34 by vzuccare          #+#    #+#             */
+/*   Updated: 2024/06/27 19:27:37 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -48,7 +47,6 @@
 # define ERR_SIGNAL "minishell: signal failed\n"
 
 void	ft_add_history(char *line);
-void	ft_err_signal(int sig, __sighandler_t sigtype, t_pipex *pipex);
 int		ft_history(char **args);
 void	signal_handler(int sig);
 char	**insert_tab(char **str, char **add_str, size_t pos);

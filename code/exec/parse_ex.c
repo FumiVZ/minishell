@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 22:04:48 by vincent           #+#    #+#             */
-/*   Updated: 2024/06/24 17:21:02 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/27 19:27:20 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	create_new_nodes(t_pipex *pipex, t_cmd *cmds)
 
 	i = -1;
 	tmp = malloc(sizeof(t_cmd));
-
 	while (cmds->next)
 		cmds = cmds->next;
 	list_init(tmp);

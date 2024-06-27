@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pattern_matching_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 18:26:52 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/26 20:39:16 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/27 19:24:39 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	**init_tab(char **str, char **add_str)
 	if (!add_str)
 		return (NULL);
 	new_str = malloc(sizeof(char *) * (ft_strstrlen(str) + ft_strstrlen(add_str)
-				+ 1)); // valide
+				+ 1));
 	if (!new_str)
 	{
 		free_split(add_str, ft_strstrlen(add_str));

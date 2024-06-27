@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 17:28:06 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/24 18:40:31 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/27 19:38:38 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char	*get_cmd(char **paths, char **cmd_args, t_pipex *pipex)
 		command = ft_strjoin(tmp, cmd_args[0]);
 		free(tmp);
 		if (!command)
-			return (NULL);
+			return (free(command), NULL);
 		if (access(command, X_OK) == 0)
 			return (command);
 		free(command);
@@ -93,6 +93,8 @@ static void	exec_error(t_pipex *pipex, t_cmd *cmds, char **env)
 
 void	child_exec(t_pipex *pipex, t_cmd *cmds, char **env)
 {
+	if (!cmds->args || !cmds->args[0])
+		ft_free_ex(0, pipex);
 	pipex->is_dir = false;
 	redirect(pipex, cmds);
 	close_files(pipex, pipex->cmds);
@@ -107,7 +109,7 @@ void	child_exec(t_pipex *pipex, t_cmd *cmds, char **env)
 		ft_free_ex(127, pipex);
 	}
 	execve(pipex->cmd_paths, cmds->args, env);
-	perror("minishell");
+	free(pipex->cmd_paths);
 	free_split(pipex->env->envp, ft_strstrlen(pipex->env->envp));
 	child_free(pipex, env);
 	if (errno == ENOEXEC || errno == EACCES || errno == EISDIR)

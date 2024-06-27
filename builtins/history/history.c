@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/25 23:43:15 by machrist         ###   ########.fr       */
+/*   Created: 2024/06/27 19:26:40 by vzuccare          #+#    #+#             */
+/*   Updated: 2024/06/27 19:26:43 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

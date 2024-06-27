@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/26 21:00:08 by machrist         ###   ########.fr       */
+/*   Created: 2024/06/27 19:27:49 by vzuccare          #+#    #+#             */
+/*   Updated: 2024/06/27 19:28:32 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static void	minishell(t_env *env, char *line)
 
 void	signal_handler(int sig)
 {
-	//ft_printf_fd(2, "here\n");
 	if (sig == SIGINT)
 	{
 		ft_printf_fd(2, "\n");

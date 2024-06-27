@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_outfile.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 17:36:24 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/27 01:18:51 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/27 18:17:30 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

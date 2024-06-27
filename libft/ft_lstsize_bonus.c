@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 14:22:20 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/25 22:22:44 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/27 19:31:09 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

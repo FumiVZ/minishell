@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ascii_sort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:28:09 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/26 17:36:32 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/27 19:28:22 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ static char	**list_to_tab(t_list **result, char **tab)
 	if (tab[0] == NULL)
 	{
 		free(tab);
-		tab = malloc(sizeof(char *) * 2); // valide
+		tab = malloc(sizeof(char *) * 2);
 		if (!tab)
 			return (NULL);
-		tab[0] = ft_strdup(""); // valide
+		tab[0] = ft_strdup("");
 		if (!tab[0])
 			return (free(tab), NULL);
 		tab[1] = NULL;
@@ -81,7 +81,7 @@ char	**sort_result(t_list **result, char **str, size_t i)
 	char	**tab;
 	char	*tmp;
 
-	tab = malloc(sizeof(char *) * (ft_lstsize(*result) + 1)); // valide
+	tab = malloc(sizeof(char *) * (ft_lstsize(*result) + 1));
 	if (!tab)
 	{
 		ft_lstclear(result, free);
@@ -93,7 +93,7 @@ char	**sort_result(t_list **result, char **str, size_t i)
 	free(result);
 	ascii_sort(tab);
 	tmp = str[i];
-	tab = insert_tab(str, tab, i); // valide
+	tab = insert_tab(str, tab, i);
 	if (!tab)
 	{
 		free_split(tab, ft_strstrlen(tab));
@@ -102,4 +102,3 @@ char	**sort_result(t_list **result, char **str, size_t i)
 	free(tmp);
 	return (tab);
 }
-

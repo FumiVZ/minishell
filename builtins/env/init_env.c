@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 18:06:32 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/24 19:08:48 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/27 19:44:10 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	alloc_env(char **new, char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		new[i] = ft_strdup(envp[i]); // valide
+		new[i] = ft_strdup(envp[i]);
 		if (!new[i])
 		{
 			free_split(new, i);
@@ -55,10 +55,10 @@ void	ft_init_env(t_env *env, char **envp)
 {
 	char	**new;
 
-	new = malloc(sizeof(char *) * (ft_strstrlen(envp) + 1)); // valide
+	new = malloc(sizeof(char *) * (ft_strstrlen(envp) + 1));
 	if (!new)
 	{
-		perror("minishell: error malloc");
+		ft_putendl_fd("minishell: malloc failed", 2);
 		exit(1);
 	}
 	alloc_env(new, envp);
@@ -97,7 +97,7 @@ void	add_value_to_env(t_env *env, char *var)
 
 	if (!var)
 		ft_exit_malloc(env);
-	new = malloc(sizeof(char *) * (ft_strstrlen(env->envp) + 2)); // valide
+	new = malloc(sizeof(char *) * (ft_strstrlen(env->envp) + 2));
 	if (!new)
 	{
 		free(var);

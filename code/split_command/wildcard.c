@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 13:57:00 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/26 17:49:57 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/27 19:29:21 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static bool	is_dir(const char *dir, char *pwd)
 
 	if (!pwd)
 		return (msg_err(GETCWD));
-	path = malloc(sizeof(char) * (ft_strlen(pwd) + ft_strlen(dir) + 2)); // valide
+	path = malloc(sizeof(char) * (ft_strlen(pwd) + ft_strlen(dir) + 2));
 	if (!path)
 	{
 		free(pwd);
@@ -29,7 +29,7 @@ static bool	is_dir(const char *dir, char *pwd)
 	ft_strlcat(path, "/", ft_strlen(pwd) + 2);
 	ft_strlcat(path, dir, ft_strlen(pwd) + ft_strlen(dir) + 2);
 	free(pwd);
-	if (stat(path, &info) != 0) //valide
+	if (stat(path, &info) != 0)
 	{
 		free(path);
 		return (msg_err(STAT));
@@ -75,12 +75,12 @@ static bool	set_result(t_list **result, const struct dirent *entry,
 	t_list		*new;
 
 	if (pattern[ft_strlen(pattern) - 1] == '/')
-		tmp = ft_strjoin(entry->d_name, "/"); // valide
+		tmp = ft_strjoin(entry->d_name, "/");
 	else
-		tmp = ft_strdup(entry->d_name); // valide
+		tmp = ft_strdup(entry->d_name);
 	if (!tmp)
 		return (false);
-	new = ft_lstnew((char *)tmp); // valide
+	new = ft_lstnew((char *)tmp);
 	if (!new)
 	{
 		free((char *)tmp);
@@ -95,7 +95,7 @@ static bool	init_wildcard(DIR **dir, struct dirent **entry, t_list **result)
 	if (!result)
 		return (false);
 	*result = NULL;
-	*dir = opendir("."); // valide
+	*dir = opendir(".");
 	if (!*dir)
 		return (free(result), false);
 	*entry = readdir(*dir);
@@ -109,7 +109,7 @@ char	**wildcard_match(const char *pattern, char **str, size_t i)
 	t_list			**result;
 	char			**tmp;
 
-	result = malloc(sizeof(t_list *)); // valide
+	result = malloc(sizeof(t_list *));
 	if (!init_wildcard(&dir, &entry, result))
 		return (NULL);
 	while (entry != NULL)

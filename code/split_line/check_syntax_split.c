@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_syntax_split.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 21:15:01 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/27 01:29:32 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/27 19:35:54 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static bool	special_case(char **str, size_t i)
 {
 	return (((is_redir(str[i + 1][0]) || is_pipe_or_and(str[i + 1][0]))
 			&& is_redir(str[i][0])) || (is_pipe_or_and(str[i + 1][0])
-			&& is_pipe_or_and(str[i][0])));
+			&& is_pipe_or_and(str[i][0]))
+			|| ft_strlen(str[i]) >= 3);
 }
 
 static bool	check_double_special(char **str)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_infile.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 17:27:05 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/26 21:02:26 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/27 18:16:25 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	error_infile(t_pipex *pipex, t_cmd *cmds, char *file, int fd)
 
 void	get_infiles(t_pipex *pipex, char **cmd, t_cmd *cmds, int i)
 {
-	int	j;
+	int		j;
 
 	j = 0;
 	malloc_infiles(pipex, cmds, cmd);
@@ -102,18 +102,16 @@ void	get_infiles(t_pipex *pipex, char **cmd, t_cmd *cmds, int i)
 	{
 		if (chre(cmd[i], "<") || chre(cmd[i], "<<"))
 		{
-			cmds->infiles_name[j] = quote_rm_world(cmd[i + 1], NULL);
-			cmds->infiles[j] = -1;
-			cmds->infiles[j] = open_infiles(pipex, cmd[i], cmd[i + 1],
-					cmds->infiles_name[j]);
-			if (cmds->infiles[j] < 0)
+			cmds->infiles_name[j++] = quote_rm_world(cmd[i + 1], NULL);
+			cmds->infiles[j - 1] = -1;
+			cmds->infiles[j - 1] = open_infiles(pipex, cmd[i], cmd[i + 1],
+					cmds->infiles_name[j - 1]);
+			if (cmds->infiles[j - 1] < 0)
 			{
 				error_infile(pipex, cmds, \
-					cmds->infiles_name[j], cmds->infiles[j]);
-					rl_done = 0;
+					cmds->infiles_name[j], cmds->infiles[j - 1]);
 				break ;
 			}
-			j++;
 		}
 		cmds->infiles[j] = -1;
 	}
