@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:09:04 by vincent           #+#    #+#             */
-/*   Updated: 2024/06/27 19:22:40 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/28 16:27:41 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ char	*collect_heredoc_input(char *delimiter, t_pipex *pipex)
 	while (g_signal == 1)
 	{
 		line = readline("> ");
-		if (!line || !ft_strncmp(line, delimiter, ft_strlen(delimiter)))
+		if (!line || (!ft_strncmp(line, delimiter, ft_strlen(delimiter)) \
+		&& ft_strlen(line) == ft_strlen(delimiter)))
 		{
 			if (!line)
 			{
-				g_signal = 0;
 				ft_printf_fd(2, "minishell: warning: here-document delimited");
 				ft_printf_fd(2, " by end-of-file (wanted `%s')\n", delimiter);
 				return (free(tmp), NULL);
@@ -93,6 +93,7 @@ int	here_doc(t_pipex *pipex, char *infile_name)
 	rl_event_hook = NULL;
 	if (!input)
 	{
+		g_signal = 0;
 		rl_done = 0;
 		return (-2);
 	}

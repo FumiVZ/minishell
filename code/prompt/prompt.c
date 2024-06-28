@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 19:27:49 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/27 19:28:32 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/28 16:28:33 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	minishell(t_env *env, char *line)
 {
 	if (!check_syntax(line))
 	{
-		env->status = 1;
+		env->status = 2;
 		return ;
 	}
 	env->cmds = ft_word_spliting(line, " \t");
@@ -26,7 +26,7 @@ static void	minishell(t_env *env, char *line)
 		return ;
 	if (!check_syntax_split(env->cmds))
 	{
-		env->status = 1;
+		env->status = 2;
 		free_split(env->cmds, ft_strstrlen(env->cmds));
 		return ;
 	}

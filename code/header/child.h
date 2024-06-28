@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 17:28:47 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/26 17:47:00 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/28 14:33:01 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "pipex.h"
 # include <minishell.h>
 # include "struct.h"
-# include "error.h"
 # include <libft.h>
 # include <fcntl.h>
 

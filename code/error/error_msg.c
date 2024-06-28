@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:49:45 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/27 19:43:29 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/28 14:45:56 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,14 @@ void	msg_perror(t_env *env, char *err)
 	env->status = 1;
 }
 
-int	msg_err_syntax(char *err, char c)
+int	msg_err_syntax(char *err, char *c)
 {
 	ft_putstr_fd(err, 2);
 	ft_putchar_fd('`', 2);
-	ft_putchar_fd(c, 2);
+	if (ft_strlen(c) > 1)
+		write(2, c, 2);
+	else
+		write(2, c, 1);
 	ft_putstr_fd("'\n", 2);
 	return (0);
 }

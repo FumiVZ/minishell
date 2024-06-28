@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 18:19:20 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/27 19:42:59 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/28 15:05:59 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ static bool	init_cd(t_env *env, char **args, char **oldpwd, char **pwd)
 	}
 	if (chdir(args[1]) == -1)
 	{
-		ft_putendl_fd("minishell: error chdir", 2);
+		ft_putstr_fd("minishell: cd: ", 2);
+		ft_putstr_fd(args[1], 2);
+		ft_putendl_fd(": Not a directory", 2);
 		free(*oldpwd);
 		env->status = 1;
 		return (false);

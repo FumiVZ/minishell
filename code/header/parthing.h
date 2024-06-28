@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parthing.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 14:44:21 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/26 17:40:15 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/28 14:34:11 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,8 @@
 # include <sys/stat.h>
 
 # define MALLOC "minishell: malloc failed\n"
-# define GETCWD "getcwd failed"
+# define GETCWD "getcwd failed\n"
 # define STAT "stat failed\n"
-# define ERR_OPEN "open failed"
-# define ERR_READ "read failed"
-# define ERR_CLOSE "close failed"
-# define ERR_PIPE "pipe failed"
-# define ERR_FORK "fork failed"
-# define ERR_EXECVE "execve failed"
-# define ERR_WAITPID "waitpid failed"
 
 # define ERR_PAR "minishell: syntax error near unexpected token `('\n"
 # define ERR_UNDEFINE "syntax error undefine behavior\n"

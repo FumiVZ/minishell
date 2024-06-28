@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:24:29 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/27 19:45:35 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/28 17:26:56 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,7 @@ long int	ft_strtol(const char *nptr);
 char		**ft_strstrdup(const char **s);
 int			ft_printf_fd(int fd, const char *format, ...);
 char		*get_next_line(int fd);
+void		ft_bzero_ptr(void **s, size_t n);
+int			ft_strfind(const char *s, char c);
 
 #endif

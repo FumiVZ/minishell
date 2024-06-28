@@ -57,7 +57,6 @@ OBJECTS = $(SRC:%.c=$(BUILD_DIR)/%.o)
 HEADER = code/header/minishell.h \
 		 code/header/struct.h \
 		 code/header/child.h \
-		 code/header/error.h \
 		 code/header/minishell.h \
 		 code/header/parthing.h \
 		 code/header/pipex.h \

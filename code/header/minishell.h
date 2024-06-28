@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 19:27:34 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/27 19:27:37 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/28 17:19:32 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define MINISHELL_H
 
 # include "child.h"
-# include "error.h"
 # include "libft.h"
 # include "pipex.h"
 # include "struct.h"
@@ -34,17 +33,15 @@
 # include <unistd.h>
 
 # define ERR_FILE "minishell: %s: %s\n"
-# define ERR_INPUT "Invalid number of arguments."
-# define ERR_PIPE "pipe failed"
+# define ERR_PIPE "pipe failed\n"
 # define ERR_CMD "minishell: %s: command not found\n"
-# define ERR_CMD_EMPTY "pipex: command not found\n"
-# define ERR_FORK "fork failed"
+# define ERR_CMD_EMPTY "minishell: command not found\n"
+# define ERR_FORK "fork failed\n"
 # define ERR_MALLOC "minishell: malloc failed\n"
 # define ERR_ACCESS "minishell: %s: Permission denied\n"
 # define ERR_ACCESS_EMPTY "minishell: Permission denied\n"
 # define ERR_IS_DIR "minishell: %s: Is a directory\n"
 # define ERR_DUP2 "minishell: dup2 failed\n"
-# define ERR_SIGNAL "minishell: signal failed\n"
 
 void	ft_add_history(char *line);
 int		ft_history(char **args);
@@ -101,11 +98,12 @@ bool	ft_check_num(char *nptr);
 void	secure_dup2(int oldfd, int newfd, t_pipex *pipex);
 bool	check_syntax_split(char **str);
 long	check_shlvl(char *shlvl);
-int		msg_err_syntax(char *err, char c);
+int		msg_err_syntax(char *err, char *c);
 char	**delete_parentheses(char **str, t_pipex *pipex);
 void	set_default_env(t_env *env);
 bool	update_env(t_env *env, char **oldpwd, char **pwd, t_pipex *pipex);
 void	ft_exit_malloc(t_env *env);
 void	*msg_err_ptr_status(char *err, t_env *env);
+void	ft_free_ex_msg(int status, t_pipex *pipex, t_cmd *cmds);
 
 #endif
