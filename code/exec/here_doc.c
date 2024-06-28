@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:09:04 by vincent           #+#    #+#             */
-/*   Updated: 2024/06/28 16:27:41 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/28 20:33:45 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*collect_heredoc_input(char *delimiter, t_pipex *pipex)
 				ft_printf_fd(2, " by end-of-file (wanted `%s')\n", delimiter);
 				return (free(tmp), NULL);
 			}
-			return (tmp);
+			return (free(line), tmp);
 		}
 		tmp = ft_strjoin_free(tmp, line);
 		if (!tmp)

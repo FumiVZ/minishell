@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 17:27:05 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/28 16:00:45 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/28 20:36:09 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	open_infiles(t_pipex *pipex, char *cmd, char *file, char *infile_name)
 
 void	error_infile(t_pipex *pipex, t_cmd *cmds, int fd, int j)
 {
-	if (fd == -1)
+	if (fd < 0)
 		cmds->exec = 0;
 	if (errno != 0)
 		msg_error_infile(ERR_FILE, pipex, cmds->infiles_name[j]);

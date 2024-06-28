@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 19:26:40 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/27 19:26:43 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/28 20:43:57 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,14 @@ static int	is_space(char c)
 	return (0);
 }
 
-static int	is_same(char *line, char *hist)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] && hist[i])
-	{
-		if (line[i] != hist[i])
-			return (0);
-		i++;
-	}
-	if (line[i] || hist[i])
-		return (0);
-	return (1);
-}
-
 void	ft_add_history(char *line)
 {
 	HIST_ENTRY	**hist_list;
 	int			i;
 	int			flag;
 
+	if (!line)
+		return ;
 	hist_list = history_list();
 	i = -1;
 	flag = 0;
@@ -58,10 +44,6 @@ void	ft_add_history(char *line)
 			add_history(line);
 		return ;
 	}
-	while (hist_list[i])
-		i++;
-	if (!is_same(line, hist_list[i - 1]->line) && flag)
-		add_history(line);
 }
 
 int	ft_history(char **args)

@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 19:27:49 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/28 18:31:39 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/28 20:32:48 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	ft_readline(t_env *env)
 			ft_exit_error(env, 0);
 		ft_add_history(line);
 		minishell(env, line);
+		free(line);
 	}
 }
 
