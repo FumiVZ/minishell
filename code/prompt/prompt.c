@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 19:27:49 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/28 16:28:33 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/28 18:31:39 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,28 +66,6 @@ void	ft_readline(t_env *env)
 	}
 }
 
-int	manage_c(char **av, t_env env)
-{
-	char	**tmp;
-	size_t	i;
-
-	tmp = ft_split(av[2], ';');
-	if (!tmp)
-		ft_exit_error(&env, 1);
-	i = 0;
-	if (tmp[ft_strstrlen(tmp) - 1][ft_strlen(tmp[ft_strstrlen(tmp) - 1])
-		- 1] == '\n')
-		tmp[ft_strstrlen(tmp) - 1][ft_strlen(tmp[ft_strstrlen(tmp) - 1])
-			- 1] = '\0';
-	while (tmp[i])
-	{
-		minishell(&env, tmp[i]);
-		i++;
-	}
-	free_split(tmp, ft_strstrlen(tmp));
-	return (env.status);
-}
-
 int	main(int ac, char **av, char **envp)
 {
 	t_env	env;
@@ -99,9 +77,6 @@ int	main(int ac, char **av, char **envp)
 	init_last_param(&env, ac, av);
 	if (!env.envp)
 		ft_exit_error(&env, 1);
-	if (ac == 3 && !ft_strncmp(av[1], "-c", 3))
-		return (manage_c(av, env));
-	else
-		ft_readline(&env);
+	ft_readline(&env);
 	return (0);
 }

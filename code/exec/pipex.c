@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 19:29:47 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/28 16:58:01 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/28 18:12:59 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,10 @@ void	init_pipex(t_env *env, char **cmds)
 	if (find_path(env->envp))
 	{
 		pipex->paths = ft_split(find_path(env->envp), ':');
+		if (!pipex->paths && errno != ENOMEM)
+			pipex->paths = ft_split(DEFAULT_PATH, ':');
 		if (!pipex->paths && errno == ENOMEM)
 			malloc_failed(pipex);
-		if (!pipex->paths)
-			pipex->paths = ft_split("/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin", ':');
 	}
 	pipex->old0 = -1;
 	pipex->old1 = -1;

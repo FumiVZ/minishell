@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 19:27:34 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/28 17:19:32 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/28 18:13:42 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # include <termios.h>
 # include <unistd.h>
 
+# define DEFAULT_PATH "/usr/local/sbin:/usr/local/bin\
+:/usr/sbin:/usr/bin:/sbin:/bin"
 # define ERR_FILE "minishell: %s: %s\n"
 # define ERR_PIPE "pipe failed\n"
 # define ERR_CMD "minishell: %s: command not found\n"
