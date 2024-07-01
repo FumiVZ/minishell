@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/26 21:04:07 by machrist         ###   ########.fr       */
+/*   Updated: 2024/07/01 16:34:03 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,8 @@
 # define ERR_DUP2 "minishell: dup2 failed\n"
 # define ERR_SIGNAL "minishell: signal failed\n"
 
-void	ft_add_history(char *line);
+bool	ft_add_history(t_env *env, char *line);
 void	ft_err_signal(int sig, __sighandler_t sigtype, t_pipex *pipex);
-int		ft_history(char **args);
 void	signal_handler(int sig);
 char	**insert_tab(char **str, char **add_str, size_t pos);
 char	**extract_arguments(char **cmd, char **args);

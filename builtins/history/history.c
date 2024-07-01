@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/25 23:43:15 by machrist         ###   ########.fr       */
+/*   Updated: 2024/07/01 16:55:05 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,80 +14,56 @@
 
 static int	is_space(char c)
 {
-	if (c == ' ' || c == '\t')
+	if (c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\f'
+		|| c == '\v')
 		return (1);
 	return (0);
 }
 
-static int	is_same(char *line, char *hist)
+static void	change_last_line(t_env *env, char *line)
 {
-	int	i;
+	size_t	i;
+	size_t	j;
 
-	i = 0;
-	while (line[i] && hist[i])
+	j = 0;
+	while (line[j] && is_space(line[j]))
+		j++;
+	if (!env->last_line)
 	{
-		if (line[i] != hist[i])
-			return (0);
-		i++;
-	}
-	if (line[i] || hist[i])
-		return (0);
-	return (1);
-}
-
-void	ft_add_history(char *line)
-{
-	HIST_ENTRY	**hist_list;
-	int			i;
-	int			flag;
-
-	hist_list = history_list();
-	i = -1;
-	flag = 0;
-	while (line[++i])
-	{
-		if (!is_space(line[i]))
-			flag = 1;
-		if (flag)
-			break ;
-		i++;
-	}
-	if (!hist_list)
-	{
-		if (flag)
-			add_history(line);
+		env->last_line = line;
+		add_history(line + j);
 		return ;
 	}
-	while (hist_list[i])
+	i = 0;
+	while (env->last_line[i] && is_space(env->last_line[i]))
 		i++;
-	if (!is_same(line, hist_list[i - 1]->line) && flag)
-		add_history(line);
+	if (ft_strncmp(env->last_line + i, line + j, ft_strlen(line + j)))
+		add_history(line + j);
+	free(env->last_line);
+	env->last_line = line;
 }
 
-int	ft_history(char **args)
+bool	ft_add_history(t_env *env, char *line)
 {
-	HIST_ENTRY	**hist_list;
-	int			i;
-	int			n;
+	size_t	i;
+	size_t	j;
 
-	hist_list = history_list();
-	i = -1;
-	if (args[1])
+	i = 0;
+	while (line[i] && is_space(line[i]))
+		i++;
+	if (!line[i])
 	{
-		if (args[1][0] < '0' || args[1][0] > '9')
-			return (-1);
-		n = ft_atoi(args[1]);
-		while (hist_list[++i])
-			;
-		n = i - n - 1;
-		while (n++ < i)
-			if (n < i && n >= 0 && hist_list[n])
-				printf("    %d  %s\n", n, hist_list[n]->line);
-		return (0);
+		free(line);
+		return (false);
 	}
-	if (!hist_list)
-		return (0);
-	while (hist_list[++i])
-		printf("    %d  %s\n", i, hist_list[i]->line);
-	return (0);
+	j = i;
+	while (line[j] && !is_space(line[j]))
+		j++;
+	if ((i != 0 && !line[j]) || i == 0)
+	{
+		change_last_line(env, line);
+		return (true);
+	}
+	env->free_line = line;
+	return (true);
 }

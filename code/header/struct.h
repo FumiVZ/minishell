@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 17:20:40 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/24 18:20:07 by machrist         ###   ########.fr       */
+/*   Updated: 2024/07/01 16:46:35 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ typedef struct s_env
 {
 	char			*pwd;
 	char			*oldpwd;
+	char			*last_line;
+	char			*free_line;
 	char			**envp;
 	char			**cmds;
 	char			**clean_cmds;

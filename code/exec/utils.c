@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 16:27:22 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/24 19:19:19 by machrist         ###   ########.fr       */
+/*   Updated: 2024/07/01 16:01:45 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,6 @@ bool	ft_builtins(t_env *env, t_pipex *pipex, char **args)
 		ft_export(env, args, pipex);
 	else if (!ft_strncmp(args[0], "unset", 6))
 		ft_unset(env, args);
-	else if (!ft_strncmp(args[0], "history", 8))
-	{
-		if (ft_history(args) == -1)
-			ft_printf_fd(2, "minishell: history:\
-				%s: numeric argument required\n", args[1]);
-	}
 	else
 		return (0);
 	return (1);

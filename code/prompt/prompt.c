@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/26 21:00:08 by machrist         ###   ########.fr       */
+/*   Updated: 2024/07/01 16:47:18 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ static void	minishell(t_env *env, char *line)
 		env->status = 1;
 		return ;
 	}
-	env->cmds = ft_word_spliting(line, " \t");
+	env->cmds = ft_word_spliting(line, " \t\n\r\f\v");
+	if (env->free_line)
+		free(env->free_line);
 	if (!(env->cmds))
 		return ;
 	if (!check_syntax_split(env->cmds))
@@ -41,7 +43,6 @@ static void	minishell(t_env *env, char *line)
 
 void	signal_handler(int sig)
 {
-	//ft_printf_fd(2, "here\n");
 	if (sig == SIGINT)
 	{
 		ft_printf_fd(2, "\n");
@@ -61,9 +62,9 @@ void	ft_readline(t_env *env)
 		rl_done = 0;
 		line = readline("minishell$ ");
 		if (!line)
-			ft_exit_error(env, 0);
-		ft_add_history(line);
-		minishell(env, line);
+			ft_exit_error(env, env->status);
+		if (ft_add_history(env, line))
+			minishell(env, line);
 	}
 }
 
