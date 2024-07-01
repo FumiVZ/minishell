@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parentheses.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:42:53 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/27 01:17:04 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/27 18:48:27 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,15 @@ char	**allocate_and_copy(char **str, t_pipex *pipex, int size_reduction)
 	while (str[i] && ft_strncmp(str[i], "&&", 2) && ft_strncmp(str[i], "||", 2))
 	{
 		if (str[i][0] != '(' && str[i][0] != ')')
-			new[j++] = ft_strdup(str[i]);
+		{
+			new[j] = ft_strdup(str[i]);
+			if (!new[j])
+			{
+				free_split(new, j);
+				msg_error(ERR_MALLOC, pipex);
+			}
+			j++;
+		}
 		i++;
 	}
 	new[j] = NULL;

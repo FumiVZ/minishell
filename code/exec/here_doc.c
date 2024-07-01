@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:09:04 by vincent           #+#    #+#             */
-/*   Updated: 2024/06/26 21:00:32 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/28 20:33:45 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,20 +58,20 @@ char	*collect_heredoc_input(char *delimiter, t_pipex *pipex)
 
 	tmp = ft_strdup("");
 	if (!tmp)
-		ft_exit_error(NULL, 1);
+		malloc_failed(pipex);
 	while (g_signal == 1)
 	{
 		line = readline("> ");
-		if (!line || !ft_strncmp(line, delimiter, ft_strlen(delimiter)))
+		if (!line || (!ft_strncmp(line, delimiter, ft_strlen(delimiter)) \
+		&& ft_strlen(line) == ft_strlen(delimiter)))
 		{
 			if (!line)
 			{
-				g_signal = 0;
 				ft_printf_fd(2, "minishell: warning: here-document delimited");
 				ft_printf_fd(2, " by end-of-file (wanted `%s')\n", delimiter);
 				return (free(tmp), NULL);
 			}
-			return (tmp);
+			return (free(line), tmp);
 		}
 		tmp = ft_strjoin_free(tmp, line);
 		if (!tmp)
@@ -86,20 +86,19 @@ int	here_doc(t_pipex *pipex, char *infile_name)
 	char	*input;
 
 	g_signal = 1;
-	ft_err_signal(SIGINT, hook_here_doc, pipex);
-	if (pipe(pipefd) == -1)
-		ft_exit_error(pipex->env, 1);
+	signal(SIGINT, hook_here_doc);
 	rl_event_hook = readline_event_hook;
 	input = collect_heredoc_input(infile_name, pipex);
-	ft_err_signal(SIGINT, signal_handler, pipex);
+	signal(SIGINT, signal_handler);
 	rl_event_hook = NULL;
 	if (!input)
 	{
+		g_signal = 0;
 		rl_done = 0;
-		close(pipefd[0]);
-		close(pipefd[1]);
 		return (-2);
 	}
+	if (pipe(pipefd) == -1)
+		ft_exit_error(pipex->env, 1);
 	write(pipefd[1], input, ft_strlen(input));
 	close(pipefd[1]);
 	free(input);
@@ -107,4 +106,3 @@ int	here_doc(t_pipex *pipex, char *infile_name)
 		return (close(pipefd[0]), -1);
 	return (pipefd[0]);
 }
-

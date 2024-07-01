@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 17:20:05 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/25 22:38:31 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/28 16:36:58 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@ void	free_files(t_cmd *head)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	if (head->infiles_name)
 	{
-		while (head->infiles_name[++i])
+		while (head->infiles_name[i])
 		{
 			free(head->infiles_name[i]);
 			head->infiles[i] = -1;
+			i++;
 		}
 		free(head->infiles_name);
 		free(head->infiles);

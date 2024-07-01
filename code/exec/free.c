@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 17:53:23 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/26 21:00:28 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:14:51 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	child_free(t_pipex *pipex, char **env)
 
 void	malloc_failed(t_pipex *pipex)
 {
-	ft_printf_fd(2, "pipex: malloc failed\n");
+	ft_printf_fd(2, "minishell: malloc failed\n");
 	if (pipex->env->envp)
 		free_split(pipex->env->envp, ft_strstrlen(pipex->env->envp));
 	parent_free(pipex);

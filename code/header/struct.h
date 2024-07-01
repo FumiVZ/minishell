@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 17:20:40 by machrist          #+#    #+#             */
-/*   Updated: 2024/07/01 16:46:35 by machrist         ###   ########.fr       */
+/*   Updated: 2024/07/01 16:57:34 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_cmd
 	int				*outfiles;
 	char			**outfiles_name;
 	int				id;
+	int				stop;
 	int				*pipe;
 	int				exec;
 	int				is_parentheses;
@@ -66,9 +67,9 @@ void				close_files(t_pipex *pipex, t_cmd *cmd);
 void				pipe_handle(t_pipex *pipex, t_cmd *cmd);
 void				crt_pipes(t_pipex *pipex, t_cmd *cmd);
 void				parent_free(t_pipex *pipex);
-void				msg_error_outfile(char *err, t_pipex pipex,
+void				msg_error_outfile(char *err, t_pipex *pipex,
 						char *outfiles_name);
-void				msg_error_infile(char *err, t_pipex pipex,
+void				msg_error_infile(char *err, t_pipex *pipex,
 						char *infile_name);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables_env_search.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 13:31:29 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/26 20:47:08 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/27 19:29:08 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*get_value(char *str, char **env, t_env *envp)
 			if (env[i][get_len_name(str)] == '=')
 			{
 				len = ft_strlen(env[i]) - get_len_name(str) - 1;
-				value = malloc(len + 1); // valide
+				value = malloc(len + 1);
 				if (!value)
 					return (NULL);
 				ft_strlcpy(value, env[i] + get_len_name(str) + 1, len + 1);
@@ -74,7 +74,7 @@ char	*add_var_env(char *str, char *value, size_t len, long long pos)
 
 	if (!value)
 		return (NULL);
-	new = malloc(ft_strlen(str) - len + ft_strlen(value) + 1); // valide
+	new = malloc(ft_strlen(str) - len + ft_strlen(value) + 1);
 	if (!new)
 		return (free(value), NULL);
 	i = 0;
@@ -103,7 +103,7 @@ char	*full_str(char *str, char *value, size_t pos)
 
 	if (!value)
 		return (NULL);
-	new = malloc(ft_strlen(str) + ft_strlen(value) + 1); // valide
+	new = malloc(ft_strlen(str) + ft_strlen(value) + 1);
 	if (!new)
 		return (free(value), NULL);
 	i = 0;

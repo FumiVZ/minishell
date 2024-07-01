@@ -6,7 +6,7 @@
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/01 16:47:18 by machrist         ###   ########.fr       */
+/*   Updated: 2024/07/01 16:57:54 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	minishell(t_env *env, char *line)
 {
 	if (!check_syntax(line))
 	{
-		env->status = 1;
+		env->status = 2;
 		return ;
 	}
 	env->cmds = ft_word_spliting(line, " \t\n\r\f\v");
@@ -28,7 +28,7 @@ static void	minishell(t_env *env, char *line)
 		return ;
 	if (!check_syntax_split(env->cmds))
 	{
-		env->status = 1;
+		env->status = 2;
 		free_split(env->cmds, ft_strstrlen(env->cmds));
 		return ;
 	}
@@ -68,28 +68,6 @@ void	ft_readline(t_env *env)
 	}
 }
 
-int	manage_c(char **av, t_env env)
-{
-	char	**tmp;
-	size_t	i;
-
-	tmp = ft_split(av[2], ';');
-	if (!tmp)
-		ft_exit_error(&env, 1);
-	i = 0;
-	if (tmp[ft_strstrlen(tmp) - 1][ft_strlen(tmp[ft_strstrlen(tmp) - 1])
-		- 1] == '\n')
-		tmp[ft_strstrlen(tmp) - 1][ft_strlen(tmp[ft_strstrlen(tmp) - 1])
-			- 1] = '\0';
-	while (tmp[i])
-	{
-		minishell(&env, tmp[i]);
-		i++;
-	}
-	free_split(tmp, ft_strstrlen(tmp));
-	return (env.status);
-}
-
 int	main(int ac, char **av, char **envp)
 {
 	t_env	env;
@@ -101,9 +79,6 @@ int	main(int ac, char **av, char **envp)
 	init_last_param(&env, ac, av);
 	if (!env.envp)
 		ft_exit_error(&env, 1);
-	if (ac == 3 && !ft_strncmp(av[1], "-c", 3))
-		return (manage_c(av, env));
-	else
-		ft_readline(&env);
+	ft_readline(&env);
 	return (0);
 }

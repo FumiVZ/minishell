@@ -3,6 +3,56 @@ CFLAGS = -Wall -Wextra -Werror -g
 CC = cc
 BUILD_DIR = build
 
+HEADER_LIBFT = libft/libft.h libft/GNL/gnl.h
+
+SRC_LIBFT =	libft/ft_atoi.c \
+		libft/ft_itoa.c \
+		libft/ft_putendl_fd.c \
+		libft/ft_strlcat.c \
+		libft/ft_substr.c \
+		libft/ft_bzero.c \
+		libft/ft_putnbr_fd.c \
+		libft/ft_strlcpy.c \
+		libft/ft_tolower.c \
+		libft/ft_calloc.c \
+		libft/ft_memchr.c \
+		libft/ft_putstr_fd.c \
+		libft/ft_strlen.c \
+		libft/ft_toupper.c \
+		libft/ft_isalnum.c \
+		libft/ft_memcmp.c \
+		libft/ft_split.c \
+		libft/ft_strmapi.c \
+		libft/ft_isalpha.c \
+		libft/ft_memcpy.c \
+		libft/ft_strchr.c \
+		libft/ft_strncmp.c \
+		libft/ft_isascii.c \
+		libft/ft_memmove.c \
+		libft/ft_strdup.c \
+		libft/ft_strnstr.c \
+		libft/ft_isdigit.c \
+		libft/ft_memset.c \
+		libft/ft_striteri.c \
+		libft/ft_strrchr.c \
+		libft/ft_isprint.c \
+		libft/ft_putchar_fd.c \
+		libft/ft_strjoin.c \
+		libft/ft_strtrim.c \
+		libft/printf/ft_printf.c \
+		libft/printf/ft_printf_utils.c \
+		libft/ft_lstnew_bonus.c \
+		libft/ft_lstadd_back_bonus.c \
+		libft/ft_lstsize_bonus.c \
+		libft/ft_lstadd_front_bonus.c \
+		libft/ft_lstclear_bonus.c \
+		libft/ft_lstdelone_bonus.c \
+		libft/ft_lstiter_bonus.c \
+		libft/ft_lstlast_bonus.c \
+		libft/ft_lstmap_bonus.c \
+		libft/GNL/gnl.c \
+		libft/GNL/gnlu.c 
+
 SRC = code/error/error_msg.c \
 	  code/exec/child.c \
 	  code/exec/child_utils.c \
@@ -57,7 +107,6 @@ OBJECTS = $(SRC:%.c=$(BUILD_DIR)/%.o)
 HEADER = code/header/minishell.h \
 		 code/header/struct.h \
 		 code/header/child.h \
-		 code/header/error.h \
 		 code/header/minishell.h \
 		 code/header/parthing.h \
 		 code/header/pipex.h \
@@ -65,7 +114,7 @@ HEADER = code/header/minishell.h \
 		 code/header/var_global.h 
 
 
-all: $(BUILD_DIR) $(LIBFT) $(NAME)
+all: $(NAME)
 
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
@@ -88,13 +137,13 @@ $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)/code/exec
 
 
-$(NAME): $(OBJECTS)
+$(NAME): $(BUILD_DIR) $(LIBFT) $(OBJECTS) 
 	$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME) $(LIBFT) -lreadline -lncurses
 
 $(BUILD_DIR)/%.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@ -I$(HEADER_PATH) -I$(LIB_PATH)
 
-$(LIBFT):
+$(LIBFT): $(SRC_LIBFT) $(HEADER_LIBFT)
 	$(MAKE) -C $(LIB_PATH) 
 
 clean:
@@ -107,4 +156,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re $(LIBFT)
+.PHONY: all clean fclean re  bonus

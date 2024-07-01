@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_outfile.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 17:36:24 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/27 01:18:51 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/28 14:25:41 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	open_outfiles(t_pipex *pipex, char *cmd, char *file)
 	quote_removal(tmp);
 	if (ft_strstrlen(tmp) != 1)
 	{
-		ft_printf_fd(2, "pipex: ambiguous redirect\n");
+		ft_printf_fd(2, "minishell: ambiguous redirect\n");
 		free_split(tmp, ft_strstrlen(tmp));
 		return (-1);
 	}
@@ -46,7 +46,7 @@ void	error_outfile(t_pipex *pipex, t_cmd *cmds, char *file)
 	int	j;
 
 	if (errno != 0)
-		msg_error_outfile(ERR_FILE, *pipex, file);
+		msg_error_outfile(ERR_FILE, pipex, file);
 	pipex->env->status = 1;
 	j = -1;
 	while (cmds->outfiles_name[++j])

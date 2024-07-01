@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 18:19:20 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/24 18:25:49 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/28 15:05:59 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,26 @@
 
 static bool	init_cd(t_env *env, char **args, char **oldpwd, char **pwd)
 {
-	*oldpwd = getcwd(NULL, 0); // valide
+	*oldpwd = getcwd(NULL, 0);
 	if (!*oldpwd)
 	{
-		perror("minishell: cd");
+		ft_putendl_fd("minishell: error getcwd", 2);
 		env->status = 1;
 		return (false);
 	}
 	if (chdir(args[1]) == -1)
 	{
-		perror("minishell: cd");
+		ft_putstr_fd("minishell: cd: ", 2);
+		ft_putstr_fd(args[1], 2);
+		ft_putendl_fd(": Not a directory", 2);
 		free(*oldpwd);
 		env->status = 1;
 		return (false);
 	}
-	*pwd = getcwd(NULL, 0); // valide
+	*pwd = getcwd(NULL, 0);
 	if (!*pwd)
 	{
-		perror("minishell: cd");
+		ft_putendl_fd("minishell: error getcwd", 2);
 		free(*oldpwd);
 		env->status = 1;
 		return (false);
@@ -51,7 +53,7 @@ static void	cd_oldpwd(t_env *env, char **args, t_pipex *pipex)
 		env->status = 1;
 		return ;
 	}
-	new = malloc(sizeof(char *) * 3); // valide
+	new = malloc(sizeof(char *) * 3);
 	if (!new)
 	{
 		msg_perror(env, ERR_MALLOC);
@@ -76,7 +78,7 @@ static void	cd_no_args(t_env *env, char **args, t_pipex *pipex)
 		env->status = 1;
 		return ;
 	}
-	new = malloc(sizeof(char *) * 3); // valide
+	new = malloc(sizeof(char *) * 3);
 	if (!new)
 	{
 		msg_perror(env, ERR_MALLOC);

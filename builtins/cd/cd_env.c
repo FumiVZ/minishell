@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:09:07 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/24 18:22:02 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/27 19:42:23 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static char	**new_envp(t_env *env, char *var, t_pipex *pipex)
 	size_t	i;
 
 	i = 0;
-	new = malloc(sizeof(char *) * (ft_strstrlen(env->envp) + 2)); // valide
+	new = malloc(sizeof(char *) * (ft_strstrlen(env->envp) + 2));
 	if (!new)
 	{
 		free(var);
@@ -76,17 +76,17 @@ bool	update_env(t_env *env, char **oldpwd, char **pwd, t_pipex *pipex)
 
 	env->oldpwd = *oldpwd;
 	env->pwd = *pwd;
-	tmp_oldpwd = ft_strjoin("OLDPWD=", *oldpwd); // valide
+	tmp_oldpwd = ft_strjoin("OLDPWD=", *oldpwd);
 	if (!tmp_oldpwd)
 	{
-		perror("minishell: error malloc");
+		ft_putendl_fd("minishell: error malloc", 2);
 		return (false);
 	}
 	env->envp = ft_export_env(env, tmp_oldpwd, pipex);
-	tmp_pwd = ft_strjoin("PWD=", *pwd); // valide
+	tmp_pwd = ft_strjoin("PWD=", *pwd);
 	if (!tmp_pwd)
 	{
-		perror("minishell: error malloc");
+		ft_putendl_fd("minishell: error malloc", 2);
 		return (false);
 	}
 	env->envp = ft_export_env(env, tmp_pwd, pipex);

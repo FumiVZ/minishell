@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:47:09 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/23 17:05:14 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/28 18:14:55 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,30 @@ void	ft_free_ex(int status, t_pipex *pipex)
 	int	status2;
 
 	status2 = status;
+	free_split(pipex->env->envp, ft_strstrlen(pipex->env->envp));
+	child_free(pipex, pipex->env->envp);
+	exit (status2);
+}
+
+void	ft_free_ex_msg(int status, t_pipex *pipex, t_cmd *cmds)
+{
+	int	status2;
+
+	status2 = status;
+	if (errno == EACCES && !ft_strfind(*cmds->args, '/'))
+	{
+		ft_printf_fd(2, "minishell: %s: command not found\n", *cmds->args);
+		status2 = 127;
+	}
+	else if (errno == EACCES || errno == EPERM)
+		ft_printf_fd(2, "minishell: %s: Permission denied\n", *cmds->args);
+	else if (errno == ENOENT)
+		ft_printf_fd(2, "minishell: %s: \
+			No such file or directory\n", *cmds->args);
+	else if (errno == EISDIR)
+		ft_printf_fd(2, "minishell: %s: Is a directory\n", *cmds->args);
+	else
+		ft_printf_fd(2, "minishell: %s: %s\n", *cmds->args, strerror(errno));
 	free_split(pipex->env->envp, ft_strstrlen(pipex->env->envp));
 	child_free(pipex, pipex->env->envp);
 	exit (status2);

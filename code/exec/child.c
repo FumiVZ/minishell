@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:53:07 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/27 01:15:32 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/27 19:23:17 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,14 @@ void	exec_builtins(t_pipex *pipex, t_cmd *cmds, char **env)
 
 void	exec_single(t_pipex *pipex, t_cmd *cmds, char **env)
 {
-	ft_err_signal(SIGINT, SIG_IGN, pipex);
+	signal(SIGINT, SIG_IGN);
 	pipex->pid[0] = fork();
 	if (pipex->pid[0] == -1)
 		msg_error(ERR_FORK, pipex);
 	if (pipex->pid[0] == 0)
 	{
-		ft_err_signal(SIGINT, SIG_DFL, pipex);
+		signal(SIGQUIT, SIG_DFL);
+		signal(SIGINT, SIG_DFL);
 		child_exec(pipex, cmds, env);
 	}
 	if (cmds->is_parentheses)
@@ -60,11 +61,7 @@ void	single_command(t_pipex *pipex, t_cmd *cmds, char **env)
 	env = set_last_param(pipex->env, \
 		cmds->args[ft_strstrlen(cmds->args) - 1]);
 	if (!env)
-	{
-		free_split(pipex->env->envp, ft_strstrlen(pipex->env->envp));
-		parent_free(pipex);
-		exit (1);
-	}
+		ft_free_ex(EXIT_FAILURE, pipex);
 	if (cmds->exec == 1 && !is_builtin(cmds->args) && \
 		(cmds->pid_par == 0 || cmds->is_parentheses == 0))
 		exec_single(pipex, cmds, env);

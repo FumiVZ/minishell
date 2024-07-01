@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 17:28:06 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/24 18:40:31 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/06/28 18:03:29 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char	*get_cmd(char **paths, char **cmd_args, t_pipex *pipex)
 	if (!paths || !cmd_args)
 		return (NULL);
 	if (access(cmd_args[0], X_OK) == 0)
-		return (cmd_args[0]);
+		return (ft_strdup(cmd_args[0]));
 	while (*paths)
 	{
 		tmp = ft_strjoin(*paths, "/");
@@ -48,7 +48,7 @@ static char	*get_cmd(char **paths, char **cmd_args, t_pipex *pipex)
 		command = ft_strjoin(tmp, cmd_args[0]);
 		free(tmp);
 		if (!command)
-			return (NULL);
+			return (free(command), NULL);
 		if (access(command, X_OK) == 0)
 			return (command);
 		free(command);
@@ -59,12 +59,12 @@ static char	*get_cmd(char **paths, char **cmd_args, t_pipex *pipex)
 
 static char	*get_cmd_with_path(t_pipex *pipex, t_cmd *cmds, char **env)
 {
-	if (cmds->args[0][0] == '/' || !ft_strncmp(*cmds->args, "./", 2))
+	if (ft_strfind(*cmds->args, '/') || !find_path(pipex->env->envp))
 	{
 		if (is_dir(cmds->args[0], pipex))
-			return (cmds->args[0]);
+			return (ft_strdup(cmds->args[0]));
 		if (access(cmds->args[0], X_OK) == 0 || errno == EACCES)
-			return (cmds->args[0]);
+			return (ft_strdup(cmds->args[0]));
 		ft_printf_fd(2, (char *)ERR_FILE, cmds->args[0], strerror(errno));
 		free_split(pipex->env->envp, ft_strstrlen(pipex->env->envp));
 		child_free(pipex, env);
@@ -76,14 +76,14 @@ static char	*get_cmd_with_path(t_pipex *pipex, t_cmd *cmds, char **env)
 
 static void	exec_error(t_pipex *pipex, t_cmd *cmds, char **env)
 {
-	if ((pipex->is_dir && (cmds->args[0][0] == '/' \
-		|| !ft_strncmp(*cmds->args, "./", 2))) || errno == EACCES)
+	if ((pipex->is_dir && ft_strfind(*cmds->args, '/')) || errno == EACCES)
 	{
 		if (errno == EACCES)
 			msg_error_cmd(ERR_ACCESS, *cmds);
 		else
 			msg_error_cmd(ERR_IS_DIR, *cmds);
 		free_split(pipex->env->envp, ft_strstrlen(pipex->env->envp));
+		free(pipex->cmd_paths);
 		child_free(pipex, env);
 		exit(126);
 	}
@@ -93,6 +93,8 @@ static void	exec_error(t_pipex *pipex, t_cmd *cmds, char **env)
 
 void	child_exec(t_pipex *pipex, t_cmd *cmds, char **env)
 {
+	if (!cmds->args || !cmds->args[0])
+		ft_free_ex(0, pipex);
 	pipex->is_dir = false;
 	redirect(pipex, cmds);
 	close_files(pipex, pipex->cmds);
@@ -107,12 +109,10 @@ void	child_exec(t_pipex *pipex, t_cmd *cmds, char **env)
 		ft_free_ex(127, pipex);
 	}
 	execve(pipex->cmd_paths, cmds->args, env);
-	perror("minishell");
-	free_split(pipex->env->envp, ft_strstrlen(pipex->env->envp));
-	child_free(pipex, env);
-	if (errno == ENOEXEC || errno == EACCES || errno == EISDIR)
-		exit(126);
+	free(pipex->cmd_paths);
+	if (errno == EACCES || errno == EISDIR)
+		ft_free_ex_msg(126, pipex, cmds);
 	if (errno == ENOENT || errno == EPERM)
-		exit(127);
-	exit(1);
+		ft_free_ex_msg(127, pipex, cmds);
+	ft_free_ex(0, pipex);
 }

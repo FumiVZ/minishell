@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_infile.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 17:27:05 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/26 21:02:26 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/28 20:36:09 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,33 +65,20 @@ int	open_infiles(t_pipex *pipex, char *cmd, char *file, char *infile_name)
 	return (fd);
 }
 
-void	error_infile(t_pipex *pipex, t_cmd *cmds, char *file, int fd)
+void	error_infile(t_pipex *pipex, t_cmd *cmds, int fd, int j)
 {
-	int	j;
-
-	if (fd == -1)
+	if (fd < 0)
 		cmds->exec = 0;
 	if (errno != 0)
-		msg_error_infile(ERR_FILE, *pipex, file);
+		msg_error_infile(ERR_FILE, pipex, cmds->infiles_name[j]);
 	pipex->env->status = 1;
-	j = -1;
-	while (cmds->infiles_name[++j])
-	{
-		cmds->infiles[j] = -1;
-		if (cmds->infiles[j] > 0)
-			close(cmds->infiles[j]);
-		free(cmds->infiles_name[j]);
-		cmds->infiles_name[j] = NULL;
-	}
-	free(cmds->infiles);
-	free(cmds->infiles_name);
-	cmds->infiles = NULL;
-	cmds->infiles_name = NULL;
+	free(cmds->infiles_name[j]);
+	cmds->infiles_name[j] = NULL;
 }
 
 void	get_infiles(t_pipex *pipex, char **cmd, t_cmd *cmds, int i)
 {
-	int	j;
+	int		j;
 
 	j = 0;
 	malloc_infiles(pipex, cmds, cmd);
@@ -108,10 +95,8 @@ void	get_infiles(t_pipex *pipex, char **cmd, t_cmd *cmds, int i)
 					cmds->infiles_name[j]);
 			if (cmds->infiles[j] < 0)
 			{
-				error_infile(pipex, cmds, \
-					cmds->infiles_name[j], cmds->infiles[j]);
-					rl_done = 0;
-				break ;
+				error_infile(pipex, cmds, cmds->infiles[j], j);
+				return ;
 			}
 			j++;
 		}

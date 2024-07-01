@@ -5,11 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/26 19:26:34 by vzuccare         ###   ########lyon.fr   */
+/*   Created: 2024/06/27 19:29:47 by vzuccare          #+#    #+#             */
+/*   Updated: 2024/06/28 18:12:59 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include <minishell.h>
 #include <var_global.h>
@@ -109,14 +108,16 @@ void	init_pipex(t_env *env, char **cmds)
 	*pipex = (t_pipex){0};
 	pipex->env = env;
 	pipex->cmd = cmds;
-	pipex->paths = ft_split(find_path(env->envp), ':');
+	if (find_path(env->envp))
+	{
+		pipex->paths = ft_split(find_path(env->envp), ':');
+		if (!pipex->paths && errno != ENOMEM)
+			pipex->paths = ft_split(DEFAULT_PATH, ':');
+		if (!pipex->paths && errno == ENOMEM)
+			malloc_failed(pipex);
+	}
 	pipex->old0 = -1;
 	pipex->old1 = -1;
-	if (!pipex->paths)
-		pipex->paths = ft_split("/usr/local/bin:\
-			/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:.", ':');
-	if (!pipex->paths)
-		malloc_failed(pipex);
 	while (pipex->cmd[pipex->i])
 		pipex->i = child_crt(pipex, env->envp);
 	parent_free(pipex);

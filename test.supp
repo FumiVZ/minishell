@@ -1,7 +1,0 @@
-{
-   readline suppressions
-   Memcheck:Leak
-   ...
-   obj:/usr/lib/*readline*
-   ...
-}

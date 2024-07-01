@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:24:29 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/26 18:11:26 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/28 17:26:56 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,9 @@ int			ft_is_int(const char *nptr);
 size_t		ft_strlen_c(const char *s, char c);
 long int	ft_strtol(const char *nptr);
 char		**ft_strstrdup(const char **s);
-
 int			ft_printf_fd(int fd, const char *format, ...);
 char		*get_next_line(int fd);
+void		ft_bzero_ptr(void **s, size_t n);
+int			ft_strfind(const char *s, char c);
 
 #endif

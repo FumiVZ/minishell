@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word_spliting.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:40:28 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/25 23:49:48 by machrist         ###   ########.fr       */
+/*   Updated: 2024/06/27 19:29:08 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static char	*crt_word(char const *s, size_t *j, char *arg)
 	char	*word;
 
 	len = len_word(s, arg);
-	word = malloc(sizeof(char) * (len + 1)); // valide
+	word = malloc(sizeof(char) * (len + 1));
 	if (!word)
 		return (NULL);
 	i = 0;
@@ -97,7 +97,7 @@ char	**ft_word_spliting(char const *s, char *arg)
 	size_t	i;
 	size_t	pos;
 
-	str = malloc(sizeof(char *) * (count_word(s, arg) + 1)); // valide
+	str = malloc(sizeof(char *) * (count_word(s, arg) + 1));
 	if (!str)
 		return (msg_err_ptr(MALLOC));
 	i = 0;
