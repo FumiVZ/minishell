@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/01 16:56:58 by machrist         ###   ########.fr       */
+/*   Created: 2024/07/01 17:00:31 by machrist          #+#    #+#             */
+/*   Updated: 2024/07/01 17:17:34 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,14 @@ static int	is_space(char c)
 
 static void	change_last_line(t_env *env, char *line)
 {
-	size_t	i;
-	size_t	j;
-
-	j = 0;
-	while (line[j] && is_space(line[j]))
-		j++;
 	if (!env->last_line)
 	{
 		env->last_line = line;
-		add_history(line + j);
+		add_history(line);
 		return ;
 	}
-	i = 0;
-	while (env->last_line[i] && is_space(env->last_line[i]))
-		i++;
-	if (ft_strncmp(env->last_line + i, line + j, ft_strlen(line + j)))
-		add_history(line + j);
+	if (ft_strncmp(env->last_line, line, ft_strlen(line)))
+		add_history(line);
 	free(env->last_line);
 	env->last_line = line;
 }
@@ -46,7 +37,6 @@ static void	change_last_line(t_env *env, char *line)
 bool	ft_add_history(t_env *env, char *line)
 {
 	size_t	i;
-	size_t	j;
 
 	i = 0;
 	while (line[i] && is_space(line[i]))
@@ -56,10 +46,7 @@ bool	ft_add_history(t_env *env, char *line)
 		free(line);
 		return (false);
 	}
-	j = i;
-	while (line[j] && !is_space(line[j]))
-		j++;
-	if ((i != 0 && !line[j]) || i == 0)
+	if (i == 0)
 	{
 		change_last_line(env, line);
 		return (true);
