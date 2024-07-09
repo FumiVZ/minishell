@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:46:38 by machrist          #+#    #+#             */
-/*   Updated: 2024/06/27 19:26:03 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/07/09 18:25:11 by machrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,28 +32,21 @@ bool	ft_check_num(char *nptr)
 
 void	basic_exit(t_env *env, t_pipex *pipex, char **str)
 {
-	int	exit_status;
-
-	exit_status = 0;
 	if (!str[1])
-		exit_status = 0;
+		return ;
 	else if (ft_check_num(str[1]) == false || !ft_is_int(str[1]))
 	{
 		ft_printf_fd(2, "minishell: exit: %s: numeric argument required\n",
 			str[1]);
-		exit_status = 2;
+		parent_free(pipex);
+		if (env->envp)
+			free_split(env->envp, ft_strstrlen(env->envp));
+		exit(2);
 	}
 	else if (str[2])
 	{
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
-		exit_status = 1;
-	}
-	if (exit_status == 1 || exit_status == 2)
-	{
-		parent_free(pipex);
-		if (env->envp)
-			free_split(env->envp, ft_strstrlen(env->envp));
-		exit(exit_status);
+		env->status = 1;
 	}
 }
 
@@ -64,6 +57,8 @@ void	ft_exit(t_env *env, t_pipex *pipex, char **str)
 	basic_exit(env, pipex, str);
 	if (!str[1])
 		status = 0;
+	else if (str[2])
+		return ;
 	else
 		status = ft_atoi(str[1]);
 	while (status > 255)
