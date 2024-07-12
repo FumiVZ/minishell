@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_infile.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 17:27:05 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/06/28 20:36:09 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/07/12 02:19:04 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,11 @@ int	open_infiles(t_pipex *pipex, char *cmd, char *file, char *infile_name)
 
 void	error_infile(t_pipex *pipex, t_cmd *cmds, int fd, int j)
 {
-	if (fd < 0)
+	if (fd == -1)
 		cmds->exec = 0;
 	if (errno != 0)
 		msg_error_infile(ERR_FILE, pipex, cmds->infiles_name[j]);
+	cmds->infiles[j] = -1;
 	pipex->env->status = 1;
 	free(cmds->infiles_name[j]);
 	cmds->infiles_name[j] = NULL;

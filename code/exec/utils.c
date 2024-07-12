@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 16:27:22 by vzuccare          #+#    #+#             */
-/*   Updated: 2024/07/01 16:01:45 by machrist         ###   ########.fr       */
+/*   Updated: 2024/07/12 02:14:33 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,6 @@ int	is_builtin(char **args)
 	else if (!ft_strncmp(args[0], "export", 7))
 		return (1);
 	else if (!ft_strncmp(args[0], "unset", 6))
-		return (1);
-	else if (!ft_strncmp(args[0], "history", 8))
 		return (1);
 	else
 		return (0);
