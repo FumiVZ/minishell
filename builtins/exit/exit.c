@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:46:38 by machrist          #+#    #+#             */
-/*   Updated: 2024/07/09 18:25:11 by machrist         ###   ########.fr       */
+/*   Updated: 2024/07/15 15:38:04 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,10 @@ void	ft_exit(t_env *env, t_pipex *pipex, char **str)
 void	ft_exit_error(t_env *env, int status)
 {
 	ft_putendl_fd("exit", 2);
+	if (env->free_line)
+		free(env->free_line);
+	if (env->last_line)
+		free(env->last_line);
 	if (env->envp)
 		free_split(env->envp, ft_strstrlen(env->envp));
 	exit(status);
