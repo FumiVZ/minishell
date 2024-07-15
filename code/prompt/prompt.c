@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/01 17:16:09 by machrist         ###   ########.fr       */
+/*   Updated: 2024/07/15 17:06:45 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,6 @@ static void	minishell(t_env *env, char *line)
 		return ;
 	}
 	env->cmds = ft_word_spliting(line, " \t\n\r\f\v");
-	if (env->free_line)
-	{
-		free(env->free_line);
-		env->free_line = NULL;
-	}
 	if (!(env->cmds))
 		return ;
 	if (!check_syntax_split(env->cmds))

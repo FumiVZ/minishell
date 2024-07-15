@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:00:31 by machrist          #+#    #+#             */
-/*   Updated: 2024/07/01 17:17:34 by machrist         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:56:17 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,24 @@ static int	is_space(char c)
 
 static void	change_last_line(t_env *env, char *line)
 {
-	if (!env->last_line)
+	if (!env->free_line)
 	{
-		env->last_line = line;
+		env->free_line = line;
 		add_history(line);
 		return ;
 	}
-	if (ft_strncmp(env->last_line, line, ft_strlen(line)))
+	if (ft_strncmp(env->free_line, line, ft_strlen(line)))
 		add_history(line);
-	free(env->last_line);
-	env->last_line = line;
+	free(env->free_line);
+	env->free_line = line;
 }
 
 bool	ft_add_history(t_env *env, char *line)
 {
 	size_t	i;
 
+	if (!line)
+		return (false);
 	i = 0;
 	while (line[i] && is_space(line[i]))
 		i++;
@@ -51,6 +53,8 @@ bool	ft_add_history(t_env *env, char *line)
 		change_last_line(env, line);
 		return (true);
 	}
+	if (env->free_line)
+		free(env->free_line);
 	env->free_line = line;
 	return (true);
 }

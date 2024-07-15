@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 17:20:40 by machrist          #+#    #+#             */
-/*   Updated: 2024/07/01 16:57:34 by machrist         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:56:43 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ typedef struct s_env
 {
 	char			*pwd;
 	char			*oldpwd;
-	char			*last_line;
 	char			*free_line;
 	char			**envp;
 	char			**cmds;

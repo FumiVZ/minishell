@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: machrist <machrist@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 18:06:32 by machrist          #+#    #+#             */
-/*   Updated: 2024/07/01 16:58:06 by machrist         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:56:52 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	ft_init_env(t_env *env, char **envp)
 	alloc_env(new, envp);
 	env->envp = new;
 	set_default_env(env);
-	env->last_line = NULL;
 	env->free_line = NULL;
 }
 

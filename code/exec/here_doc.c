@@ -6,7 +6,7 @@
 /*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:09:04 by vincent           #+#    #+#             */
-/*   Updated: 2024/06/28 20:33:45 by vzuccare         ###   ########lyon.fr   */
+/*   Updated: 2024/07/15 17:12:23 by vzuccare         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,12 @@ static char	*ft_strjoin_free(char *s1, char *s2)
 	char	*tmp2;
 
 	tmp = ft_strjoin(s1, s2);
-	tmp2 = ft_strjoin(tmp, "\n");
-	if (!tmp2)
-	{
-		free(s1);
-		free(s2);
-		ft_exit_error(NULL, 1);
-	}
-	free(tmp);
 	free(s1);
 	free(s2);
+	tmp2 = ft_strjoin(tmp, "\n");
+	if (!tmp2)
+		return (NULL);
+	free(tmp);
 	return (tmp2);
 }
 
