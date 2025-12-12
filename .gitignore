@@ -1,0 +1,8 @@
+test_*
+path/
+build/
+a.out
+.vscode
+.vscode/settings.json
+minishell_test.log
+valgrind-out.txt
