@@ -156,8 +156,8 @@ minishell$ exit
 
 | Author | GitHub | 42 Login |
 |--------|--------|----------|
-| **Victor Zuccarelli** | [@FumiVZ](https://github.com/FumiVZ) | vzuccare |
-| **Mathieu Christ** | [@Denos-soneD](https://github.com/Denos-soneD) | machrist |
+| **Vincent Zuccarello** | [@FumiVZ](https://github.com/FumiVZ) | vzuccare |
+| **Matéo Christol** | [@Denos-soneD](https://github.com/Denos-soneD) | machrist |
 
 ---
 
