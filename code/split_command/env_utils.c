@@ -1,0 +1,132 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/04 05:55:14 by machrist          #+#    #+#             */
+/*   Updated: 2024/06/27 19:24:43 by vzuccare         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <parthing.h>
+
+long long	pos_var(char *str, long long old_pos)
+{
+	long long	i;
+	bool		quote;
+	bool		dquote;
+
+	i = 0;
+	quote = false;
+	dquote = false;
+	while (str[i])
+	{
+		if (str[i] == '$' && !quote && \
+			get_len_name(str + i + 1) && i >= old_pos)
+			return (i + 1);
+		if (str[i] == '\'' && !dquote)
+			quote = !quote;
+		if (str[i] == '\"' && !quote)
+			dquote = !dquote;
+		if (str[i])
+			i++;
+	}
+	return (-1);
+}
+
+int	check_env_var(char *str, long long pos)
+{
+	long long	i;
+	bool		quote;
+	bool		dquote;
+
+	i = 0;
+	quote = false;
+	dquote = false;
+	while (str[i])
+	{
+		if (str[i] == '$' && !quote && get_len_name(str + i + 1) && i >= pos)
+		{
+			if (dquote)
+				return (1);
+			return (2);
+		}
+		if (str[i] == '\'' && !dquote)
+			quote = !quote;
+		if (str[i] == '\"' && !quote)
+			dquote = !dquote;
+		if (str[i])
+			i++;
+	}
+	return (0);
+}
+
+char	**check_pattern_word(char **str, size_t i)
+{
+	size_t	j;
+	bool	quote;
+	bool	dquote;
+
+	j = 0;
+	quote = false;
+	dquote = false;
+	while (str[i][j])
+	{
+		if ((str[i][j] == '*' || str[i][j] == '?') && !quote && !dquote)
+			return (wildcard_match(str[i], str, i));
+		if (str[i][j] == '\'' && !dquote)
+			quote = !quote;
+		if (str[i][j] == '\"' && !quote)
+			dquote = !dquote;
+		if (str[i][j])
+			j++;
+	}
+	return (str);
+}
+
+char	**clean_str(char **str, size_t pos)
+{
+	size_t	i;
+	size_t	j;
+	char	**new_str;
+
+	new_str = malloc(sizeof(char *) * (ft_strstrlen(str)));
+	if (!new_str)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (i != pos)
+			new_str[j++] = str[i];
+		else
+			free(str[i]);
+		i++;
+	}
+	new_str[j] = NULL;
+	free(str);
+	return (new_str);
+}
+
+char	**check_str(char **str)
+{
+	size_t	i;
+
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (str[i])
+	{
+		if (!str[i][0])
+		{
+			str = clean_str(str, i);
+			if (!str)
+				return (NULL);
+			return (str);
+		}
+		i++;
+	}
+	return (str);
+}
