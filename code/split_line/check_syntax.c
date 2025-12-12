@@ -1,0 +1,66 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_syntax.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/17 18:42:59 by machrist          #+#    #+#             */
+/*   Updated: 2024/06/27 19:30:21 by vzuccare         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <parthing.h>
+
+bool	is_special_no_par(char c)
+{
+	return (c == '|' || c == '&' || c == '<' || c == '>');
+}
+
+static void	check_quote(char c, bool *quote, bool *dquote)
+{
+	if (c == '\'' && !*dquote)
+		*quote = !*quote;
+	if (c == '\"' && !*quote)
+		*dquote = !*dquote;
+}
+
+static bool	check_par(char *str, bool quote, bool dquote)
+{
+	size_t	i;
+	size_t	nb_par_open;
+	size_t	nb_par_close;
+
+	i = 0;
+	nb_par_close = 0;
+	nb_par_open = 0;
+	while (str[i])
+	{
+		if (str[i] == '$' && str[i + 1] == '(' && !quote && !dquote)
+			return (msg_err(ERR_UNDEFINE));
+		if (str[i] == '(' && !quote && !dquote)
+			nb_par_open++;
+		if (str[i] == ')' && !quote && !dquote)
+			nb_par_close++;
+		check_quote(str[i], &quote, &dquote);
+		if (nb_par_close > nb_par_open || (str[i] == '(' && str[i + 1] == ')'
+				&& !quote && !dquote))
+			return (msg_err(ERR_PAR));
+		i++;
+	}
+	if (nb_par_close != nb_par_open)
+		return (msg_err(ERR_PAR));
+	return (true);
+}
+
+bool	check_syntax(char *str)
+{
+	bool	quote;
+	bool	dquote;
+
+	quote = false;
+	dquote = false;
+	if (!check_par(str, quote, dquote))
+		return (false);
+	return (true);
+}
