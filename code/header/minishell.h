@@ -1,0 +1,111 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vzuccare <vzuccare@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/15 17:32:30 by vzuccare          #+#    #+#             */
+/*   Updated: 2024/07/15 17:32:33 by vzuccare         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef MINISHELL_H
+# define MINISHELL_H
+
+# include "child.h"
+# include "libft.h"
+# include "pipex.h"
+# include "struct.h"
+# include <errno.h>
+# include <fcntl.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <signal.h>
+# include <stdbool.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/stat.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <termios.h>
+# include <unistd.h>
+
+# define DEFAULT_PATH "/usr/local/sbin:/usr/local/bin\
+:/usr/sbin:/usr/bin:/sbin:/bin"
+# define ERR_FILE "minishell: %s: %s\n"
+# define ERR_PIPE "pipe failed\n"
+# define ERR_CMD "minishell: %s: command not found\n"
+# define ERR_CMD_EMPTY "minishell: command not found\n"
+# define ERR_FORK "fork failed\n"
+# define ERR_MALLOC "minishell: malloc failed\n"
+# define ERR_ACCESS "minishell: %s: Permission denied\n"
+# define ERR_ACCESS_EMPTY "minishell: Permission denied\n"
+# define ERR_IS_DIR "minishell: %s: Is a directory\n"
+# define ERR_DUP2 "minishell: dup2 failed\n"
+
+bool	ft_add_history(t_env *env, char *line);
+void	ft_err_signal(int sig, __sighandler_t sigtype, t_pipex *pipex);
+void	signal_handler(int sig);
+char	**insert_tab(char **str, char **add_str, size_t pos);
+char	**extract_arguments(char **cmd, char **args);
+char	**get_args(t_pipex *pipex, char **cmd, t_cmd *cmds);
+char	**malloc_args(t_pipex *pipex, char **cmd, t_cmd *cmds);
+char	**count_arguments(char **cmd, t_pipex *pipex);
+int		and_or(t_pipex *pipex);
+void	args_patern(t_pipex *pipex, t_cmd *cmds);
+void	multiple_command(t_pipex *pipex, t_cmd *cmds, char **env);
+void	args_patern(t_pipex *pipex, t_cmd *cmds);
+void	ft_free_ex(int status, t_pipex *pipex);
+void	ft_exit_error(t_env *env, int status);
+void	ft_env(t_env *env);
+void	ft_echo(t_env *env, char **args);
+void	ft_pwd(t_env *env);
+void	ft_cd(t_env *env, char **args, t_pipex *pipex);
+void	ft_export(t_env *env, char **cmd, t_pipex *pipex);
+void	ft_unset(t_env *env, char **cmd);
+char	**pattern_matching(char **str, t_pipex *pipex);
+char	**ft_word_spliting(char const *s, char *arg);
+void	quote_removal(char **str);
+void	ft_free_child(t_env *env);
+void	ft_free_parent(t_env *env);
+void	ft_init_env(t_env *env, char **envp);
+bool	check_syntax(char *str);
+void	ft_readline(t_env *env);
+char	*ft_getenv(char **envp, char *name);
+void	msg_perror(t_env *env, char *err);
+void	init_pipex(t_env *env, char **cmds);
+char	**wildcard_match(const char *pattern, char **str, size_t i);
+void	child_exec(t_pipex *pipex, t_cmd *cmds, char **env);
+bool	ft_builtins(t_env *env, t_pipex *pipex, char **args);
+int		is_builtin(char **args);
+char	*quote_rm_world(char *str, char *tmp);
+void	malloc_infiles(t_pipex *pipex, t_cmd *cmds, char **cmd);
+int		open_infiles(t_pipex *pipex, char *cmd, char *file, char *infile);
+void	get_infiles(t_pipex *pipex, char **cmd, t_cmd *cmds, int i);
+int		open_outfiles(t_pipex *pipex, char *cmd, char *file);
+void	get_outfiles(t_pipex *pipex, char **cmd, t_cmd *cmds);
+void	malloc_outfiles(t_pipex *pipex, t_cmd *cmds, char **cmd);
+bool	is_valid_char(char c);
+void	ft_env_export(t_env *env);
+void	free_envp(char **envp);
+void	init_pwd(t_env *env);
+void	init_shlvl(t_env *env);
+void	init_last_param(t_env *env, int ac, char **av);
+char	**set_last_param(t_env *env, char *last_param);
+void	add_value_to_env(t_env *env, char *var);
+void	set_default_env(t_env *env);
+bool	ft_check_num(char *nptr);
+void	secure_dup2(int oldfd, int newfd, t_pipex *pipex);
+bool	check_syntax_split(char **str);
+long	check_shlvl(char *shlvl);
+int		msg_err_syntax(char *err, char *c);
+char	**delete_parentheses(char **str, t_pipex *pipex);
+void	set_default_env(t_env *env);
+bool	update_env(t_env *env, char **oldpwd, char **pwd, t_pipex *pipex);
+void	ft_exit_malloc(t_env *env);
+void	*msg_err_ptr_status(char *err, t_env *env);
+void	ft_free_ex_msg(int status, t_pipex *pipex, t_cmd *cmds);
+
+#endif
